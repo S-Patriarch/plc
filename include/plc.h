@@ -21,5 +21,6 @@
 #include <plc/line.h>
 #include <plc/window.h>
 #include <plc/indicators.h>
+#include <plc/menu.h>
 
 #endif  /* __PLC_H */
