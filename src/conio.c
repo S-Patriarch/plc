@@ -143,6 +143,11 @@ void screen_restore(void)
         printf("\033[?1049l");
 }
 
+void clrscr(void)
+{
+        printf("\033[2J\033[1;1H");
+}
+
 /*
  * Функции управления положением курсора.
  */
