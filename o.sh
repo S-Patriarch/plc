@@ -9,3 +9,4 @@ gcc -std=c2x -c src/dt.c -o bin/dt.o
 gcc -std=c2x -c src/line.c -o bin/line.o
 gcc -std=c2x -c src/window.c -o bin/window.o
 gcc -std=c2x -c src/indicators.c -o bin/indicators.o
+gcc -std=c2x -c src/menu.c -o bin/menu.o
