@@ -17,17 +17,13 @@ int strrev(char *s)
         if (s == NULL || *s == '\0')
                 return ERROR;
 
-        size_t len = strlen(s);
         size_t i = 0;
-        size_t j = len - 1;
+        size_t j = strlen(s) - 1;
 
-        char t;
         while (i < j) {
-                t = s[i];
-                s[i] = s[j];
-                s[j] = t;
-                i++;
-                j--;
+                char t = s[i];
+                s[i++] = s[j];
+                s[j--] = t;
         }
 
         return SUCCESS;
