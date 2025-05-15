@@ -11,6 +11,7 @@
 #include <plc/string.h>
 #include <string.h>
 #include <stdio.h>
+#include <unistd.h>
 
 void setwintitle(const char *title,
                  enum win_title_location location,
@@ -155,9 +156,15 @@ int wout(const char *s, const char *attrcolor, const window_s *win)
         cursor_move(y, x);
 
         while (*s != '\0') {
-                putchar(*s);
+                int char_len = 1;
+                if ((*s & 0xE0) == 0xC0) char_len = 2;
+                else if ((*s & 0xF0) == 0xE0) char_len = 3;
+                else if ((*s & 0xF8) == 0xF0) char_len = 4;
+
+                for (int i = 0; i < char_len && *s != '\0'; ++i)
+                        putchar(*s++);
+
                 fflush(stdout);
-                ++s;
                 ++count;
 
                 if (count == col && y != row) {
