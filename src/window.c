@@ -140,12 +140,15 @@ void wdraw(const window_s *win)
         }
 }
 
-int wout(const char *s, const char *attrcolor, const window_s *win)
+int wout(const char *s,
+         const char *attrcolor,
+         size_t from_tb,
+         const window_s *win)
 {
         if (s == NULL || *s == '\0') return ERROR;
 
         size_t count = 0; // счетчик символов в текущей строке
-        size_t y = win->win_y + 1;
+        size_t y = win->win_y + 1 + from_tb;
         size_t x = win->win_x + 1;
         size_t row = win->win_y + win->win_height - 1;
         size_t col = win->win_width - 2;
