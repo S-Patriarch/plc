@@ -56,6 +56,6 @@ void setwindow(size_t, size_t,
                window_s *);
 
 void wdraw(const window_s *);
-int wout(const char *, const char *, const window_s *);
+int wout(const char *, const char *, size_t, const window_s *);
 
 #endif  /* __PLC_WINDOW_H */
