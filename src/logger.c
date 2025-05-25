@@ -5,11 +5,14 @@
  * Patriarch Library C : logger.c
  */
 
+#define _GNU_SOURCE
+
 #include <plc/logger.h>
 #include <plc/dt.h>
 #include <stdlib.h>
 #include <string.h>
 #include <stddef.h>
+#include <stdio.h>
 #include <sys/types.h>
 
 logger_s *logger_create(const char *file_name)
