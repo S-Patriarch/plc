@@ -127,7 +127,7 @@ Sigfunc *tcp_signal(int signo, Sigfunc *func)
 {
         Sigfunc *sigfunc;
         if ((sigfunc = _signal(signo, func)) == SIG_ERR)
-                return ERROR;
+                return NULL;
         return sigfunc;
 }
 
