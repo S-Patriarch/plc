@@ -20,6 +20,12 @@
 #include <errno.h>
 #include <stdio.h>
 
+Sigfunc *_signal(int signo, Sigfunc *func) {}
+ssize_t _my_read(int fd, char *ptr) {}
+ssize_t _readline(int fd, void *vptr, size_t maxlen) {}
+ssize_t _readlinebuf(void **vptrptr) {}
+ssize_t _writen(int fd, const void *vptr, size_t n) {}
+
 int tcp_socket(int domain, int type, int protocol) 
 {
         int n = 0;
