@@ -5,13 +5,12 @@
  * Patriarch Library C : tcpip.c
  */
 
+#include "p_tcpip.h"
 #include <plc/tcpip.h>
 #include <plc/plcdef.h>
 
 #include <stddef.h>
 #include <unistd.h>
-#include <sys/types.h>
-#include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <string.h>
@@ -108,5 +107,74 @@ int tcp_writen(int fd, const void *ptr, size_t nbytes)
         if (_writen(fd, ptr, nbytes) != nbytes)
                 return ERROR;
         return SUCCESS;
+}
+
+pid_t tcp_fork(void) 
+{
+        pid_t pid = 0;
+        if ((pid = fork()) < 0)
+                return ERROR;
+        return pid;
+}
+
+Sigfunc *tcp_signal(int signo, Sigfunc *func) 
+{
+        Sigfunc *sigfunc;
+        if ((sigfunc = _signal(signo, func)) == SIG_ERR)
+                return ERROR;
+        return sigfunc;
+}
+
+int tcp_shutdown(int fd, int how) 
+{
+        if (shutdown(fd, how) < 0)
+                return ERROR;
+        return SUCCESS;
+}
+
+char *tcp_fgets(char *str, int count, FILE *stream) 
+{
+        char *rstr; 
+        if ((rstr = fgets(str, count, stream)) == NULL && ferror(stream))
+                return NULL;
+        return rstr;
+}
+
+int tcp_fputs(const char *str, FILE *stream) 
+{
+        if (fputs(str, stream) == feof(stream))
+                return ERROR;
+        return SUCCESS;
+}
+
+int tcp_pthread_create(pthread_t *tid, 
+                       const pthread_attr_t *attr, 
+                       void *(*func)(void*), 
+                       void *arg) 
+{
+        int n = 0;
+        if ((n = pthread_create(tid, attr, func, arg)) == 0) return SUCCESS;
+        else return ERROR;
+}
+
+int tcp_pthread_join(pthread_t tid, void **status) 
+{
+        int n = 0;
+        if ((n = pthread_join(tid, status)) == 0) return SUCCESS;
+        else return ERROR;
+}
+
+int tcp_pthread_detach(pthread_t tid) 
+{
+        int n = 0;
+        if ((n = pthread_detach(tid)) == 0) return SUCCESS;
+        else return ERROR;
+}
+
+int tcp_pthread_kill(pthread_t tid, int signo) 
+{
+        int n = 0;
+        if ((n = pthread_kill(tid, signo)) == 0) return SUCCESS;
+        else return ERROR;
 }
 
