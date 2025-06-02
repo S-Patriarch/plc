@@ -10,3 +10,5 @@ gcc -std=c2x -c src/line.c -o bin/line.o
 gcc -std=c2x -c src/window.c -o bin/window.o
 gcc -std=c2x -c src/indicators.c -o bin/indicators.o
 gcc -std=c2x -c src/menu.c -o bin/menu.o
+gcc -std=c2x -c src/logger.c -o bin/logger.o
+gcc -std=c2x -c src/tcpip.c -o bin/tcpip.o
