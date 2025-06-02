@@ -12,6 +12,7 @@
 #include <sys/types.h>
 #include <stddef.h>
 #include <stdio.h>
+#include <pthread.h>
 
 typedef void Sigfunc(int); // для обработчиков сигналов
 
