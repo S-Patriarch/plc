@@ -11,13 +11,13 @@
 #include <stddef.h>
 #include <sys/types.h>
 
-typedef void Sigfunc(int); // для обработчиков сигналов
+#define LISTENQ         1024  // максимальное количество клиентских соединений 
+#define MAXLINE         4096  // максимальная длина текстовой строки
+#define BUFFSIZE        8192  // размер буфера для чтения и записи
+#define MAXSOCKADDR     128   // максимальный размер структуры адреса сокета
+#define SERV_PORT       9877  // клиент-серверы TCP и UDP
 
-const int LISTENQ     = 1024; // максимальное количество клиентских соединений 
-const int MAXLINE     = 4096; // максимальная длина текстовой строки
-const int BUFFSIZE    = 8192; // размер буфера для чтения и записи
-const int MAXSOCKADDR = 128;  // максимальный размер структуры адреса сокета
-const int SERV_PORT   = 9877; // клиент-серверы TCP и UDP
+typedef void Sigfunc(int); // для обработчиков сигналов
 
 typedef struct tcpip {
         int   _read_cnt;

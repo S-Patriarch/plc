@@ -5,6 +5,8 @@
  * Patriarch Library C : tcpip.c
  */
 
+#define _GNU_SOURCE
+
 #include "p_tcpip.h"
 #include <plc/tcpip.h>
 #include <plc/plcdef.h>
@@ -20,11 +22,88 @@
 #include <errno.h>
 #include <stdio.h>
 
-Sigfunc *_signal(int signo, Sigfunc *func) {}
-ssize_t _my_read(int fd, char *ptr) {}
-ssize_t _readline(int fd, void *vptr, size_t maxlen) {}
-ssize_t _readlinebuf(void **vptrptr) {}
-ssize_t _writen(int fd, const void *vptr, size_t n) {}
+tcpip_s t;
+
+Sigfunc *_signal(int signo, Sigfunc *func) 
+{
+        struct sigaction act;
+        struct sigaction oact;
+         
+        act.sa_handler = func;
+        sigemptyset(&act.sa_mask);
+        act.sa_flags = 0;
+
+        if (signo == SIGALRM) {
+                #ifdef SA_INTERRUPT
+                act.sa_flags |= SA_INTERRUPT; // SunOS 4.x
+                #endif
+        } else {
+                #ifdef SA_RESTART
+                act.sa_flags |= SA_RESTART; // SVR4, 44BSD
+                #endif
+        }
+        if (sigaction(signo, &act, &oact) < 0) return SIG_ERR;
+        return oact.sa_handler;
+}
+
+ssize_t _my_read(int fd, char *ptr) 
+{
+        if (t._read_cnt <= 0) {
+                again:
+                if ((t._read_cnt = read(fd, t._read_buf, sizeof(t._read_buf))) < 0) {
+                        if (errno == EINTR) goto again;
+                        return -1;
+                } else if (t._read_cnt == 0) 
+                        return 0;
+                t._read_ptr = t._read_buf;
+        }
+        t._read_cnt--;
+        *ptr = *t._read_ptr++;
+        return 1;
+}
+
+ssize_t _readline(int fd, void *vptr, size_t maxlen) 
+{
+        char    c;
+        char    *ptr = (char *)vptr;
+        ssize_t n = 0;
+        ssize_t rc = 0;
+
+        for (n = 1; n < maxlen; n++) {
+                if ((rc = _my_read(fd, &c)) == 1) {
+                        *ptr++ = c;
+                        if (c == '\n') break;
+                } else if (rc == 0) {
+                        *ptr = 0;
+                        return n - 1;
+                } else return -1;
+        }
+        *ptr = 0;
+        return n;
+}
+
+ssize_t _readlinebuf(void **vptrptr) 
+{
+        if (t._read_cnt) *vptrptr = t._read_ptr;
+        return t._read_cnt;
+}
+
+ssize_t _writen(int fd, const void *vptr, size_t n) 
+{
+        const char *ptr = (const char *)vptr;
+        size_t     nleft = n;
+        ssize_t    nwritten = 0;
+
+        while (nleft > 0) {
+                if ((nwritten = write(fd, ptr, nleft)) <= 0) {
+                        if (nwritten < 0 && errno == EINTR) nwritten = 0;
+                        else return -1;
+                }
+                nleft -= nwritten;
+                ptr += nwritten;
+        }
+        return n;
+}
 
 int tcp_socket(int domain, int type, int protocol) 
 {
@@ -33,7 +112,6 @@ int tcp_socket(int domain, int type, int protocol)
                 return ERROR;
         return n;
 }
-
 int tcp_bind(int fd, const struct sockaddr *addr, socklen_t len) 
 {
         if (bind(fd, addr, len) < 0)
