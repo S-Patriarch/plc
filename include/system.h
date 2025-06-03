@@ -8,9 +8,7 @@
 #ifndef __PLC_SYSTEM_H
 #define __PLC_SYSTEM_H  1
 
-#include <stdbool.h>
-
 /* определение доступности языковой локали */
-bool is_locale_available(const char *);
+int is_locale_available(const char *);
 
 #endif  /* __PLC_SYSTEM_H */
