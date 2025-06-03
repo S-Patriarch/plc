@@ -8,15 +8,15 @@
 #include <plc/system.h>
 #include <locale.h>
 
-bool is_locale_available(const char *locale)
+int is_locale_available(const char *locale)
 {
         char *old_locale = setlocale(LC_ALL, NULL);
         char *res = setlocale(LC_ALL, locale);
 
         if (res == NULL) 
-                return false;
+                return 0; // false
 
         setlocale(LC_ALL, old_locale);
-        return true;
+        return 1; // true
 }
 
