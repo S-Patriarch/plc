@@ -196,3 +196,24 @@ int strcp(char *to, char *from, int count)
         return SUCCESS;
 }
 
+void *memcp(void * dest, const void *src, size_t size) 
+{
+        unsigned char *d = (unsigned char*)dest;
+        const unsigned char *s = (const unsigned char*)src;
+
+        size_t i = 0;
+
+        /* Копируем 16 байт за раз с помощью SSE2 */
+        for (; i + 15 < size; i += 16) {
+                __m128i chunk = _mm_loadu_si128((__m128i*)(s + i));
+                _mm_storeu_si128((__m128i*)(d + i), chunk);
+        }
+
+        /* Копируем оставшиеся байты один за другим */
+        for (; i < size; ++i) {
+                d[i] = s[i];
+        }
+
+        return dest;
+}
+
