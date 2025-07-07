@@ -15,6 +15,9 @@
 #define FAILURE 1
 #define ERROR   -1
 
+#define FALSE   0
+#define TRUE    1
+
 #define ESC     '\033' 
 
 /*
