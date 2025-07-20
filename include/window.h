@@ -21,7 +21,7 @@ enum win_box_view {
         wb_sh,          /* одинарная толстая */
         wb_dl,          /* двойная тонкая */
         wb_dm,          /* из сериала "Dark matter" */
-        wb_dmn          /* из сериала "Dark matter" полупустая */
+        wb_dml          /* из сериала "Dark matter" с тонкими горизонталями */
 };
 
 enum win_title_location {
