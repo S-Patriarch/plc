@@ -80,7 +80,8 @@ void wdraw(const window_s *win)
                                 if (win->wbv == wb_slr) printf("%s", "\u2502");
                                 if (win->wbv == wb_sh)  printf("%s", "\u2503");
                                 if (win->wbv == wb_dl)  printf("%s", "\u2551");
-                                if (win->wbv == wb_dm)  printf("%s", "\u2503");
+                                if (win->wbv == wb_dm || win->wbv == wb_dmn) 
+                                        printf("%s", "\u2503");
                         } else {
                                 cursor_move(win->win_y + i, win->win_x + j);
                                 printf("%s", " ");
@@ -95,7 +96,7 @@ void wdraw(const window_s *win)
         if (win->wbv == wb_slr) printf("%s", "\u256D");
         if (win->wbv == wb_sh)  printf("%s", "\u250F");
         if (win->wbv == wb_dl)  printf("%s", "\u2554");
-        if (win->wbv == wb_dm)  {
+        if (win->wbv == wb_dm || win->wbv == wb_dmn)  {
                 printf("%s", "\u250F");
                 cursor_move(win->win_y, win->win_x + 1);
                 printf("%s", "\u2501");
@@ -107,7 +108,7 @@ void wdraw(const window_s *win)
         if (win->wbv == wb_slr) printf("%s", "\u256E");
         if (win->wbv == wb_sh)  printf("%s", "\u2513");
         if (win->wbv == wb_dl)  printf("%s", "\u2557");
-        if (win->wbv == wb_dm)  {
+        if (win->wbv == wb_dm || win->wbv == wb_dmn)  {
                 printf("%s", "\u2513");
                 cursor_move(win->win_y, win->win_x + win->win_width-1 - 1);
                 printf("%s", "\u2501");
@@ -119,7 +120,7 @@ void wdraw(const window_s *win)
         if (win->wbv == wb_slr) printf("%s", "\u256F");
         if (win->wbv == wb_sh)  printf("%s", "\u251B");
         if (win->wbv == wb_dl)  printf("%s", "\u255D");
-        if (win->wbv == wb_dm)  {
+        if (win->wbv == wb_dm || win->wbv == wb_dmn)  {
                 printf("%s", "\u251B");
                 cursor_move(win->win_y + win->win_height-1, win->win_x + win->win_width-1 - 1);
                 printf("%s", "\u2501");
@@ -131,7 +132,7 @@ void wdraw(const window_s *win)
         if (win->wbv == wb_slr) printf("%s", "\u2570");
         if (win->wbv == wb_sh)  printf("%s", "\u2517");
         if (win->wbv == wb_dl)  printf("%s", "\u255A");
-        if (win->wbv == wb_dm)  {
+        if (win->wbv == wb_dm || win->wbv == wb_dmn)  {
                 printf("%s", "\u2517");
                 cursor_move(win->win_y + win->win_height-1, win->win_x + 1);
                 printf("%s", "\u2501");
