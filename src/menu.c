@@ -11,9 +11,9 @@
 #include <string.h>
 #include <stdio.h>
 
-void setmenu(const char *attrcolor_n,
-             const char *attrcolor_s,
-             menu_style_s *mst)
+void p_setmenu(const char *attrcolor_n,
+               const char *attrcolor_s,
+               menu_style_s *mst)
 {
         if (attrcolor_n == NULL || *attrcolor_n == '\0')
                 strncpy(mst->m_attrcolor_n, "\033[39;49m", LEN_ATTR_COLOR-1);
@@ -26,21 +26,21 @@ void setmenu(const char *attrcolor_n,
         mst->m_attrcolor_s[LEN_ATTR_COLOR-1] = '\0';
 }
 
-void mdraw(const menu_style_s *mst,
-           const menu_s *m,
-           size_t menu_size,
-           size_t selected)
+void p_mdraw(const menu_style_s *mst,
+             const menu_s *m,
+             size_t menu_size,
+             size_t selected)
 {
         for (size_t i = 0; i != menu_size; ++i) {
                 if (i == selected) {
-                        resattr();
-                        setattr(mst->m_attrcolor_s);
-                        cursor_move(m[i].m_y, m[i].m_x);
+                        p_resattr();
+                        p_setattr(mst->m_attrcolor_s);
+                        p_cursor_move(m[i].m_y, m[i].m_x);
                         printf("%s", m[i].m_name);
                 } else {
-                        resattr();
-                        setattr(mst->m_attrcolor_n);
-                        cursor_move(m[i].m_y, m[i].m_x);
+                        p_resattr();
+                        p_setattr(mst->m_attrcolor_n);
+                        p_cursor_move(m[i].m_y, m[i].m_x);
                         printf("%s", m[i].m_name);
                 }
         }
@@ -49,27 +49,27 @@ void mdraw(const menu_style_s *mst,
 
         char c;
         for (;;) {
-                getch(&c);
+                p_getchar(&c);
 
-                if (c == ESC) {
+                if (c == P_ESC) {
                         char key[3];
 
-                        getch(&c);
+                        p_getchar(&c);
                         key[0] = c;
-                        getch(&c);
+                        p_getchar(&c);
                         key[1] = c;
 
                         // cтрелка вверх - влево
                         if (key[0] == '[' && (key[1] == 'A' || key[1] == 'D'))
                                 if (selected > 0) {
                                         --selected;
-                                        resattr();
-                                        setattr(mst->m_attrcolor_n);
-                                        cursor_move(m[selected+1].m_y, m[selected+1].m_x);
+                                        p_resattr();
+                                        p_setattr(mst->m_attrcolor_n);
+                                        p_cursor_move(m[selected+1].m_y, m[selected+1].m_x);
                                         printf("%s", m[selected+1].m_name);
-                                        resattr();
-                                        setattr(mst->m_attrcolor_s);
-                                        cursor_move(m[selected].m_y, m[selected].m_x);
+                                        p_resattr();
+                                        p_setattr(mst->m_attrcolor_s);
+                                        p_cursor_move(m[selected].m_y, m[selected].m_x);
                                         printf("%s", m[selected].m_name);
                                         fflush(stdout);
                                 }
@@ -77,13 +77,13 @@ void mdraw(const menu_style_s *mst,
                         if (key[0] == '[' && (key[1] == 'B' || key[1] == 'C'))
                                 if (selected < menu_size-1) {
                                         ++selected;
-                                        resattr();
-                                        setattr(mst->m_attrcolor_n);
-                                        cursor_move(m[selected-1].m_y, m[selected-1].m_x);
+                                        p_resattr();
+                                        p_setattr(mst->m_attrcolor_n);
+                                        p_cursor_move(m[selected-1].m_y, m[selected-1].m_x);
                                         printf("%s", m[selected-1].m_name);
-                                        resattr();
-                                        setattr(mst->m_attrcolor_s);
-                                        cursor_move(m[selected].m_y, m[selected].m_x);
+                                        p_resattr();
+                                        p_setattr(mst->m_attrcolor_s);
+                                        p_cursor_move(m[selected].m_y, m[selected].m_x);
                                         printf("%s", m[selected].m_name);
                                         fflush(stdout);
                                 }
@@ -92,5 +92,6 @@ void mdraw(const menu_style_s *mst,
                         m[selected].function();
         }
 
-        resattr();
+        p_resattr();
 }
+

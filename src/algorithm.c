@@ -9,7 +9,7 @@
 #include <stdlib.h>
 #include <time.h>
 
-int powi(int base, int exponent) 
+int p_powi(int base, int exponent) 
 {
         int res = 1;
 
@@ -23,7 +23,7 @@ int powi(int base, int exponent)
         return res;
 }
 
-int bintodec(long long bin_number)
+int p_bintodec(long long bin_number)
 {
         int dec_number =0;
         int remainder;
@@ -32,14 +32,14 @@ int bintodec(long long bin_number)
         while (bin_number != 0) {
                 remainder = bin_number % 10;
                 bin_number /= 10;
-                dec_number += remainder * powi(2, i);
+                dec_number += remainder * p_powi(2, i);
                 ++i;
         }
 
         return dec_number;
 }
 
-long long dectobin(int dec_number)
+long long p_dectobin(int dec_number)
 {
         long long bin_number = 0;
         int remainder;
@@ -55,7 +55,7 @@ long long dectobin(int dec_number)
         return bin_number;
 }
  
-int octtodec(int oct_number)
+int p_octtodec(int oct_number)
 {
         int dec_number = 0;
         int remainder;
@@ -64,14 +64,14 @@ int octtodec(int oct_number)
         while (oct_number != 0) {
                 remainder = oct_number % 10;
                 oct_number /= 10;
-                dec_number += remainder * powi(8, i);
+                dec_number += remainder * p_powi(8, i);
                 ++i;
         }
 
         return dec_number;
 }
 
-int dectooct(int dec_number)
+int p_dectooct(int dec_number)
 {
         int oct_number = 0;
         int remainder;
@@ -87,14 +87,14 @@ int dectooct(int dec_number)
         return oct_number;
 }
 
-int bintooct(long long bin_number)
+int p_bintooct(long long bin_number)
 {
         int oct_number = 0;
         int dec_number = 0;
         int i = 0;
 
         while (bin_number != 0) {
-                dec_number += (bin_number % 10) * powi(2, i);
+                dec_number += (bin_number % 10) * p_powi(2, i);
                 ++i;
                 bin_number /= 10;
         }
@@ -109,14 +109,14 @@ int bintooct(long long bin_number)
         return oct_number;
 }
 
-long long octtobin(int oct_number)
+long long p_octtobin(int oct_number)
 {
         long long bin_number = 0;
         int dec_number = 0;
         int i = 0;
 
         while (oct_number != 0) {
-                dec_number += (oct_number % 10) * powi(8, i);
+                dec_number += (oct_number % 10) * p_powi(8, i);
                 ++i;
                 oct_number /= 10;
         }
@@ -131,7 +131,7 @@ long long octtobin(int oct_number)
         return bin_number;
 }
 
-int random_int(int min, int max)
+int p_random_int(int min, int max)
 {
         srand(time(NULL));
         return (min + rand() % (max - min + 1));
@@ -149,8 +149,8 @@ int random_int(int min, int max)
  * переменная bool занимает 1 бит, а другие 7 бит - тратятся 
  * впустую.
  */
-uint8_t pack_bools(bool b1, bool b2, bool b3, bool b4,
-                   bool b5, bool b6, bool b7, bool b8)
+uint8_t p_pack_bools(bool b1, bool b2, bool b3, bool b4,
+                     bool b5, bool b6, bool b7, bool b8)
 {
         uint8_t p = 0;
 
@@ -166,9 +166,9 @@ uint8_t pack_bools(bool b1, bool b2, bool b3, bool b4,
         return p;
 }
 
-void unpack_bools(uint8_t p,
-                  bool *b1, bool *b2, bool *b3, bool *b4,
-                  bool *b5, bool *b6, bool *b7, bool *b8)
+void p_unpack_bools(uint8_t p,
+                    bool *b1, bool *b2, bool *b3, bool *b4,
+                    bool *b5, bool *b6, bool *b7, bool *b8)
 {
         *b1 = (p >> 7) & 1;
         *b2 = (p >> 6) & 1;
@@ -180,7 +180,7 @@ void unpack_bools(uint8_t p,
         *b8 = p & 1;
 }
 
-unsigned int strhash(const char *s) 
+unsigned int p_strhash(const char *s) 
 {
         unsigned int hash = 5381;
         char c;
@@ -188,7 +188,7 @@ unsigned int strhash(const char *s)
         return hash;
 }
 
-unsigned int ptr_list_hash(void **in) 
+unsigned int p_ptr_list_hash(void **in) 
 {
         unsigned int hash = 5381;
         void *c;

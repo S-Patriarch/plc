@@ -15,7 +15,7 @@
 #include <stdio.h>
 #include <sys/types.h>
 
-logger_s *logger_create(const char *file_name)
+logger_s *p_logger_create(const char *file_name)
 {
         /* выделяем память под структуру логгера */
         logger_s *log = (logger_s *)malloc(sizeof(logger_s));
@@ -32,7 +32,7 @@ logger_s *logger_create(const char *file_name)
         return log;
 }
 
-void logger_destroy(logger_s * log)
+void p_logger_destroy(logger_s *log)
 {
         if (log) {
                 /* закрываем файл, если он открыт */
@@ -47,7 +47,7 @@ void logger_destroy(logger_s * log)
         }
 }
 
-void logger_write(logger_s *log, const char *msg)
+void p_logger_write(logger_s *log, const char *msg)
 {
         if (!log || !msg) return;
 
@@ -58,8 +58,8 @@ void logger_write(logger_s *log, const char *msg)
         omp_set_nest_lock(&log->lck_read);
 
         char s_date[11], s_time[9];
-        getdate(s_date, sizeof(s_date));
-        gettime(s_time, sizeof(s_time));
+        p_getdate(s_date, sizeof(s_date));
+        p_gettime(s_time, sizeof(s_time));
 
         /* если файл открыт, записываем сообщение */
         if (log->file) {
@@ -72,13 +72,13 @@ void logger_write(logger_s *log, const char *msg)
         omp_unset_lock(&log->lck_write);
 }
 
-char *logger_read(logger_s *log)
+char *p_logger_read(logger_s *log)
 {
         if (!log) return NULL;
 
-        char *line = NULL;
-        size_t len = 0;
-        ssize_t read;
+        char    *line = NULL;
+        size_t   len = 0;
+        ssize_t  read;
 
         /* блокируем для чтения (разделяемый доступ) */
         omp_set_nest_lock(&log->lck_read);

@@ -11,8 +11,8 @@
 #include <time.h>
 
 struct timer {
-        time_t begin_time;
-        time_t end_time;
+        time_t  begin_time;
+        time_t  end_time;
 };
 
 #endif  /* __PLC_P_TIMER_H */

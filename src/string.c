@@ -12,10 +12,10 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-int strrev(char *s)
+int p_strrev(char *s)
 {
         if (s == NULL || *s == '\0')
-                return ERROR;
+                return P_ERROR;
 
         size_t i = 0;
         size_t j = strlen(s) - 1;
@@ -26,10 +26,10 @@ int strrev(char *s)
                 s[j--] = t;
         }
 
-        return SUCCESS;
+        return P_SUCCESS;
 }
 
-char **strspl(const char *s, size_t *w_count) 
+char **p_strspl(const char *s, size_t *w_count) 
 {
         if (s == NULL || *s == '\0')
                 return NULL;
@@ -76,7 +76,7 @@ char **strspl(const char *s, size_t *w_count)
         return words;
 }
 
-void free_words(char **words, size_t w_count) 
+void p_free_words(char **words, size_t w_count) 
 {
         for (size_t i = 0; i != w_count; i++)
                 free(words[i]);
@@ -85,7 +85,7 @@ void free_words(char **words, size_t w_count)
         words = NULL;
 }
 
-size_t count_char(const char *s, char c) 
+size_t p_count_char(const char *s, char c) 
 {
         if (s == NULL || *s == '\0')
                 return 0;
@@ -98,7 +98,7 @@ size_t count_char(const char *s, char c)
         return count;
 }
 
-size_t count_words(const char *s) 
+size_t p_count_words(const char *s) 
 {
         if (s == NULL || *s == '\0')
                 return 0;
@@ -119,7 +119,7 @@ size_t count_words(const char *s)
         return count;
 }
 
-size_t count_utf8_chars(const char *s) 
+size_t p_count_utf8_chars(const char *s) 
 {
         if (s == NULL || *s == '\0')
                 return 0;
@@ -145,7 +145,7 @@ size_t count_utf8_chars(const char *s)
         return count;
 }
 
-size_t *extract_digits(const char *s, size_t *d_count) 
+size_t *p_extract_digits(const char *s, size_t *d_count) 
 {
         if (s == NULL || *s == '\0') {
                 *d_count = 0;
@@ -174,10 +174,10 @@ size_t *extract_digits(const char *s, size_t *d_count)
         return digits;
 }
 
-int strcp(char *to, char *from, int count) 
+int p_strcpy(char *to, char *from, int count) 
 {
         if (from == NULL || *from == '\0')
-                return ERROR;
+                return P_ERROR;
 
         int n = (count + 7) / 8;
 
@@ -193,10 +193,10 @@ int strcp(char *to, char *from, int count)
                 } while (--n > 0);
         }
 
-        return SUCCESS;
+        return P_SUCCESS;
 }
 
-void *memcp(void * dest, const void *src, size_t size) 
+void *p_memcpy(void *dest, const void *src, size_t size) 
 {
         unsigned char *d = (unsigned char*)dest;
         const unsigned char *s = (const unsigned char*)src;

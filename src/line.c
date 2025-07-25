@@ -10,13 +10,13 @@
 #include <string.h>
 #include <stdio.h>
 
-void setline(size_t y,
-             size_t x,
-             size_t length,
-             enum line_direct line_direct,
-             enum line_view line_view,
-             const char *attrcolor,
-             line_s *line) 
+void p_setline(size_t y,
+               size_t x,
+               size_t length,
+               enum line_direct line_direct,
+               enum line_view line_view,
+               const char *attrcolor,
+               line_s *line) 
 {
         line->line_y = y;
         line->line_x = x;
@@ -31,14 +31,14 @@ void setline(size_t y,
         line->line_attrcolor[LEN_ATTR_COLOR-1] = '\0';
 }
 
-void ldraw(const line_s *line) 
+void p_ldraw(const line_s *line) 
 {
-        resattr();
-        setattr(line->line_attrcolor);
+        p_resattr();
+        p_setattr(line->line_attrcolor);
 
         if (line->line_direct == line_h) {
                 for (size_t i = 0; i != line->line_length; i++) {
-                        cursor_move(line->line_y, line->line_x + i);
+                        p_cursor_move(line->line_y, line->line_x + i);
                         if (line->line_view == line_sl)
                                 printf("%s", "\u2500");
                         if (line->line_view == line_sh)
@@ -50,7 +50,7 @@ void ldraw(const line_s *line)
 
         if (line->line_direct == line_v) {
                 for (size_t i = 0; i != line->line_length; i++) {
-                        cursor_move(line->line_y + i, line->line_x);
+                        p_cursor_move(line->line_y + i, line->line_x);
                         if (line->line_view == line_sl)
                                 printf("%s", "\u2502");
                         if (line->line_view == line_sh)
@@ -61,6 +61,6 @@ void ldraw(const line_s *line)
         }
 
         fflush(stdout);
-        resattr();
+        p_resattr();
 }
 

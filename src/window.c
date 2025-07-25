@@ -13,10 +13,10 @@
 #include <stdio.h>
 #include <unistd.h>
 
-void setwintitle(const char *title,
-                 enum win_title_location location,
-                 const char *attrcolor,
-                 window_s *win) 
+void p_setwintitle(const char *title,
+                   enum win_title_location location,
+                   const char *attrcolor,
+                   window_s *win) 
 {
         if (title == NULL || *title == '\0')
                 strncpy(win->wtl.wtl_title, "", LEN_TITLE-1);
@@ -36,13 +36,13 @@ void setwintitle(const char *title,
         win->wtl.wtl_location = location;
 }
 
-void setwindow(size_t y,
-               size_t x,
-               size_t height,
-               size_t width,
-               enum win_box_view view,
-               const char *attrcolor,
-               window_s *win) 
+void p_setwindow(size_t y,
+                 size_t x,
+                 size_t height,
+                 size_t width,
+                 enum win_box_view view,
+                 const char *attrcolor,
+                 window_s *win) 
 {
         win->win_y = y;
         win->win_x = x;
@@ -58,15 +58,15 @@ void setwindow(size_t y,
         win->win_attrcolor[LEN_ATTR_COLOR-1] = '\0';
 }
 
-void wdraw(const window_s *win) 
+void p_wdraw(const window_s *win) 
 {
-        resattr();
-        setattr(win->win_attrcolor);
+        p_resattr();
+        p_setattr(win->win_attrcolor);
 
         for (size_t i = 0; i != win->win_height; i++) {
                 for (size_t j = 0; j != win->win_width; j++) {
                         if (i == 0 || i == win->win_height-1) {
-                                cursor_move(win->win_y + i, win->win_x + j);
+                                p_cursor_move(win->win_y + i, win->win_x + j);
                                 if (win->wbv == wb_n)   printf("%s", " ");
                                 if (win->wbv == wb_sl)  printf("%s", "\u2500");
                                 if (win->wbv == wb_slr) printf("%s", "\u2500");
@@ -74,7 +74,7 @@ void wdraw(const window_s *win)
                                 if (win->wbv == wb_dl)  printf("%s", "\u2550");
                                 if (win->wbv == wb_dml) printf("%s", "\u2500");
                         } else if (j == 0 || j == win->win_width-1) {
-                                cursor_move(win->win_y + i, win->win_x + j);
+                                p_cursor_move(win->win_y + i, win->win_x + j);
                                 if (win->wbv == wb_n)   printf("%s", " ");
                                 if (win->wbv == wb_sl)  printf("%s", "\u2502");
                                 if (win->wbv == wb_slr) printf("%s", "\u2502");
@@ -83,14 +83,14 @@ void wdraw(const window_s *win)
                                 if (win->wbv == wb_dm || win->wbv == wb_dml) 
                                         printf("%s", "\u2503");
                         } else {
-                                cursor_move(win->win_y + i, win->win_x + j);
+                                p_cursor_move(win->win_y + i, win->win_x + j);
                                 printf("%s", " ");
                         }
 
                 }
         }
 
-        cursor_move(win->win_y, win->win_x);
+        p_cursor_move(win->win_y, win->win_x);
         if (win->wbv == wb_n)   printf("%s", " ");
         if (win->wbv == wb_sl)  printf("%s", "\u250C");
         if (win->wbv == wb_slr) printf("%s", "\u256D");
@@ -98,11 +98,11 @@ void wdraw(const window_s *win)
         if (win->wbv == wb_dl)  printf("%s", "\u2554");
         if (win->wbv == wb_dm || win->wbv == wb_dml)  {
                 printf("%s", "\u250F");
-                cursor_move(win->win_y, win->win_x + 1);
+                p_cursor_move(win->win_y, win->win_x + 1);
                 printf("%s", "\u2501");
         }
 
-        cursor_move(win->win_y, win->win_x + win->win_width-1);
+        p_cursor_move(win->win_y, win->win_x + win->win_width-1);
         if (win->wbv == wb_n)   printf("%s", " ");
         if (win->wbv == wb_sl)  printf("%s", "\u2510");
         if (win->wbv == wb_slr) printf("%s", "\u256E");
@@ -110,11 +110,11 @@ void wdraw(const window_s *win)
         if (win->wbv == wb_dl)  printf("%s", "\u2557");
         if (win->wbv == wb_dm || win->wbv == wb_dml)  {
                 printf("%s", "\u2513");
-                cursor_move(win->win_y, win->win_x + win->win_width-1 - 1);
+                p_cursor_move(win->win_y, win->win_x + win->win_width-1 - 1);
                 printf("%s", "\u2501");
         }
 
-        cursor_move(win->win_y + win->win_height-1, win->win_x + win->win_width-1);
+        p_cursor_move(win->win_y + win->win_height-1, win->win_x + win->win_width-1);
         if (win->wbv == wb_n)   printf("%s", " ");
         if (win->wbv == wb_sl)  printf("%s", "\u2518");
         if (win->wbv == wb_slr) printf("%s", "\u256F");
@@ -122,11 +122,11 @@ void wdraw(const window_s *win)
         if (win->wbv == wb_dl)  printf("%s", "\u255D");
         if (win->wbv == wb_dm || win->wbv == wb_dml)  {
                 printf("%s", "\u251B");
-                cursor_move(win->win_y + win->win_height-1, win->win_x + win->win_width-1 - 1);
+                p_cursor_move(win->win_y + win->win_height-1, win->win_x + win->win_width-1 - 1);
                 printf("%s", "\u2501");
         }
 
-        cursor_move(win->win_y + win->win_height-1, win->win_x);
+        p_cursor_move(win->win_y + win->win_height-1, win->win_x);
         if (win->wbv == wb_n)   printf("%s", " ");
         if (win->wbv == wb_sl)  printf("%s", "\u2514");
         if (win->wbv == wb_slr) printf("%s", "\u2570");
@@ -134,41 +134,41 @@ void wdraw(const window_s *win)
         if (win->wbv == wb_dl)  printf("%s", "\u255A");
         if (win->wbv == wb_dm || win->wbv == wb_dml)  {
                 printf("%s", "\u2517");
-                cursor_move(win->win_y + win->win_height-1, win->win_x + 1);
+                p_cursor_move(win->win_y + win->win_height-1, win->win_x + 1);
                 printf("%s", "\u2501");
         }
 
         fflush(stdout);
-        resattr();
+        p_resattr();
 
         if (win->wtl.wtl_title[0] != '\0') {
-                setattr(win->wtl.wtl_attrcolor);
+                p_setattr(win->wtl.wtl_attrcolor);
 
-                size_t wtl_size = count_utf8_chars(win->wtl.wtl_title);
+                size_t wtl_size = p_count_utf8_chars(win->wtl.wtl_title);
                 
                 if (win->wtl.wtl_location == wt_l)
-                        cursor_move(win->win_y, 
+                        p_cursor_move(win->win_y, 
                                     win->win_x + 3);
                 if (win->wtl.wtl_location == wt_r)
-                        cursor_move(win->win_y, 
+                        p_cursor_move(win->win_y, 
                                     (win->win_x+win->win_width-1) - 2 - wtl_size);
                 if (win->wtl.wtl_location == wt_c)
-                        cursor_move(win->win_y, 
+                        p_cursor_move(win->win_y, 
                                     win->win_x + win->win_width/2 - wtl_size/2 - 1);
                 
                 printf("%s", win->wtl.wtl_title);
                 
                 fflush(stdout);
-                resattr();
+                p_resattr();
         }
 }
 
-int wout(const char *s,
-         const char *attrcolor,
-         size_t from_tb,
-         const window_s *win)
+int p_wout(const char *s,
+           const char *attrcolor,
+           size_t from_tb,
+           const window_s *win)
 {
-        if (s == NULL || *s == '\0') return ERROR;
+        if (s == NULL || *s == '\0') return P_ERROR;
 
         size_t count = 0; // счетчик символов в текущей строке
         size_t y = win->win_y + 1 + from_tb;
@@ -176,10 +176,10 @@ int wout(const char *s,
         size_t row = win->win_y + win->win_height - 1;
         size_t col = win->win_width - 2;
 
-        resattr();
-        setattr(attrcolor);
+        p_resattr();
+        p_setattr(attrcolor);
 
-        cursor_move(y, x);
+        p_cursor_move(y, x);
 
         while (*s != '\0') {
                 int char_len = 1;
@@ -195,13 +195,14 @@ int wout(const char *s,
 
                 if (count == col && y != row) {
                         count = 0;
-                        cursor_move(++y, x);
+                        p_cursor_move(++y, x);
                 }
                 if (y == row) break;
         }
 
         fflush(stdout);
-        resattr();
+        p_resattr();
 
-        return SUCCESS;
+        return P_SUCCESS;
 }
+

@@ -11,13 +11,13 @@
 #include <stddef.h>
 
 struct text_info {
-        size_t cur_row;
-        size_t cur_col;
+        size_t  cur_row;
+        size_t  cur_col;
 };
 
 struct win_size {
-        size_t ws_row;
-        size_t ws_col;
+        size_t  ws_row;
+        size_t  ws_col;
 };
 
 #endif  /* __PLC_P_CONIO_H */

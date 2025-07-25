@@ -6,17 +6,18 @@
  */
 
 #include <plc/system.h>
+#include <plc/plcdef.h>
 #include <locale.h>
 
-int is_locale_available(const char *locale)
+int p_locale_available(const char *locale)
 {
         char *old_locale = setlocale(LC_ALL, NULL);
         char *res = setlocale(LC_ALL, locale);
 
         if (res == NULL) 
-                return 0; // false
+                return P_FALSE;
 
         setlocale(LC_ALL, old_locale);
-        return 1; // true
+        return P_TRUE;
 }
 

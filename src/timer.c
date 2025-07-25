@@ -10,28 +10,28 @@
 
 struct timer timer;
 
-void start_timer(void) 
+void p_start_timer(void) 
 {
         time(&timer.begin_time);
 }
 
-void stop_timer(void) 
+void p_stop_timer(void) 
 {
         time(&timer.end_time);
 }
 
-double duration_seconds(void) 
+double p_duration_seconds(void) 
 {
         return (difftime(timer.end_time, timer.begin_time));
 }
 
-double duration_minutes(void) 
+double p_duration_minutes(void) 
 {
         double diff_sec = difftime(timer.end_time, timer.begin_time);
         return (diff_sec / 60);
 }
 
-double duration_hours(void) 
+double p_duration_hours(void) 
 {
         double diff_sec = difftime(timer.end_time, timer.begin_time);
         double diff_min = diff_sec / 60;

@@ -12,7 +12,7 @@
 #include <time.h>
 #include <stdio.h>
 
-int getdate(char *s, size_t size) 
+int p_getdate(char *s, size_t size) 
 {
         time_t now;
 
@@ -20,13 +20,13 @@ int getdate(char *s, size_t size)
         struct tm *lt = localtime(&now);
 
         if (lt == NULL)
-                return ERROR;
+                return P_ERROR;
 
         strftime(s, size, "%d-%m-%Y", lt);
-        return SUCCESS;
+        return P_SUCCESS;
 }
 
-int gettime(char *s, size_t size) 
+int p_gettime(char *s, size_t size) 
 {
         time_t now;
 
@@ -34,18 +34,18 @@ int gettime(char *s, size_t size)
         struct tm *lt = localtime(&now);
 
         if (lt == NULL)
-                return ERROR;
+                return P_ERROR;
 
         strftime(s, size, "%H:%M:%S", lt);
-        return SUCCESS;
+        return P_SUCCESS;
 }
 
-int date_convert(const char *s_in, size_t size_s_in, 
-                 char *s_out, size_t size_s_out,
-                 enum dcf dcf) 
+int p_date_convert(const char *s_in,  size_t size_s_in, 
+                   char       *s_out, size_t size_s_out,
+                   enum dcf    dcf) 
 {
         if (s_in == NULL || *s_in == '\0')
-                return ERROR;
+                return P_ERROR;
 
         struct tm tm = {0};
 
@@ -53,7 +53,7 @@ int date_convert(const char *s_in, size_t size_s_in,
                 tm.tm_mon -= 1;     /* коррекция месяца (январь = 0) */
                 tm.tm_year -= 1900; /* коррекция года (отсчет с 1900) */
         } else
-                return ERROR;
+                return P_ERROR;
 
         switch (dcf) {
         case DCF_dBY :
@@ -63,10 +63,10 @@ int date_convert(const char *s_in, size_t size_s_in,
                 strftime(s_out, size_s_out, "%B %d, %Y", &tm);
                 break;
         default :
-                return ERROR;
+                return P_ERROR;
         }
 
-        return SUCCESS;
+        return P_SUCCESS;
 }
 
 /*
@@ -75,7 +75,7 @@ int date_convert(const char *s_in, size_t size_s_in,
  * - 1 миллисекунда = 1 000 000 наносекунд
  * - функция может быть прервана сигналом, поэтому нужен цикл
  */
-void delay_ms(unsigned int ms) 
+void p_delay_ms(unsigned int ms) 
 {
         struct timespec ts;
         ts.tv_sec = ms / 1000;              /* целые секунды */
