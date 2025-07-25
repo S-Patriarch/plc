@@ -15,9 +15,9 @@
                 template <typename T> inline operator T() { return (T)x; }
                 void *x;
         };
-        #define VOID_CAST(x) void_cast(x)
+        #define P_VOID_CAST(x) void_cast(x)
 #else
-        #define VOID_CAST(x) x
+        #define P_VOID_CAST(x) x
 #endif
 
 #endif  /* __PLC_VOID_CAST_H */

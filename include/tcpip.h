@@ -14,69 +14,69 @@
 #include <stdio.h>
 #include <pthread.h>
 
-typedef void Sigfunc(int); // для обработчиков сигналов
+typedef void Sigfunc(int); /* для обработчиков сигналов */
 
 /* создание сокета */
-int tcp_socket(int domain, int type, int protocol);
+int p_tcp_socket(int domain, int type, int protocol);
 
 /* привязка сокета */
-int tcp_bind(int fd, const struct sockaddr *addr, socklen_t len);
+int p_tcp_bind(int fd, const struct sockaddr *addr, socklen_t len);
 
 /* прослушивание подключений */
-int tcp_listen(int fd, int n);
+int p_tcp_listen(int fd, int n);
 
 /* прием данных */
-int tcp_accept(int fd, struct sockaddr *addr, socklen_t *len);
+int p_tcp_accept(int fd, struct sockaddr *addr, socklen_t *len);
 
 /* установка соединения */
-int tcp_connect(int fd, const struct sockaddr *addr, socklen_t len);
+int p_tcp_connect(int fd, const struct sockaddr *addr, socklen_t len);
 
 /* закрытие созданного сокета */
-int tcp_close(int fd);
+int p_tcp_close(int fd);
 
 /* чтение данных из сокета */
-ssize_t tcp_recv(int fd, void *ptr, size_t nbytes, int flags);
+ssize_t p_tcp_recv(int fd, void *ptr, size_t nbytes, int flags);
 
 /* запись данных в сокет */
-int tcp_send(int fd, const void *ptr, size_t nbytes, int flags);
+int p_tcp_send(int fd, const void *ptr, size_t nbytes, int flags);
 
 /* чтение данных из потока */
-ssize_t tcp_read(int fd, void *ptr, size_t nbytes);
-ssize_t tcp_readline(int fd, void *ptr, size_t maxlen);
+ssize_t p_tcp_read(int fd, void *ptr, size_t nbytes);
+ssize_t p_tcp_readline(int fd, void *ptr, size_t maxlen);
 
 /* запись данных в поток */
-int tcp_write(int fd, const void *ptr, size_t nbytes);
-int tcp_writen(int fd, const void *ptr, size_t nbytes);
+int p_tcp_write(int fd, const void *ptr, size_t nbytes);
+int p_tcp_writen(int fd, const void *ptr, size_t nbytes);
 
 /* порождение дочернего процесса */
-pid_t tcp_fork(void);
+pid_t p_tcp_fork(void);
 
 /* обработчик сигналов */
-Sigfunc *tcp_signal(int signo, Sigfunc *func);
+Sigfunc *p_tcp_signal(int signo, Sigfunc *func);
 
 /* установка признака конца файла в стандартном потоке ввода
    отправка сегмента FIN */
-int tcp_shutdown(int fd, int how);
+int p_tcp_shutdown(int fd, int how);
 
 /* ввод из потока */
-char *tcp_fgets(char *str, int count, FILE *stream);
+char *p_tcp_fgets(char *str, int count, FILE *stream);
 
 /* вывод в поток */
-int tcp_fputs(const char *str, FILE *stream);
+int p_tcp_fputs(const char *str, FILE *stream);
 
 /* создание потока */
-int tcp_pthread_create(pthread_t *tid, 
-                       const pthread_attr_t *attr, 
-                       void *(*func)(void*), 
-                       void *arg);
+int p_tcp_pthread_create(pthread_t *tid, 
+                         const pthread_attr_t *attr, 
+                         void *(*func)(void*), 
+                         void *arg);
 
 /* завершение потока */
-int tcp_pthread_join(pthread_t tid, void **status);
+int p_tcp_pthread_join(pthread_t tid, void **status);
 
 /* отсоединение потока */
-int tcp_pthread_detach(pthread_t tid);
+int p_tcp_pthread_detach(pthread_t tid);
 
 /* уничтожение потока */
-int tcp_pthread_kill(pthread_t tid, int signo);
+int p_tcp_pthread_kill(pthread_t tid, int signo);
 
 #endif  /* __PLC_TCPIP_H */

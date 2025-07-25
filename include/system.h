@@ -9,6 +9,6 @@
 #define __PLC_SYSTEM_H  1
 
 /* определение доступности языковой локали */
-int is_locale_available(const char *);
+int p_locale_available(const char *locale);
 
 #endif  /* __PLC_SYSTEM_H */

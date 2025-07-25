@@ -13,25 +13,25 @@
 #include <emmintrin.h>
 
 /* переворот строки */
-int strrev(char *);
+int p_strrev(char *s);
 
 /* разделение строки на слова */
-char **strspl(const char *, size_t *);
+char **p_strspl(const char *s, size_t *w_count);
 
 /* освобождение памяти, выделенной под массив слов */
-void free_words(char **, size_t);
+void p_free_words(char **words, size_t w_count);
 
 /* подсчет количества вхождений символов в строку */
-size_t count_char(const char *, char);
+size_t p_count_char(const char *s, char c);
 
 /* подсчет количества слов в строке */
-size_t count_words(const char *);
+size_t p_count_words(const char *s);
 
 /*подсчет количества символов utf8 в строке */
-size_t count_utf8_chars(const char *);
+size_t p_count_utf8_chars(const char *s);
 
 /* последовательное извлечение цифр из строки */
-size_t *extract_digits(const char *, size_t *);
+size_t *p_extract_digits(const char *s, size_t *d_count);
 
 /*
    Копирование одной строки в другую.
@@ -46,7 +46,7 @@ size_t *extract_digits(const char *, size_t *);
  
    Это не шутка, а валидный ANSI C.
  */
-int strcp(char *, char *, int); 
+int p_strcpy(char *to, char *from, int count); 
 
 /*
    Аллокатор памяти memcp - копирует байт за байтом.
@@ -60,6 +60,6 @@ int strcp(char *, char *, int);
    Работает безопасно с невыравненной памятью (loadu/storeu), но с 
    выравненной памятью будет быстрее.
  */
-void *memcp(void *, const void *, size_t);
+void *p_memcpy(void *dest, const void *src, size_t size);
 
 #endif  /* __PLC_STRING_H */

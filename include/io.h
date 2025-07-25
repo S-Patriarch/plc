@@ -15,6 +15,9 @@ enum mess_format {
 };
 
 /* вывод сообщения в stdout*/
-int mout(const char *, enum mess_format, const char *, const char *);
+int p_mout(const char       *message, 
+           enum mess_format  format, 
+           const char       *attr_m, 
+           const char       *attr_f);
 
 #endif  /* __PLC_IO_H */

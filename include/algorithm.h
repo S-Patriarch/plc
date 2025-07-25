@@ -11,24 +11,25 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-int powi(int, int); /* бинарное возведение в степень */
+int p_powi(int base, int exponentnt);  /* бинарное возведение в степень */
 
-int bintodec(long long); /* преобразование 2-ного числа в 10-ное */
-long long dectobin(int); /* преобразование 10-ного числа в 2-ное */
-int octtodec(int);       /* преобразование 8-ного числа в 10-ное */
-int dectooct(int);       /* преобразование 10-ного числа в 8-ное */
-int bintooct(long long); /* преобразование 2-ного числа в 8-ное */
-long long octtobin(int); /* преобразование 8-ного числа в 2-ное */
+int p_bintodec(long long bin_number);  /* преобразование 2-ного числа в 10-ное */
+long long p_dectobin(int dec_number);  /* преобразование 10-ного числа в 2-ное */
+int p_octtodec(int oct_number);        /* преобразование 8-ного числа в 10-ное */
+int p_dectooct(int dec_number);        /* преобразование 10-ного числа в 8-ное */
+int p_bintooct(long long bin_number);  /* преобразование 2-ного числа в 8-ное */
+long long p_octtobin(int oct_number);  /* преобразование 8-ного числа в 2-ное */
 
-int random_int(int, int); /* генерация случайного числа */
+int p_random_int(int min, int max);    /* генерация случайного числа */
 
 /* упаковка 8 значений bool в 1 байт */
-uint8_t pack_bools(bool, bool, bool, bool,
-                   bool, bool, bool, bool);
+uint8_t p_pack_bools(bool b1, bool b2, bool b3, bool b4,
+                     bool b5, bool b6, bool b7, bool b8);
+
 /* распаковка 1 байта на 8 значений типа bool */
-void unpack_bools(uint8_t,
-                  bool *, bool *, bool *, bool *,
-                  bool *, bool *, bool *, bool *);
+void p_unpack_bools(uint8_t p,                            
+                    bool *b1, bool *b2, bool *b3, bool *b4,
+                    bool *b5, bool *b6, bool *b7, bool *b8);
 
 /*
  * Функция хэширования строки.
@@ -41,9 +42,9 @@ void unpack_bools(uint8_t,
  * unsigned int, в которой хэш сохраняется, но это всего лишь еще один неявный
  * детерминированный шаг алгоритма.
  */
-unsigned int strhash(const char *);
+unsigned int p_strhash(const char *s);
 
 /* Хэширование списка указателей */
-unsigned int ptr_list_hash(void **);
+unsigned int p_ptr_list_hash(void **in);
 
 #endif  /* __PLC_ALGORITHM_H */

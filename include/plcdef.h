@@ -11,21 +11,21 @@
 #include <string.h>
 #include <stdlib.h>
 
-#define SUCCESS 0
-#define FAILURE 1
-#define ERROR   -1
+#define P_SUCCESS       0
+#define P_FAILURE       1
+#define P_ERROR         -1
 
-#define FALSE   0
-#define TRUE    1
+#define P_FALSE         0
+#define P_TRUE          1
 
-#define ESC     '\033' 
+#define P_ESC           '\033' 
 
 /*
  * Макрос для объявления массива переменной длины (VLA) 
  * на стеке и обнуления всех его элементов.
  */
-#define DECLARE_AND_ZERO_ARRAY(type, name, size) \
-        type name[size]; \
+#define P_DECLARE_AND_ZERO_ARRAY(type, name, size) \
+        type name[size];                           \
         memset(name, 0, (size) * sizeof(type))
 
 /*
@@ -34,7 +34,7 @@
  * В этом случае не забывайте освобождать память с
  * помощью free().
  */
-#define DECLARE_AND_ZERO_DYNAMIC_ARRAY(type, name, size) \
+#define P_DECLARE_AND_ZERO_DYNAMIC_ARRAY(type, name, size) \
         type *name = (type *)calloc(size, sizeof(type))
 
 #endif  /* __PLC_PLCDEF_H */

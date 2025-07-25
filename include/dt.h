@@ -15,13 +15,15 @@ enum dcf {
         DCF_BdY  /* формат конвертации "%B %d, %Y" */
 };
 
-int getdate(char *, size_t); /* получить текущую дату */
-int gettime(char *, size_t); /* получить текущее время */
+int p_getdate(char *s, size_t size); /* получить текущую дату */
+int p_gettime(char *s, size_t size); /* получить текущее время */
 
 /* преобразует строку даты в иной вид строки */
-int date_convert(const char *, size_t, char *, size_t, enum dcf);
+int p_date_convert(const char *s_in,  size_t size_s_in, 
+                   char       *s_out, size_t size_s_out, 
+                   enum dcf    dcf);
 
 /* осуществляет задержку в миллисекундах */
-void delay_ms(unsigned int);
+void p_delay_ms(unsigned int ms);
 
 #endif  /* __PLC_DT_H */

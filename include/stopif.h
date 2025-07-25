@@ -19,7 +19,7 @@ char error_mode;
 /* Куда писать сообщение об ошибке? Если NULL, писать в stderr. */
 FILE *error_log;
 
-#define STOPIF(assertion, error_action, ...) {                                \
+#define P_STOPIF(assertion, error_action, ...) {                              \
                 if (assertion) {                                              \
                         fprintf(error_log ? error_log : stderr, __VA_ARGS__); \
                         fprintf(error_log ? error_log : stderr, "\n");        \

@@ -13,31 +13,33 @@
 #define LEN_ATTR_COLOR  30
 
 enum line_direct {
-        line_h,                              /* горизонтальная линия */
-        line_v                               /* вертикальная линия */
+        line_h,                                 /* горизонтальная линия */
+        line_v                                  /* вертикальная линия */
 };
 
 enum line_view {
-        line_sl,                             /* одинарная тонкая линия */
-        line_sh,                             /* одинарная толстая линия */
-        line_dl                              /* двойная тонкая линия */
+        line_sl,                                /* одинарная тонкая линия */
+        line_sh,                                /* одинарная толстая линия */
+        line_dl                                 /* двойная тонкая линия */
 };
 
 typedef struct line {
-        size_t line_y;                       /* координата y начала линии */
-        size_t line_x;                       /* координата x начала линии */
-        size_t line_length;                  /* длина линии */
-        enum line_direct line_direct;        /* направление линии */
-        enum line_view line_view;            /* вид линии */
-        char line_attrcolor[LEN_ATTR_COLOR]; /* атрибуты цвета и фона линии */
+        size_t  line_y;                         /* координата y начала линии */
+        size_t  line_x;                         /* координата x начала линии */
+        size_t  line_length;                    /* длина линии */
+        enum line_direct line_direct;           /* направление линии */
+        enum line_view line_view;               /* вид линии */
+        char    line_attrcolor[LEN_ATTR_COLOR]; /* атрибуты цвета и фона линии */
 } line_s;
 
-void setline(size_t, size_t, size_t,
-             enum line_direct, 
-             enum line_view,
-             const char *,
-             line_s *);
+void p_setline(size_t y,
+               size_t x,
+               size_t length,
+               enum line_direct line_direct,
+               enum line_view line_view,
+               const char *attrcolor,
+               line_s *line); 
 
-void ldraw(const line_s *);
+void p_ldraw(const line_s *line);
 
 #endif  /* __PLC_LINE_H */

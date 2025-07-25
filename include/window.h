@@ -31,33 +31,39 @@ enum win_title_location {
 };
 
 struct win_title {
-        char wtl_title[LEN_TITLE];
-        char wtl_attrcolor[LEN_ATTR_COLOR];
+        char  wtl_title[LEN_TITLE];
+        char  wtl_attrcolor[LEN_ATTR_COLOR];
         enum win_title_location wtl_location;
 };
 
 typedef struct window {
-        size_t win_y;
-        size_t win_x;
-        size_t win_height;
-        size_t win_width;
-        enum   win_box_view wbv;
-        char   win_attrcolor[LEN_ATTR_COLOR];
+        size_t  win_y;
+        size_t  win_x;
+        size_t  win_height;
+        size_t  win_width;
+        enum    win_box_view wbv;
+        char    win_attrcolor[LEN_ATTR_COLOR];
         struct win_title wtl;
 } window_s;
 
-void setwintitle(const char *, 
-                 enum win_title_location,
-                 const char *, 
-                 window_s *);
+void p_setwintitle(const char *title,
+                   enum win_title_location location,
+                   const char *attrcolor,
+                   window_s *win); 
 
-void setwindow(size_t, size_t,
-               size_t, size_t,
-               enum win_box_view,
-               const char *,
-               window_s *);
+void p_setwindow(size_t y,
+                 size_t x,
+                 size_t height,
+                 size_t width,
+                 enum win_box_view view,
+                 const char *attrcolor,
+                 window_s *win); 
 
-void wdraw(const window_s *);
-int wout(const char *, const char *, size_t, const window_s *);
+void p_wdraw(const window_s *win);
+
+int p_wout(const char *s,
+           const char *attrcolor,
+           size_t from_tb,
+           const window_s *win);
 
 #endif  /* __PLC_WINDOW_H */
