@@ -12,3 +12,4 @@ gcc -std=c2x -c src/indicators.c -o bin/indicators.o
 gcc -std=c2x -c src/menu.c -o bin/menu.o
 gcc -std=c2x -c src/logger.c -o bin/logger.o
 gcc -std=c2x -c src/tcpip.c -o bin/tcpip.o
+gcc -std=c2x -c src/stack.c -o bin/stack.o
