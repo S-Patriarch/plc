@@ -25,6 +25,8 @@
 #include <plc/indicators.h>
 #include <plc/menu.h>
 
+#include <plc/stack.h>
+
 #include <plc/void_cast.h>
 
 #endif  /* __PLC_H */
