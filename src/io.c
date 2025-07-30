@@ -47,3 +47,24 @@ int p_mout(const char       *message,
         return (res_f + res_m);
 }
 
+int p_cout(const char *s) 
+{
+        if (s == NULL || *s == '\0') return P_ERROR;
+
+        int count = 0;       
+        while (*s != '\0') {
+                int char_len = 1;
+                if ((*s & 0xE0) == 0xC0) char_len = 2;
+                else if ((*s & 0xF0) == 0xE0) char_len = 3;
+                else if ((*s & 0xF8) == 0xF0) char_len = 4;
+
+                for (int i = 0; i < char_len && *s != '\0'; ++i)
+                        putchar(*s++);
+
+                fflush(stdout);
+                ++count;
+        }
+
+        return count;
+}
+
