@@ -20,4 +20,7 @@ int p_mout(const char       *message,
            const char       *attr_m, 
            const char       *attr_f);
 
+/* вывод строки в stdout */
+int p_cout(const char *s);
+
 #endif  /* __PLC_IO_H */
