@@ -8,6 +8,7 @@
 #include <plc/string.h>
 #include <plc/plcdef.h>
 #include <string.h>
+#include <emmintrin.h>
 #include <ctype.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -215,5 +216,80 @@ void *p_memcpy(void *dest, const void *src, size_t size)
         }
 
         return dest;
+}
+
+string_s *p_string_new(void) 
+{
+        string_s *str = malloc(sizeof(string_s));
+        str->capacity = 16;
+        str->length = 0;
+        str->data = malloc(str->capacity);
+        str->data[0] = '\0';
+        return str;
+}
+
+string_s *p_string_from_cstr(const char *cstr) 
+{
+        string_s *str = malloc(sizeof(string_s));
+        str->length = strlen(cstr);
+        str->capacity = str->length + 1;
+        str->data = malloc(str->capacity);
+        strcpy(str->data, cstr);
+        return str;
+}
+
+void p_string_free(string_s *str) 
+{
+        if (str) {
+                free(str->data);
+                free(str);
+        }
+}
+
+void p_string_append(string_s *str, const char *s) 
+{
+        size_t add_len = strlen(s);
+        if (str->length + add_len + 1 >= str->capacity) {
+                str->capacity = (str->length + add_len + 1) * 2;
+                str->data = realloc(str->data, str->capacity);
+        }
+        strcat(str->data, s);
+        str->length += add_len;
+}
+
+void p_string_append_char(string_s *str, char c) 
+{
+        if (str->length + 2 >= str->capacity) {
+                str->capacity *= 2;
+                str->data = realloc(str->data, str->capacity);
+        }
+        str->data[str->length++] = c;
+        str->data[str->length] = '\0';
+}
+
+void p_string_clear(string_s *str) 
+{
+        str->length = 0;
+        str->data[0] = '\0';
+}
+
+bool p_string_empty(const string_s *str) 
+{
+        return (str->length == 0);
+}
+
+size_t p_string_size(const string_s *str) 
+{
+        return str->length;
+}
+
+const char *p_string_cstr(const string_s *str) 
+{
+        return str->data;
+}
+
+int p_string_compare(const string_s *str1, const string_s *str2) 
+{
+        return strcmp(str1->data, str2->data);
 }
 
