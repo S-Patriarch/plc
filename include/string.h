@@ -9,8 +9,7 @@
 #define __PLC_STRING_H  1
 
 #include <stddef.h>
-#include <string.h>
-#include <emmintrin.h>
+#include <stdbool.h>
 
 /* переворот строки */
 int p_strrev(char *s);
@@ -61,5 +60,22 @@ int p_strcpy(char *to, char *from, int count);
    выравненной памятью будет быстрее.
  */
 void *p_memcpy(void *dest, const void *src, size_t size);
+
+typedef struct {
+        char   *data;
+        size_t  length;
+        size_t  capacity;
+} string_s;
+
+string_s *p_string_new(void);
+string_s *p_string_from_cstr(const char *cstr);
+void p_string_free(string_s *str);
+void p_string_append(string_s *str, const char *s);
+void p_string_append_char(string_s *str, char c);
+void p_string_clear(string_s *str);
+bool p_string_empty(const string_s *str);
+size_t p_string_size(const string_s *str);
+const char *p_string_cstr(const string_s *str);
+int p_string_compare(const string_s *str1, const string_s *str2);
 
 #endif  /* __PLC_STRING_H */
