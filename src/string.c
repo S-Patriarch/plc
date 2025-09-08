@@ -11,7 +11,6 @@
 #include <emmintrin.h>
 #include <ctype.h>
 #include <stdlib.h>
-#include <stdbool.h>
 
 int p_strrev(char *s)
 {
@@ -273,9 +272,15 @@ void p_string_clear(string_s *str)
         str->data[0] = '\0';
 }
 
-bool p_string_empty(const string_s *str) 
+int p_string_empty(const string_s *str) 
 {
-        return (str->length == 0);
+        if (str->length == 0) return P_TRUE;
+        else                  return P_FALSE;
+}
+
+int p_string_compare(const string_s *str1, const string_s *str2) 
+{
+        return strcmp(str1->data, str2->data);
 }
 
 size_t p_string_size(const string_s *str) 
@@ -286,10 +291,5 @@ size_t p_string_size(const string_s *str)
 const char *p_string_cstr(const string_s *str) 
 {
         return str->data;
-}
-
-int p_string_compare(const string_s *str1, const string_s *str2) 
-{
-        return strcmp(str1->data, str2->data);
 }
 
