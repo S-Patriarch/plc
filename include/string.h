@@ -9,7 +9,6 @@
 #define __PLC_STRING_H  1
 
 #include <stddef.h>
-#include <stdbool.h>
 
 /* переворот строки */
 int p_strrev(char *s);
@@ -67,15 +66,15 @@ typedef struct {
         size_t  capacity;
 } string_s;
 
-string_s *p_string_new(void);
-string_s *p_string_from_cstr(const char *cstr);
-void p_string_free(string_s *str);
-void p_string_append(string_s *str, const char *s);
-void p_string_append_char(string_s *str, char c);
-void p_string_clear(string_s *str);
-bool p_string_empty(const string_s *str);
-size_t p_string_size(const string_s *str);
-const char *p_string_cstr(const string_s *str);
-int p_string_compare(const string_s *str1, const string_s *str2);
+string_s   *p_string_new(void);                                           // создание пустой строки
+string_s   *p_string_from_cstr(const char *cstr);                         // создание строки
+void        p_string_free(string_s *str);                                 // удаление строки
+void        p_string_append(string_s *str, const char *s);                // добавление строки
+void        p_string_append_char(string_s *str, char c);                  // добавление символа к строке
+void        p_string_clear(string_s *str);                                // очистка строки
+int         p_string_empty(const string_s *str);                          // проверка пустой строки
+int         p_string_compare(const string_s *str1, const string_s *str2); // сравнение строк
+size_t      p_string_length(const string_s *str);                         // длина строки
+const char *p_string_cstr(const string_s *str);                           // предоставление строки
 
 #endif  /* __PLC_STRING_H */
