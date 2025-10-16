@@ -10,6 +10,7 @@
 #include <string.h>
 #include <emmintrin.h>
 #include <ctype.h>
+#include <stdbool.h>
 #include <stdlib.h>
 
 int p_strrev(char *s)
@@ -174,8 +175,10 @@ size_t *p_extract_digits(const char *s, size_t *d_count)
         return digits;
 }
 
-int p_strcpy(char *to, char *from, int count) 
+int p_strcpy(char *to, char *from) 
 {
+        int count = strlen(from);
+
         if (from == NULL || *from == '\0')
                 return P_ERROR;
 
