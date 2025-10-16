@@ -44,7 +44,7 @@ size_t *p_extract_digits(const char *s, size_t *d_count);
  
    Это не шутка, а валидный ANSI C.
  */
-int p_strcpy(char *to, char *from, int count); 
+int p_strcpy(char *to, char *from); 
 
 /*
    Аллокатор памяти - копирует байт за байтом.
