@@ -177,11 +177,10 @@ size_t *p_extract_digits(const char *s, size_t *d_count)
 
 int p_strcpy(char *to, char *from) 
 {
-        int count = strlen(from);
-
         if (from == NULL || *from == '\0')
                 return P_ERROR;
 
+        int count = strlen(from);
         int n = (count + 7) / 8;
 
         switch (count % 8) {
