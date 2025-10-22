@@ -29,4 +29,6 @@
 
 #include <plc/void_cast.h>
 
+#include <plc/async.h>
+
 #endif  /* __PLC_H */
