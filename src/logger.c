@@ -5,8 +5,6 @@
  * Patriarch Library C : logger.c
  */
 
-#define _GNU_SOURCE
-
 #include <plc/logger.h>
 #include <plc/dt.h>
 #include <stdlib.h>
@@ -21,55 +19,58 @@ logger_s *p_logger_create(const char *file_name)
         logger_s *log = (logger_s *)malloc(sizeof(logger_s));
         if (!log) return NULL;
 
-        /* инициализируем блокировки OpenMP */
-        omp_init_lock(&log->lck_write);
-        omp_init_nest_lock(&log->lck_read);
-
         /* открываем файл в режиме "добавление + чтение" (a+) */
         log->file = fopen(file_name, "a+");
-        if (!log->file) return NULL;
+        if (!log->file) {
+                free(log);
+                return NULL;
+        }
+
+        /* инициализируем мьютекс для записи */
+        if (pthread_mutex_init(&log->lck_write, NULL) != 0) {
+                fclose(log->file);
+                free(log);
+                return NULL;
+        }
+
+        /* инициализируем RW-lock для чтения */
+        if (pthread_rwlock_init(&log->lck_read, NULL) != 0) {
+                pthread_mutex_destroy(&log->lck_write);
+                fclose(log->file);
+                free(log);
+                return NULL;
+        }
 
         return log;
 }
 
 void p_logger_destroy(logger_s *log)
 {
-        if (log) {
-                /* закрываем файл, если он открыт */
-                if (log->file) fclose(log->file);
+        if (!log) return;
 
-                /* уничтожаем блокировки */
-                omp_destroy_lock(&log->lck_write);
-                omp_destroy_nest_lock(&log->lck_read);
+        if (log->file)
+                fclose(log->file);
 
-                /* освобождаем память */
-                free(log);
-        }
+        pthread_mutex_destroy(&log->lck_write);
+        pthread_rwlock_destroy(&log->lck_read);
+
+        free(log);
 }
 
 void p_logger_write(logger_s *log, const char *msg)
 {
         if (!log || !msg) return;
 
-        /* блокируем запись (эксклюзивный доступ) */
-        omp_set_lock(&log->lck_write);
-
-        /* блокируем чтение на время записи */
-        omp_set_nest_lock(&log->lck_read);
-
         char s_date[11], s_time[9];
         p_getdate(s_date, sizeof(s_date));
         p_gettime(s_time, sizeof(s_time));
 
-        /* если файл открыт, записываем сообщение */
-        if (log->file) {
-                fprintf(log->file, "[%s %s] %s\n", s_date, s_time, msg);
-                fflush(log->file);
-        }
+        pthread_mutex_lock(&log->lck_write);
 
-        /* разблокируем в обратном порядке */
-        omp_unset_nest_lock(&log->lck_read);
-        omp_unset_lock(&log->lck_write);
+        fprintf(log->file, "[%s %s] %s\n", s_date, s_time, msg);
+        fflush(log->file);
+
+        pthread_mutex_unlock(&log->lck_write);
 }
 
 char *p_logger_read(logger_s *log)
@@ -80,24 +81,20 @@ char *p_logger_read(logger_s *log)
         size_t   len = 0;
         ssize_t  read;
 
-        /* блокируем для чтения (разделяемый доступ) */
-        omp_set_nest_lock(&log->lck_read);
+        pthread_rwlock_rdlock(&log->lck_read);
 
-        if (log->file) {
-                /* читаем строку (getline сама выделяет память) */
-                read = getline(&line, &len, log->file);
+        read = getline(&line, &len, log->file);
 
-                if (read == -1) {
-                        free(line);
-                        line = NULL;
-                }
+        pthread_rwlock_unlock(&log->lck_read);
+
+        if (read == -1) {
+                free(line);
+                return NULL;
         }
-
-        /* разблокируем */
-        omp_unset_nest_lock(&log->lck_read);
-
+        
         /*
          * ВНИМАНИЕ: вызывающий код должен освободить эту память!
          */
         return line;
 }
+
