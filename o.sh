@@ -14,3 +14,4 @@ gcc -c src/tcpip.c -o bin/tcpip.o -Wall -O3 -std=c2x
 gcc -c src/logger.c -o bin/logger.o -Wall -O3 -lpthread
 gcc -c src/stack.c -o bin/stack.o -Wall -O3 -std=c2x -lpthread
 gcc -c src/async.c -o bin/async.o -Wall -O3 -std=c2x -lpthread
+gcc -c src/file.c -o bin/file.o -Wall -O3
