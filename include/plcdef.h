@@ -19,6 +19,8 @@
 #define P_TRUE          1
 
 #define P_ESC           '\033' 
+#define P_VTAB          '\013'
+#define P_BELL          '\007'
 
 /*
  * Макрос для объявления массива переменной длины (VLA) 
