@@ -8,8 +8,9 @@
 #ifndef __PLC_PLCDEF_H
 #define __PLC_PLCDEF_H  1
 
-#include <string.h>
 #include <stdlib.h>
+#include <string.h>
+#include <sys/stat.h>
 
 #define P_SUCCESS       0
 #define P_FAILURE       1
@@ -21,6 +22,21 @@
 #define P_ESC           '\033' 
 #define P_VTAB          '\013'
 #define P_BELL          '\007'
+
+#define P_MAXLINE       4096 /* максимальная длина строки */
+
+/*
+ * Права доступа по умолчанию к создаваемым файлам.
+ */
+#define P_FILE_MODE     (S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH)
+ 
+/*
+ * Права доступа по умолчанию к создаваемым каталогам.
+ */
+#define P_DIR_MODE      (P_FILE_MODE | S_IXUSR | S_IXGRP | S_IXOTH)
+
+#define p_min(a, b)     ((a) < (b) ? (a) : (b))
+#define p_max(a, b)     ((a) > (b) ? (a) : (b))
 
 /*
  * Макрос для объявления массива переменной длины (VLA) 
