@@ -1,2 +1,2 @@
 #!/bin/bash
-ar rcs bin/libplc.a bin/conio.o bin/system.o bin/io.o bin/algorithm.o bin/string.o bin/timer.o bin/dt.o bin/line.o bin/window.o bin/indicators.o bin/menu.o bin/logger.o bin/tcpip.o bin/stack.o bin/async.o bin/file.o
+ar rcs bin/libplc.a bin/conio.o bin/system.o bin/io.o bin/algorithm.o bin/string.o bin/timer.o bin/dt.o bin/line.o bin/window.o bin/indicators.o bin/menu.o bin/logger.o bin/tcpip.o bin/stack.o bin/async.o bin/file.o bin/error.o
