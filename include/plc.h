@@ -12,6 +12,7 @@
 #include <plc/async.h>
 #include <plc/conio.h>
 #include <plc/dt.h>
+#include <plc/error.h>
 #include <plc/file.h>
 #include <plc/indicators.h>
 #include <plc/io.h>
