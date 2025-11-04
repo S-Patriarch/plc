@@ -23,7 +23,10 @@
 #define P_VTAB          '\013'
 #define P_BELL          '\007'
 
-#define P_MAXLINE       4096 /* максимальная длина строки */
+#define P_BUFSIZ_1K     1024
+#define P_BUFSIZ_2K     2048
+#define P_BUFSIZ_4K     4096
+#define P_BUFSIZ_8K     8192
 
 /*
  * Права доступа по умолчанию к создаваемым файлам.
