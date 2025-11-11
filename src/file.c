@@ -64,3 +64,19 @@ p_file_move(const char *f_src, const char *f_dst)
         return P_SUCCESS;
 }
 
+int
+p_file_setfl(int fd, int flags) 
+{
+        int     val;
+
+        if ((val = fcntl(fd, F_GETFL, 0)) < 0)
+                return(-1);
+
+        val |= flags; /* включить флаги */
+
+        if (fcntl(fd, F_SETFL, val) < 0)
+                return(-1);
+
+        return(0);
+}
+
