@@ -13,7 +13,8 @@
 #include <stdbool.h>
 #include <stdlib.h>
 
-int p_strrev(char *s)
+int 
+p_strrev(char *s)
 {
         if (s == NULL || *s == '\0')
                 return P_ERROR;
@@ -30,7 +31,8 @@ int p_strrev(char *s)
         return P_SUCCESS;
 }
 
-char **p_strspl(const char *s, size_t *w_count) 
+char **
+p_strspl(const char *s, size_t *w_count) 
 {
         if (s == NULL || *s == '\0')
                 return NULL;
@@ -77,7 +79,8 @@ char **p_strspl(const char *s, size_t *w_count)
         return words;
 }
 
-void p_free_words(char **words, size_t w_count) 
+void 
+p_free_words(char **words, size_t w_count) 
 {
         for (size_t i = 0; i != w_count; i++)
                 free(words[i]);
@@ -86,7 +89,8 @@ void p_free_words(char **words, size_t w_count)
         words = NULL;
 }
 
-size_t p_count_char(const char *s, char c) 
+size_t 
+p_count_char(const char *s, char c) 
 {
         if (s == NULL || *s == '\0')
                 return 0;
@@ -99,7 +103,8 @@ size_t p_count_char(const char *s, char c)
         return count;
 }
 
-size_t p_count_words(const char *s) 
+size_t 
+p_count_words(const char *s) 
 {
         if (s == NULL || *s == '\0')
                 return 0;
@@ -120,7 +125,8 @@ size_t p_count_words(const char *s)
         return count;
 }
 
-size_t p_count_utf8_chars(const char *s) 
+size_t 
+p_count_utf8_chars(const char *s) 
 {
         if (s == NULL || *s == '\0')
                 return 0;
@@ -146,7 +152,8 @@ size_t p_count_utf8_chars(const char *s)
         return count;
 }
 
-size_t *p_extract_digits(const char *s, size_t *d_count) 
+size_t *
+p_extract_digits(const char *s, size_t *d_count) 
 {
         if (s == NULL || *s == '\0') {
                 *d_count = 0;
@@ -175,7 +182,8 @@ size_t *p_extract_digits(const char *s, size_t *d_count)
         return digits;
 }
 
-int p_strcpy(char *to, char *from) 
+int 
+p_strcpy(char *to, char *from) 
 {
         if (from == NULL || *from == '\0')
                 return P_ERROR;
@@ -198,7 +206,8 @@ int p_strcpy(char *to, char *from)
         return P_SUCCESS;
 }
 
-void *p_memcpy(void *dest, const void *src, size_t size) 
+void *
+p_memcpy(void *dest, const void *src, size_t size) 
 {
         unsigned char *d = (unsigned char*)dest;
         const unsigned char *s = (const unsigned char*)src;
@@ -219,7 +228,8 @@ void *p_memcpy(void *dest, const void *src, size_t size)
         return dest;
 }
 
-string_s *p_string_new(void) 
+string_s *
+p_string_new(void) 
 {
         string_s *str = malloc(sizeof(string_s));
         str->capacity = 16;
@@ -229,7 +239,8 @@ string_s *p_string_new(void)
         return str;
 }
 
-string_s *p_string_from_cstr(const char *cstr) 
+string_s *
+p_string_from_cstr(const char *cstr) 
 {
         string_s *str = malloc(sizeof(string_s));
         str->length = strlen(cstr);
@@ -239,7 +250,8 @@ string_s *p_string_from_cstr(const char *cstr)
         return str;
 }
 
-void p_string_free(string_s *str) 
+void 
+p_string_free(string_s *str) 
 {
         if (str) {
                 free(str->data);
@@ -247,7 +259,8 @@ void p_string_free(string_s *str)
         }
 }
 
-void p_string_append(string_s *str, const char *s) 
+void 
+p_string_append(string_s *str, const char *s) 
 {
         size_t add_len = strlen(s);
         if (str->length + add_len + 1 >= str->capacity) {
@@ -258,7 +271,8 @@ void p_string_append(string_s *str, const char *s)
         str->length += add_len;
 }
 
-void p_string_append_char(string_s *str, char c) 
+void 
+p_string_append_char(string_s *str, char c) 
 {
         if (str->length + 2 >= str->capacity) {
                 str->capacity *= 2;
@@ -268,30 +282,82 @@ void p_string_append_char(string_s *str, char c)
         str->data[str->length] = '\0';
 }
 
-void p_string_clear(string_s *str) 
+void 
+p_string_clear(string_s *str) 
 {
         str->length = 0;
         str->data[0] = '\0';
 }
 
-int p_string_empty(const string_s *str) 
+int 
+p_string_empty(const string_s *str) 
 {
         if (str->length == 0) return P_TRUE;
         else                  return P_FALSE;
 }
 
-int p_string_compare(const string_s *str1, const string_s *str2) 
+int 
+p_string_compare(const string_s *str1, const string_s *str2) 
 {
         return strcmp(str1->data, str2->data);
 }
 
-size_t p_string_size(const string_s *str) 
+size_t 
+p_string_size(const string_s *str) 
 {
         return str->length;
 }
 
-const char *p_string_cstr(const string_s *str) 
+const char *
+p_string_cstr(const string_s *str) 
 {
         return str->data;
+}
+
+int 
+p_strjoin(char **strings, size_t count, const char *delimiter, char **result)
+{
+        size_t  i;
+        size_t  rlen, dlen;
+
+        if (strings == NULL || delimiter == NULL || result == NULL)
+                return(-1);
+
+        if (count == 0) {
+                *result = (char *)malloc(1);
+                if (*result == NULL)
+                        return(-1);
+                (*result)[0] = '\0';
+                return(0);
+        }
+
+        /* Вычисляем общую длину результирующей строки,
+         * суммируя длину всех строк.
+         */
+        rlen = 0;
+        for (i = 0; i < count; i++) {
+                if (strings[i] != NULL)
+                        rlen += strlen(strings[i]);
+        }
+
+        /* Добавляем длину разделителей (count - 1 раз) */
+        dlen = strlen(delimiter);
+        rlen += dlen * (count-1);
+
+        /* Выделяем память для результата (+1 для нулевого терминатора) */
+        *result = (char *)malloc(rlen + 1);
+        if (*result == NULL)
+                return(-1);
+
+        /* Объединяем строки, начиная с пустой строки. */
+        (*result)[0] = '\0';
+        for (i = 0; i < count; i++) {
+                if (strings[i] != NULL)
+                        strcat(*result, strings[i]);
+                if (i < count - 1)
+                        strcat(*result, delimiter);
+        }
+
+        return(0);
 }
 
