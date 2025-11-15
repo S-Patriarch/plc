@@ -11,54 +11,52 @@
 #include <stddef.h>
 
 /* переворот строки */
-int p_strrev(char *s);
+int     p_strrev(char *s);
 
 /* разделение строки на слова */
-char **p_strspl(const char *s, size_t *w_count);
+char  **p_strspl(const char *s, size_t *w_count);
 
 /* освобождение памяти, выделенной под массив слов */
-void p_free_words(char **words, size_t w_count);
+void    p_free_words(char **words, size_t w_count);
 
 /* подсчет количества вхождений символов в строку */
-size_t p_count_char(const char *s, char c);
+size_t  p_count_char(const char *s, char c);
 
 /* подсчет количества слов в строке */
-size_t p_count_words(const char *s);
+size_t  p_count_words(const char *s);
 
 /*подсчет количества символов utf8 в строке */
-size_t p_count_utf8_chars(const char *s);
+size_t  p_count_utf8_chars(const char *s);
 
 /* последовательное извлечение цифр из строки */
 size_t *p_extract_digits(const char *s, size_t *d_count);
 
-/*
-   Копирование одной строки в другую.
-  
-   Устройство Даффа - безумный, но рабочий С-код.
-   Данный код является легендарным примером Duff's Device - странной, но
-   реально работающей техники, в которой switch переходит внутрь do-while,
-   чтобы ускорить копирование памяти:
-   - count % 8 определяет, сколько байт "добавить",
-   - цикл копирует по 8 байт за раз,
-   и все это работает, хотя выглядит как баг.
- 
-   Это не шутка, а валидный ANSI C.
+/* Копирование одной строки в другую.
+ * 
+ * Устройство Даффа - безумный, но рабочий С-код.
+ * Данный код является легендарным примером Duff's Device - странной, но
+ * реально работающей техники, в которой switch переходит внутрь do-while,
+ * чтобы ускорить копирование памяти:
+ * - count % 8 определяет, сколько байт "добавить",
+ * - цикл копирует по 8 байт за раз,
+ * и все это работает, хотя выглядит как баг.
+ *
+ * Это не шутка, а валидный ANSI C.
  */
-int p_strcpy(char *to, char *from); 
+int     p_strcpy(char *to, char *from); 
 
-/*
-   Аллокатор памяти - копирует байт за байтом.
-  
-   Данная реализация использует 128-битные регистры процессора (XMM0-XMM15) для
-   хранения данных и ускорения операции копирования - по 16 байт за раз.
-   _mm_loadu_si128  - загружает 16 байт (без выравнивания)
-   _mm_storeu_si128 - сохраняет 16 байт (без выравнивания)
-   Для оставшихся байт происходит откат к покопийному копированию.
-  
-   Работает безопасно с невыравненной памятью (loadu/storeu), но с 
-   выравненной памятью будет быстрее.
+/* Аллокатор памяти - копирует байт за байтом.
+ * 
+ * Данная реализация использует 128-битные регистры процессора (XMM0-XMM15) 
+ * для хранения данных и ускорения операции копирования - по 16 байт за раз.
+ * _mm_loadu_si128  - загружает 16 байт (без выравнивания)
+ * _mm_storeu_si128 - сохраняет 16 байт (без выравнивания)
+ * Для оставшихся байт происходит откат к покопийному копированию.
+ * 
+ * Работает безопасно с невыравненной памятью (loadu/storeu), но с 
+ * выравненной памятью будет быстрее.
  */
-void *p_memcpy(void *dest, const void *src, size_t size);
+void   *p_memcpy(void *dest, const void *src, size_t size);
 
 typedef struct {
         char   *data;
@@ -66,15 +64,31 @@ typedef struct {
         size_t  capacity;
 } string_s;
 
-string_s   *p_string_new(void);                                           // создание пустой строки
-string_s   *p_string_from_cstr(const char *cstr);                         // создание строки
-void        p_string_free(string_s *str);                                 // удаление строки
-void        p_string_append(string_s *str, const char *s);                // добавление строки
-void        p_string_append_char(string_s *str, char c);                  // добавление символа к строке
-void        p_string_clear(string_s *str);                                // очистка строки
-int         p_string_empty(const string_s *str);                          // проверка пустой строки
-int         p_string_compare(const string_s *str1, const string_s *str2); // сравнение строк
-size_t      p_string_length(const string_s *str);                         // длина строки
-const char *p_string_cstr(const string_s *str);                           // предоставление строки
+string_s   *p_string_new(void);                                           /* создание пустой строки */
+string_s   *p_string_from_cstr(const char *cstr);                         /* создание строки */
+void        p_string_free(string_s *str);                                 /* удаление строки */
+void        p_string_append(string_s *str, const char *s);                /* добавление строки */
+void        p_string_append_char(string_s *str, char c);                  /* добавление символа к строке */
+void        p_string_clear(string_s *str);                                /* очистка строки */
+int         p_string_empty(const string_s *str);                          /* проверка пустой строки */
+int         p_string_compare(const string_s *str1, const string_s *str2); /* сравнение строк */
+size_t      p_string_length(const string_s *str);                         /* длина строки */
+const char *p_string_cstr(const string_s *str);                           /* предоставление строки */
+
+/* Объединение массива строк в одну через разделитель.
+ * 
+ * Возвращает 0 в случае успеха и -1 при ошибке.
+ * strings   - указатель на массив строк (массив указателей на char)
+ * count     - размер массива строк
+ * delimiter - строка-разделитель
+ * result    - адрес указателя, куда будет записан результат
+ *
+ * После отработки данной функции следует освободить результат.
+ * Например:
+ *              free(result);
+ */
+int     p_strjoin(char **strings, size_t count, 
+                  const char *delimiter, 
+                  char **result);
 
 #endif  /* __PLC_STRING_H */
