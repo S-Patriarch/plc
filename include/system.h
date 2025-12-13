@@ -8,7 +8,18 @@
 #ifndef __PLC_SYSTEM_H
 #define __PLC_SYSTEM_H  1
 
-/* определение доступности языковой локали */
-int p_locale_available(const char *locale);
+/* Определение доступности языковой локали. */
+int     p_locale_available(const char *locale);
+
+/* Получает языковую локаль из параметров окружения пользователя.
+ * Возвращает указатель на строку языковой локали в случае успеха, 
+ * NULL - в случае ошибки. 
+ *
+ * После использования результата, необходимо освободить память:
+ *      char *lang;
+ *      lang = p_getlocale();
+ *      free(lang);
+ */
+char   *p_getlocale(void);
 
 #endif  /* __PLC_SYSTEM_H */
