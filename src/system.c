@@ -62,3 +62,12 @@ p_getlocale(void)
         return(env_res);
 }
 
+void
+p_free_ptr(void **ptr) 
+{
+        if (ptr != NULL && *ptr != NULL) {
+                free(*ptr);
+                *ptr = NULL;
+        }
+}
+
