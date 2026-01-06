@@ -22,4 +22,13 @@ int     p_locale_available(const char *locale);
  */
 char   *p_getlocale(void);
 
+/* Функция-обертка для освобождения ресурса и обнуления указателя
+ * на этот освобождаемый ресурс.
+ *
+ * Использование:
+ *      int *ip = (int *)malloc(sizeof(int));
+ *      p_free_ptr((void **)&ip);
+ */
+void    p_free_ptr(void **ptr);
+
 #endif  /* __PLC_SYSTEM_H */
