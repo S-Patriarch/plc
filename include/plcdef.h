@@ -52,8 +52,19 @@
  */
 #define P_DIR_MODE      (P_FILE_MODE | S_IXUSR | S_IXGRP | S_IXOTH)
 
-#define p_min(a, b)     ((a) < (b) ? (a) : (b))
-#define p_max(a, b)     ((a) > (b) ? (a) : (b))
+#define P_MIN(a, b)     ((a) < (b) ? (a) : (b))
+#define P_MAX(a, b)     ((a) > (b) ? (a) : (b))
+
+/* Макрос P_SWAP на базе typeof позволяет одной строкой менять
+ * местими int, double, struct, указатели и вообще любые типы.
+ * Только не следует использовать его с i++ и похожими 
+ * выражениями.
+ */
+#define P_SWAP(a, b)    do {                             \
+                                __typeof__(a) tmp = (a); \
+                                (a) = (b);               \
+                                (b) = tmp;               \
+                        } while (0)
 
 /* В стандарте С доступен атрибут cleanup (очистка) через расширение
  * GNU C (__attribute__((cleanup))). Он не является частью стандартов
