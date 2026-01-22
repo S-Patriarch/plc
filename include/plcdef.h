@@ -50,18 +50,27 @@
 /* Права доступа по умолчанию к создаваемым каталогам. */
 #define P_DIR_MODE      (P_FILE_MODE | S_IXUSR | S_IXGRP | S_IXOTH)
 
-#define P_MIN(a, b)     ((a) < (b) ? (a) : (b))
-#define P_MAX(a, b)     ((a) > (b) ? (a) : (b))
+#define P_MIN(a, b)     ({                              \
+                                __typeof__(a) _a = (a); \
+                                __typeof__(b) _b = (b); \
+                                _a < _b ? _a : _b;      \
+                        })
+
+#define P_MAX(a, b)     ({                              \
+                                __typeof__(a) _a = (a); \
+                                __typeof__(b) _b = (b); \
+                                _a > _b ? _a : _b;      \
+                        })
 
 /* Макрос P_SWAP на базе typeof позволяет одной строкой менять
  * местами int, double, struct, указатели и вообще любые типы.
  * Только не следует использовать его с i++ и похожими 
  * выражениями.
  */
-#define P_SWAP(a, b)    do {                             \
-                                __typeof__(a) tmp = (a); \
-                                (a) = (b);               \
-                                (b) = tmp;               \
+#define P_SWAP(a, b)    do {                            \
+                                __typeof__(a) _t = (a); \
+                                (a) = (b);              \
+                                (b) = _t;               \
                         } while (0)
 
 /* В стандарте С доступен атрибут cleanup (очистка) через расширение
