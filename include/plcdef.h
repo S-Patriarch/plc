@@ -12,37 +12,37 @@
 #include <string.h>
 #include <sys/stat.h>
 
-#define P_SUCCESS       0
-#define P_FAILURE       1
-#define P_ERROR         -1
+#define P_SUCCESS       (0)
+#define P_FAILURE       (1)
+#define P_ERROR         (-1)
 
-#define P_FALSE         0
-#define P_TRUE          1
+#define P_FALSE         (0)
+#define P_TRUE          (1)
 
 #define P_ESC           '\033' 
 #define P_VTAB          '\013'
 #define P_BELL          '\007'
 
-#define P_BUFSIZ_1      1
-#define P_BUFSIZ_2      2
-#define P_BUFSIZ_4      4
-#define P_BUFSIZ_8      8
-#define P_BUFSIZ_16     16
-#define P_BUFSIZ_32     32
-#define P_BUFSIZ_64     64
-#define P_BUFSIZ_128    128
-#define P_BUFSIZ_256    256
-#define P_BUFSIZ_512    512
-#define P_BUFSIZ_1K     1024
-#define P_BUFSIZ_2K     2048
-#define P_BUFSIZ_4K     4096
-#define P_BUFSIZ_8K     8192
-#define P_BUFSIZ_16K    16384
-#define P_BUFSIZ_32K    32768
-#define P_BUFSIZ_65K    65536
-#define P_BUFSIZ_131K   131072
-#define P_BUFSIZ_262K   262144
-#define P_BUFSIZ_524K   524288
+#define P_BUFSIZ_1      (1)
+#define P_BUFSIZ_2      (2)
+#define P_BUFSIZ_4      (4)
+#define P_BUFSIZ_8      (8)
+#define P_BUFSIZ_16     (16)
+#define P_BUFSIZ_32     (32)
+#define P_BUFSIZ_64     (64)
+#define P_BUFSIZ_128    (128)
+#define P_BUFSIZ_256    (256)
+#define P_BUFSIZ_512    (512)
+#define P_BUFSIZ_1K     (1024)
+#define P_BUFSIZ_2K     (2048)
+#define P_BUFSIZ_4K     (4096)
+#define P_BUFSIZ_8K     (8192)
+#define P_BUFSIZ_16K    (16384)
+#define P_BUFSIZ_32K    (32768)
+#define P_BUFSIZ_65K    (65536)
+#define P_BUFSIZ_131K   (131072)
+#define P_BUFSIZ_262K   (262144)
+#define P_BUFSIZ_524K   (524288)
 
 /* Права доступа по умолчанию к создаваемым файлам. */
 #define P_FILE_MODE     (S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH)
