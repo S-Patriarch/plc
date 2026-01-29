@@ -12,12 +12,12 @@
 #include <string.h>
 #include <sys/stat.h>
 
-#define P_SUCCESS       (0)
-#define P_FAILURE       (1)
+#define P_SUCCESS       0
+#define P_FAILURE       1
 #define P_ERROR         (-1)
 
-#define P_FALSE         (0)
-#define P_TRUE          (1)
+#define P_FALSE         0
+#define P_TRUE          1
 
 #define P_ESC           '\033' 
 #define P_VTAB          '\013'
@@ -44,22 +44,22 @@
 #define P_BUFSIZ_262K   (262144)
 #define P_BUFSIZ_524K   (524288)
 
-/* Права доступа по умолчанию к создаваемым файлам. */
+/* Права доступа по умолчанию к создаваемым файлам.  */
 #define P_FILE_MODE     (S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH)
  
-/* Права доступа по умолчанию к создаваемым каталогам. */
+/* Права доступа по умолчанию к создаваемым каталогам.  */
 #define P_DIR_MODE      (P_FILE_MODE | S_IXUSR | S_IXGRP | S_IXOTH)
 
-#define P_MIN(a, b)     ({                              \
-                                __typeof__(a) _a = (a); \
-                                __typeof__(b) _b = (b); \
-                                _a < _b ? _a : _b;      \
+#define P_MIN(a, b)     ({                                              \
+                                __typeof__(a) _a = (a);                 \
+                                __typeof__(b) _b = (b);                 \
+                                _a < _b ? _a : _b;                      \
                         })
 
-#define P_MAX(a, b)     ({                              \
-                                __typeof__(a) _a = (a); \
-                                __typeof__(b) _b = (b); \
-                                _a > _b ? _a : _b;      \
+#define P_MAX(a, b)     ({                                              \
+                                __typeof__(a) _a = (a);                 \
+                                __typeof__(b) _b = (b);                 \
+                                _a > _b ? _a : _b;                      \
                         })
 
 /* Макрос P_SWAP на базе typeof позволяет одной строкой менять
@@ -67,10 +67,10 @@
  * Только не следует использовать его с i++ и похожими 
  * выражениями.
  */
-#define P_SWAP(a, b)    do {                            \
-                                __typeof__(a) _t = (a); \
-                                (a) = (b);              \
-                                (b) = _t;               \
+#define P_SWAP(a, b)    do {                                            \
+                                __typeof__(a) _t = (a);                 \
+                                (a) = (b);                              \
+                                (b) = _t;                               \
                         } while (0)
 
 /* В стандарте С доступен атрибут cleanup (очистка) через расширение
@@ -87,8 +87,8 @@
 /* Макрос для объявления массива переменной длины (VLA) 
  * на стеке и обнуления всех его элементов.
  */
-#define P_DECLARE_AND_ZERO_ARRAY(type, name, size) \
-        type name[size];                           \
+#define P_DECLARE_AND_ZERO_ARRAY(type, name, size)                      \
+        type name[size];                                                \
         memset(name, 0, (size) * sizeof(type))
 
 /* Макрос для объявления массива переменной длины (VLA) 
@@ -96,7 +96,7 @@
  * В этом случае не забывайте освобождать память с
  * помощью free().
  */
-#define P_DECLARE_AND_ZERO_DYNAMIC_ARRAY(type, name, size) \
+#define P_DECLARE_AND_ZERO_DYNAMIC_ARRAY(type, name, size)              \
         type *name = (type *)calloc(size, sizeof(type))
 
 #endif  /* __PLC_PLCDEF_H */
