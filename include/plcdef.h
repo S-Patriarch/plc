@@ -82,7 +82,7 @@
  * из блока {}, возврате из функции или при возникновении исключения
  * через setjmp/longjmp в некоторых случаях). 
  */
-#define P_AUTO_CLEANUP(func)    __attribute__((cleanup(func)))
+#define P_CLEANUP(func)         __attribute__((cleanup(func)))
 
 /* Макрос для объявления массива переменной длины (VLA) 
  * на стеке и обнуления всех его элементов.
