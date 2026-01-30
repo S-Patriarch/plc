@@ -8,11 +8,13 @@
 #ifndef __PLC_TIMER_H
 #define __PLC_TIMER_H   1
 
-void p_start_timer(void); /* начало замера */
-void p_stop_timer(void);  /* завершение замера */
+#include <plc/plcdef.h>
 
-double p_duration_seconds(void); /* результат замера в секундах */
-double p_duration_minutes(void); /* результат замера в минутах */
-double p_duration_hours(void);   /* результат замера в часах */
+void    p_start_timer(void) P_NOEXCEPT;      /* начало замера  */
+void    p_stop_timer(void) P_NOEXCEPT;       /* завершение замера  */
 
-#endif  /* __PLC_TIMER_H */
+double  p_duration_seconds(void) P_NOEXCEPT; /* результат замера в секундах  */
+double  p_duration_minutes(void) P_NOEXCEPT; /* результат замера в минутах  */
+double  p_duration_hours(void) P_NOEXCEPT;   /* результат замера в часах  */
+
+#endif  /* __PLC_TIMER_H  */

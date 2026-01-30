@@ -29,4 +29,4 @@
 #include <plc/void_cast.h>
 #include <plc/window.h>
 
-#endif  /* __PLC_H */
+#endif  /* __PLC_H  */

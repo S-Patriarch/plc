@@ -10,29 +10,29 @@
 
 #include <stdbool.h>
 #include <stdint.h>
+#include <plc/plcdef.h>
 
-int p_powi(int base, int exponentnt);  /* бинарное возведение в степень */
+int     p_powi(int base, int exponentnt) P_NOEXCEPT;   /* бинарное возведение в степень  */
 
-int p_bintodec(long long bin_number);  /* преобразование 2-ного числа в 10-ное */
-long long p_dectobin(int dec_number);  /* преобразование 10-ного числа в 2-ное */
-int p_octtodec(int oct_number);        /* преобразование 8-ного числа в 10-ное */
-int p_dectooct(int dec_number);        /* преобразование 10-ного числа в 8-ное */
-int p_bintooct(long long bin_number);  /* преобразование 2-ного числа в 8-ное */
-long long p_octtobin(int oct_number);  /* преобразование 8-ного числа в 2-ное */
+int       p_bintodec(long long bin_number) P_NOEXCEPT; /* преобразование 2-ного числа в 10-ное  */
+long long p_dectobin(int dec_number) P_NOEXCEPT;       /* преобразование 10-ного числа в 2-ное  */
+int       p_octtodec(int oct_number) P_NOEXCEPT;       /* преобразование 8-ного числа в 10-ное  */
+int       p_dectooct(int dec_number) P_NOEXCEPT;       /* преобразование 10-ного числа в 8-ное  */
+int       p_bintooct(long long bin_number) P_NOEXCEPT; /* преобразование 2-ного числа в 8-ное  */
+long long p_octtobin(int oct_number) P_NOEXCEPT;       /* преобразование 8-ного числа в 2-ное  */
 
-int p_random_int(int min, int max);    /* генерация случайного числа */
+int     p_random_int(int min, int max) P_NOEXCEPT;     /* генерация случайного числа  */
 
-/* упаковка 8 значений bool в 1 байт */
+/* упаковка 8 значений bool в 1 байт  */
 uint8_t p_pack_bools(bool b1, bool b2, bool b3, bool b4,
-                     bool b5, bool b6, bool b7, bool b8);
+                     bool b5, bool b6, bool b7, bool b8) P_NOEXCEPT;
 
-/* распаковка 1 байта на 8 значений типа bool */
-void p_unpack_bools(uint8_t p,                            
-                    bool *b1, bool *b2, bool *b3, bool *b4,
-                    bool *b5, bool *b6, bool *b7, bool *b8);
+/* распаковка 1 байта на 8 значений типа bool  */
+void    p_unpack_bools(uint8_t p,                            
+                       bool *b1, bool *b2, bool *b3, bool *b4,
+                       bool *b5, bool *b6, bool *b7, bool *b8) P_NOEXCEPT;
 
-/*
- * Функция хэширования строки.
+/* Функция хэширования строки.
  * Авторство приписывается Дэниэлу Дж. Бернстайну.
  * 
  * Для каждого символа в строке (или каждого байта многобайтного символа UTF-8)
@@ -42,9 +42,9 @@ void p_unpack_bools(uint8_t p,
  * unsigned int, в которой хэш сохраняется, но это всего лишь еще один неявный
  * детерминированный шаг алгоритма.
  */
-unsigned int p_strhash(const char *s);
+unsigned int    p_strhash(const char *s) P_NOEXCEPT;
 
-/* Хэширование списка указателей */
-unsigned int p_ptr_list_hash(void **in);
+/* Хэширование списка указателей  */
+unsigned int    p_ptr_list_hash(void **in) P_NOEXCEPT;
 
-#endif  /* __PLC_ALGORITHM_H */
+#endif  /* __PLC_ALGORITHM_H  */

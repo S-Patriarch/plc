@@ -8,19 +8,21 @@
 #ifndef __PLC_IO_H
 #define __PLC_IO_H      1
 
+#include <plc/plcdef.h>
+
 enum mess_format {
-        mess_n,         /* нет формата - "" */
-        mess_w,         /* предупреждение - "W: " */
-        mess_e          /* ошибка - "E: " */
+        mess_n,         /* нет формата - ""  */
+        mess_w,         /* предупреждение - "W: "  */
+        mess_e          /* ошибка - "E: "  */
 };
 
-/* вывод сообщения в stdout*/
-int p_mout(const char       *message, 
-           enum mess_format  format, 
-           const char       *attr_m, 
-           const char       *attr_f);
+/* вывод сообщения в stdout  */
+int     p_mout(const char       *message, 
+               enum mess_format  format, 
+               const char       *attr_m, 
+               const char       *attr_f) P_NOEXCEPT;
 
-/* вывод строки в stdout */
-int p_cout(const char *s);
+/* вывод строки в stdout  */
+int     p_cout(const char *s) P_NOEXCEPT;
 
-#endif  /* __PLC_IO_H */
+#endif  /* __PLC_IO_H  */

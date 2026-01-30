@@ -8,8 +8,10 @@
 #ifndef __PLC_FILE_H
 #define __PLC_FILE_H    1
 
-int     p_file_copy(const char *f_src, const char *f_dst);
-int     p_file_move(const char *f_src, const char *f_dst);
+#include <plc/plcdef.h>
+
+int     p_file_copy(const char *f_src, const char *f_dst) P_NOEXCEPT;
+int     p_file_move(const char *f_src, const char *f_dst) P_NOEXCEPT;
 
 /* Функция включает один или более флагов состояния файла.
  * Флаги состояния файла:
@@ -26,6 +28,6 @@ int     p_file_move(const char *f_src, const char *f_dst);
  * O_FSYNC    - ожидать завершения операции записи (только FreeBSD и Mac OS X)
  * O_ASYNC    - асинхронный режим ввода/вывода (только FreeBSD и Mac OS X)
  */
-int     p_file_setfl(int fd, int flags);
+int     p_file_setfl(int fd, int flags) P_NOEXCEPT;
 
-#endif  /* __PLC_FILE_H */
+#endif  /* __PLC_FILE_H  */

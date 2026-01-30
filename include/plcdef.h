@@ -12,6 +12,12 @@
 #include <string.h>
 #include <sys/stat.h>
 
+#ifdef __cplusplus
+        #define P_NOEXCEPT      noexcept
+#else
+        #define P_NOEXCEPT
+#endif
+
 #define P_SUCCESS       0
 #define P_FAILURE       1
 #define P_ERROR         (-1)
@@ -99,4 +105,4 @@
 #define P_DECLARE_AND_ZERO_DYNAMIC_ARRAY(type, name, size)              \
         type *name = (type *)calloc(size, sizeof(type))
 
-#endif  /* __PLC_PLCDEF_H */
+#endif  /* __PLC_PLCDEF_H  */

@@ -10,18 +10,19 @@
 
 #include <pthread.h>
 #include <stdatomic.h>
+#include <plc/plcdef.h>
 
 typedef struct {
-        pthread_t    thread;               /* идентификатор потока */
-        void         *result;              /* указатель на результат */
-        atomic_bool   completed;           /* флаг завершения задачи */
-        void         *(*function)(void*);  /* функция для выполнения */
-        void         *argument;            /* аргумент для функции */
+        pthread_t       thread;             /* идентификатор потока  */
+        void           *result;             /* указатель на результат  */
+        atomic_bool     completed;          /* флаг завершения задачи  */
+        void           *(*function)(void*); /* функция для выполнения  */
+        void           *argument;           /* аргумент для функции  */
 } future_s;
 
-future_s *p_async_create(void *(*func)(void*), void *arg);  /* создание задачи */
-int       p_async_launch(future_s *future);                 /* запуск задачи */
-void     *p_async_get(future_s *future);                    /* получение результата */
-void      p_async_free(future_s *future);                   /* освобождение ресурсов */
+future_s *p_async_create(void *(*func)(void*), void *arg) P_NOEXCEPT; /* создание задачи  */
+int       p_async_launch(future_s *future) P_NOEXCEPT;                /* запуск задачи  */
+void     *p_async_get(future_s *future) P_NOEXCEPT;                   /* получение результата  */
+void      p_async_free(future_s *future) P_NOEXCEPT;                  /* освобождение ресурсов  */
 
-#endif  /* __PLC_ASYNC_H */ 
+#endif  /* __PLC_ASYNC_H  */ 

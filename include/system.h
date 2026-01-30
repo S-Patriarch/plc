@@ -8,8 +8,10 @@
 #ifndef __PLC_SYSTEM_H
 #define __PLC_SYSTEM_H  1
 
-/* Определение доступности языковой локали. */
-int     p_locale_available(const char *locale);
+#include <plc/plcdef.h>
+
+/* Определение доступности языковой локали.  */
+int     p_locale_available(const char *locale) P_NOEXCEPT;
 
 /* Получает языковую локаль из параметров окружения пользователя.
  * Возвращает указатель на строку языковой локали в случае успеха, 
@@ -20,7 +22,7 @@ int     p_locale_available(const char *locale);
  *      lang = p_getlocale();
  *      free(lang);
  */
-char   *p_getlocale(void);
+char   *p_getlocale(void) P_NOEXCEPT;
 
 /* Функция-обертка для освобождения ресурса и обнуления указателя
  * на этот освобождаемый ресурс.
@@ -29,6 +31,6 @@ char   *p_getlocale(void);
  *      int *ip = (int *)malloc(sizeof(int));
  *      p_free_ptr((void **)&ip);
  */
-void    p_free_ptr(void **ptr);
+void    p_free_ptr(void **ptr) P_NOEXCEPT;
 
-#endif  /* __PLC_SYSTEM_H */
+#endif  /* __PLC_SYSTEM_H  */

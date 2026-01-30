@@ -49,4 +49,4 @@ void    p_err_msg(const char *fmt, ...);
  */
 void    p_err_quit(const char *fmt, ...);
 
-#endif  /* __PLC_ERROR_H */
+#endif  /* __PLC_ERROR_H  */

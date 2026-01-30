@@ -20,4 +20,4 @@
         #define P_VOID_CAST(x) x
 #endif
 
-#endif  /* __PLC_VOID_CAST_H */
+#endif  /* __PLC_VOID_CAST_H  */
