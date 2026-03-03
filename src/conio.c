@@ -17,7 +17,7 @@
 struct text_info t;
 struct win_size ws;
 
-void p_conio_init(void)
+void p_conio_init(void) P_NOEXCEPT
 {
         struct winsize s;
 
@@ -33,44 +33,44 @@ void p_conio_init(void)
         }
 }
 
-void p_setrow(size_t row)
+void p_setrow(size_t row) P_NOEXCEPT
 {
         t.cur_row = row;
 }
 
-void p_setcol(size_t col)
+void p_setcol(size_t col) P_NOEXCEPT
 {
         t.cur_col = col;
 }
 
-size_t p_getrow(void)
+size_t p_getrow(void) P_NOEXCEPT
 {
         return t.cur_row;
 }
 
-size_t p_getcol(void)
+size_t p_getcol(void) P_NOEXCEPT
 {
         return t.cur_col;
 }
 
-size_t p_getwsrow(void)
+size_t p_getwsrow(void) P_NOEXCEPT
 {
         return ws.ws_row;
 }
 
-size_t p_getwscol(void)
+size_t p_getwscol(void) P_NOEXCEPT
 {
         return ws.ws_col;
 }
 
-void p_gotoyx(size_t row, size_t col)
+void p_gotoyx(size_t row, size_t col) P_NOEXCEPT
 {
         t.cur_row = row;
         t.cur_col = col;
         printf("\033[%zu;%zuH", t.cur_row, t.cur_col);
 }
 
-int p_getchar(char *c)
+int p_getchar(char *c) P_NOEXCEPT
 {
         struct termios old_t;
 
@@ -96,7 +96,7 @@ int p_getchar(char *c)
         return P_SUCCESS;
 }
 
-int p_gethiddens(char *s, size_t size)
+int p_gethiddens(char *s, size_t size) P_NOEXCEPT
 {
         struct termios old_t, new_t;
 
@@ -122,28 +122,28 @@ int p_gethiddens(char *s, size_t size)
         return P_SUCCESS;
 }
 
-void p_setattr(const char *attr)
+void p_setattr(const char *attr) P_NOEXCEPT
 {
         printf("%s", attr);
 }
 
-void p_resattr(void)
+void p_resattr(void) P_NOEXCEPT
 {
         const size_t RESET = 0;
         printf("\033[%zum", RESET);
 }
 
-void p_screen_save(void)
+void p_screen_save(void) P_NOEXCEPT
 {
         printf("\033[?1049h");
 }
 
-void p_screen_restore(void)
+void p_screen_restore(void) P_NOEXCEPT
 {
         printf("\033[?1049l");
 }
 
-void p_clrscr(void)
+void p_clrscr(void) P_NOEXCEPT
 {
         printf("\033[2J\033[1;1H");
 }
@@ -151,63 +151,63 @@ void p_clrscr(void)
 /*
  * Функции управления положением курсора.
  */
-void p_cursor_move(size_t row, size_t col)
+void p_cursor_move(size_t row, size_t col) P_NOEXCEPT
 {
         t.cur_row = row;
         t.cur_col = col;
         printf("\033[%zu;%zuH", t.cur_row, t.cur_col);
 }
 
-void p_cursor_down(size_t count)
+void p_cursor_down(size_t count) P_NOEXCEPT
 {
         t.cur_row += count;
         printf("\033[%zuB", count);
 }
 
-void p_cursor_up(size_t count)
+void p_cursor_up(size_t count) P_NOEXCEPT
 {
         t.cur_row -= count;
         printf("\033[%zuA", count);
 }
 
-void p_cursor_forward(size_t count) 
+void p_cursor_forward(size_t count) P_NOEXCEPT
 {
         t.cur_col += count;
         printf("\033[%zuC", count);
 }
 
-void p_cursor_backward(size_t count)
+void p_cursor_backward(size_t count) P_NOEXCEPT
 {
         t.cur_col -= count;
         printf("\033[%zuD", count);
 }
 
-void p_cursor_save(void)
+void p_cursor_save(void) P_NOEXCEPT
 {
         printf("\033[s");
 }
 
-void p_cursor_unsave(void)
+void p_cursor_unsave(void) P_NOEXCEPT
 {
         printf("\033[u");
 }
 
-void p_cursor_save_and_attr(void)
+void p_cursor_save_and_attr(void) P_NOEXCEPT
 {
         printf("\0337");
 }
 
-void p_cursor_unsave_and_attr(void) 
+void p_cursor_unsave_and_attr(void) P_NOEXCEPT
 {
         printf("\0338");
 }
 
-void p_cursor_hidden(void)          
+void p_cursor_hidden(void) P_NOEXCEPT
 {
         printf("\033[?25l");
 }
 
-void p_cursor_visible(void)         
+void p_cursor_visible(void) P_NOEXCEPT  
 {
         printf("\033[?25h");
 }
@@ -215,22 +215,22 @@ void p_cursor_visible(void)
 /*
  * Функции управления скроллингом экрана.
  */
-void p_scroll_screen_all(void)
+void p_scroll_screen_all(void) P_NOEXCEPT
 {
         printf("\033[r");
 }
 
-void p_scroll_screen(size_t begin, size_t end)
+void p_scroll_screen(size_t begin, size_t end) P_NOEXCEPT
 {
         printf("\033[%zu;%zur", begin, end);
 }
 
-void p_scroll_down(void)
+void p_scroll_down(void) P_NOEXCEPT
 {
         printf("\033D");
 }
 
-void p_scroll_up(void)
+void p_scroll_up(void) P_NOEXCEPT
 {
         printf("\033M");
 }
@@ -238,17 +238,17 @@ void p_scroll_up(void)
 /*
  * Функции управления табуляцией.
  */
-void p_tab_set(void)
+void p_tab_set(void) P_NOEXCEPT
 {
         printf("\033H");
 }
 
-void p_tab_clear(void)
+void p_tab_clear(void) P_NOEXCEPT
 {
         printf("\033[g");
 }
 
-void p_tab_clear_all(void)
+void p_tab_clear_all(void) P_NOEXCEPT
 {
         printf("\033[3g");
 }
@@ -256,32 +256,32 @@ void p_tab_clear_all(void)
 /*
  * Функции стирания текста.
  */
-void p_erase_end_of_line(void)
+void p_erase_end_of_line(void) P_NOEXCEPT
 {
         printf("\033[K");
 }
 
-void p_erase_begin_of_line(void)
+void p_erase_begin_of_line(void) P_NOEXCEPT
 {
         printf("\033[1K");
 }
 
-void p_erase_line(void)
+void p_erase_line(void) P_NOEXCEPT
 {
         printf("\033[2K");
 }
 
-void p_erase_down(void)
+void p_erase_down(void) P_NOEXCEPT
 {
         printf("\033[J");
 }
 
-void p_erase_up(void)
+void p_erase_up(void) P_NOEXCEPT
 {
         printf("\033[1J");
 }
 
-void p_erase_screen(void)
+void p_erase_screen(void) P_NOEXCEPT
 {
         printf("\033[2J");
 }
@@ -289,17 +289,17 @@ void p_erase_screen(void)
 /*
  * Функции установки режима терминала.
  */
-void p_device_reset(void)
+void p_device_reset(void) P_NOEXCEPT
 {
         printf("\033c");
 }
 
-void p_line_wrap_enable(void)
+void p_line_wrap_enable(void) P_NOEXCEPT
 {
         printf("\033[7h");
 }
 
-void p_line_wrap_disable(void)
+void p_line_wrap_disable(void) P_NOEXCEPT
 {
         printf("\033[7l");
 }

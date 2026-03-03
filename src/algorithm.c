@@ -9,7 +9,8 @@
 #include <stdlib.h>
 #include <time.h>
 
-int p_powi(int base, int exponent) 
+int 
+p_powi(int base, int exponent) P_NOEXCEPT 
 {
         int res = 1;
 
@@ -23,7 +24,8 @@ int p_powi(int base, int exponent)
         return res;
 }
 
-int p_bintodec(long long bin_number)
+int 
+p_bintodec(long long bin_number) P_NOEXCEPT
 {
         int dec_number =0;
         int remainder;
@@ -39,7 +41,8 @@ int p_bintodec(long long bin_number)
         return dec_number;
 }
 
-long long p_dectobin(int dec_number)
+long long 
+p_dectobin(int dec_number) P_NOEXCEPT
 {
         long long bin_number = 0;
         int remainder;
@@ -55,7 +58,8 @@ long long p_dectobin(int dec_number)
         return bin_number;
 }
  
-int p_octtodec(int oct_number)
+int 
+p_octtodec(int oct_number) P_NOEXCEPT
 {
         int dec_number = 0;
         int remainder;
@@ -71,7 +75,8 @@ int p_octtodec(int oct_number)
         return dec_number;
 }
 
-int p_dectooct(int dec_number)
+int 
+p_dectooct(int dec_number) P_NOEXCEPT
 {
         int oct_number = 0;
         int remainder;
@@ -87,7 +92,8 @@ int p_dectooct(int dec_number)
         return oct_number;
 }
 
-int p_bintooct(long long bin_number)
+int 
+p_bintooct(long long bin_number) P_NOEXCEPT
 {
         int oct_number = 0;
         int dec_number = 0;
@@ -109,7 +115,8 @@ int p_bintooct(long long bin_number)
         return oct_number;
 }
 
-long long p_octtobin(int oct_number)
+long long 
+p_octtobin(int oct_number) P_NOEXCEPT
 {
         long long bin_number = 0;
         int dec_number = 0;
@@ -131,7 +138,8 @@ long long p_octtobin(int oct_number)
         return bin_number;
 }
 
-int p_random_int(int min, int max)
+int 
+p_random_int(int min, int max) P_NOEXCEPT
 {
         srand(time(NULL));
         return (min + rand() % (max - min + 1));
@@ -149,8 +157,9 @@ int p_random_int(int min, int max)
  * переменная bool занимает 1 бит, а другие 7 бит - тратятся 
  * впустую.
  */
-uint8_t p_pack_bools(bool b1, bool b2, bool b3, bool b4,
-                     bool b5, bool b6, bool b7, bool b8)
+uint8_t 
+p_pack_bools(bool b1, bool b2, bool b3, bool b4,
+             bool b5, bool b6, bool b7, bool b8) P_NOEXCEPT
 {
         uint8_t p = 0;
 
@@ -166,9 +175,10 @@ uint8_t p_pack_bools(bool b1, bool b2, bool b3, bool b4,
         return p;
 }
 
-void p_unpack_bools(uint8_t p,
-                    bool *b1, bool *b2, bool *b3, bool *b4,
-                    bool *b5, bool *b6, bool *b7, bool *b8)
+void 
+p_unpack_bools(uint8_t p,
+               bool *b1, bool *b2, bool *b3, bool *b4,
+               bool *b5, bool *b6, bool *b7, bool *b8) P_NOEXCEPT
 {
         *b1 = (p >> 7) & 1;
         *b2 = (p >> 6) & 1;
@@ -180,19 +190,43 @@ void p_unpack_bools(uint8_t p,
         *b8 = p & 1;
 }
 
-unsigned int p_strhash(const char *s) 
-{
-        unsigned int hash = 5381;
-        char c;
-        while ((c = *s++)) hash = hash*33 + c;
-        return hash;
-}
-
-unsigned int p_ptr_list_hash(void **in) 
+unsigned int 
+p_ptr_list_hash(void **in) P_NOEXCEPT 
 {
         unsigned int hash = 5381;
         void *c;
         while ((c = *in++)) hash = hash*33 + (uintptr_t)c;
         return hash;
+}
+
+unsigned int 
+p_strhash32(const char *s) P_NOEXCEPT
+{
+        unsigned int    hash = 5381;
+        unsigned char   c;
+
+        while ((c = (unsigned char)*s++)) 
+                hash = hash * 33 + c;
+
+        return(hash);
+}
+
+unsigned long long
+p_strhash64(const char *s) P_NOEXCEPT
+{
+        unsigned long long      hash = 14695981039346656037ULL;
+        unsigned long long      prime = 1099511628211ULL;
+        unsigned char           c;
+
+        while ((c = (unsigned char)*s++)) {
+                hash ^= c;
+                hash *= prime;
+
+                /* дополнительное перемешивание для защиты от коллизий  */
+                hash ^= hash >> 31;
+                hash ^= hash << 13;
+        }
+
+        return(hash);
 }
 

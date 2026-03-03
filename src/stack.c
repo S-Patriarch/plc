@@ -7,7 +7,7 @@
 
 #include <plc/stack.h>
 
-void p_stack_init(thread_safe_stack_s *stack) 
+void p_stack_init(thread_safe_stack_s *stack) P_NOEXCEPT 
 {
         if (stack == NULL) return;
 
@@ -17,7 +17,7 @@ void p_stack_init(thread_safe_stack_s *stack)
         pthread_mutex_init(&stack->mutex, NULL);
 }
 
-void p_stack_destroy(thread_safe_stack_s *stack, void (*free_data)(void*)) 
+void p_stack_destroy(thread_safe_stack_s *stack, void (*free_data)(void*)) P_NOEXCEPT
 {
         if (stack == NULL) return;
 
@@ -39,7 +39,7 @@ void p_stack_destroy(thread_safe_stack_s *stack, void (*free_data)(void*))
         pthread_mutex_destroy(&stack->mutex);
 }
 
-bool p_stack_push(thread_safe_stack_s *stack, void *data) 
+bool p_stack_push(thread_safe_stack_s *stack, void *data) P_NOEXCEPT
 {
         if (stack == NULL) return false;
 
@@ -58,7 +58,7 @@ bool p_stack_push(thread_safe_stack_s *stack, void *data)
        return true;
 }
 
-void *p_stack_pop(thread_safe_stack_s *stack) 
+void *p_stack_pop(thread_safe_stack_s *stack) P_NOEXCEPT
 {
         if (stack == NULL) return NULL;
 
@@ -80,7 +80,7 @@ void *p_stack_pop(thread_safe_stack_s *stack)
         return data;
 }
 
-void *p_stack_peek(thread_safe_stack_s *stack) 
+void *p_stack_peek(thread_safe_stack_s *stack) P_NOEXCEPT
 {
         if (stack == NULL) return NULL;
 
@@ -92,7 +92,7 @@ void *p_stack_peek(thread_safe_stack_s *stack)
         return data;
 }
 
-bool p_stack_empty(thread_safe_stack_s *stack) 
+bool p_stack_empty(thread_safe_stack_s *stack) P_NOEXCEPT
 {
         if (stack == NULL) return true;
 
@@ -103,7 +103,7 @@ bool p_stack_empty(thread_safe_stack_s *stack)
         return empty;
 }
 
-size_t p_stack_size(thread_safe_stack_s *stack) 
+size_t p_stack_size(thread_safe_stack_s *stack) P_NOEXCEPT
 {
         if (stack == NULL) return 0;
 

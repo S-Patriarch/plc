@@ -16,7 +16,7 @@
 void p_setwintitle(const char *title,
                    enum win_title_location location,
                    const char *attrcolor,
-                   window_s *win) 
+                   window_s *win) P_NOEXCEPT
 {
         if (title == NULL || *title == '\0')
                 strncpy(win->wtl.wtl_title, "", LEN_TITLE-1);
@@ -42,7 +42,7 @@ void p_setwindow(size_t y,
                  size_t width,
                  enum win_box_view view,
                  const char *attrcolor,
-                 window_s *win) 
+                 window_s *win) P_NOEXCEPT
 {
         win->win_y = y;
         win->win_x = x;
@@ -58,7 +58,7 @@ void p_setwindow(size_t y,
         win->win_attrcolor[LEN_ATTR_COLOR-1] = '\0';
 }
 
-void p_wdraw(const window_s *win) 
+void p_wdraw(const window_s *win) P_NOEXCEPT
 {
         p_resattr();
         p_setattr(win->win_attrcolor);
@@ -166,7 +166,7 @@ void p_wdraw(const window_s *win)
 int p_wout(const char *s,
            const char *attrcolor,
            size_t from_tb,
-           const window_s *win)
+           const window_s *win) P_NOEXCEPT
 {
         if (s == NULL || *s == '\0') return P_ERROR;
 

@@ -16,7 +16,7 @@ void p_setline(size_t y,
                enum line_direct line_direct,
                enum line_view line_view,
                const char *attrcolor,
-               line_s *line) 
+               line_s *line) P_NOEXCEPT 
 {
         line->line_y = y;
         line->line_x = x;
@@ -31,7 +31,7 @@ void p_setline(size_t y,
         line->line_attrcolor[LEN_ATTR_COLOR-1] = '\0';
 }
 
-void p_ldraw(const line_s *line) 
+void p_ldraw(const line_s *line) P_NOEXCEPT
 {
         p_resattr();
         p_setattr(line->line_attrcolor);

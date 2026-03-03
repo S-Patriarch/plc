@@ -14,7 +14,7 @@
 #include <stdlib.h>
 
 int 
-p_strrev(char *s)
+p_strrev(char *s) P_NOEXCEPT
 {
         if (s == NULL || *s == '\0')
                 return P_ERROR;
@@ -32,7 +32,7 @@ p_strrev(char *s)
 }
 
 char **
-p_strspl(const char *s, size_t *w_count) 
+p_strspl(const char *s, size_t *w_count) P_NOEXCEPT
 {
         if (s == NULL || *s == '\0')
                 return NULL;
@@ -80,7 +80,7 @@ p_strspl(const char *s, size_t *w_count)
 }
 
 void 
-p_free_words(char **words, size_t w_count) 
+p_free_words(char **words, size_t w_count) P_NOEXCEPT
 {
         for (size_t i = 0; i != w_count; i++)
                 free(words[i]);
@@ -90,7 +90,7 @@ p_free_words(char **words, size_t w_count)
 }
 
 size_t 
-p_count_char(const char *s, char c) 
+p_count_char(const char *s, char c) P_NOEXCEPT
 {
         if (s == NULL || *s == '\0')
                 return 0;
@@ -104,7 +104,7 @@ p_count_char(const char *s, char c)
 }
 
 size_t 
-p_count_words(const char *s) 
+p_count_words(const char *s) P_NOEXCEPT
 {
         if (s == NULL || *s == '\0')
                 return 0;
@@ -126,7 +126,7 @@ p_count_words(const char *s)
 }
 
 size_t 
-p_count_utf8_chars(const char *s) 
+p_count_utf8_chars(const char *s) P_NOEXCEPT
 {
         if (s == NULL || *s == '\0')
                 return 0;
@@ -153,7 +153,7 @@ p_count_utf8_chars(const char *s)
 }
 
 size_t *
-p_extract_digits(const char *s, size_t *d_count) 
+p_extract_digits(const char *s, size_t *d_count) P_NOEXCEPT
 {
         if (s == NULL || *s == '\0') {
                 *d_count = 0;
@@ -183,7 +183,7 @@ p_extract_digits(const char *s, size_t *d_count)
 }
 
 int 
-p_strcpy(char *to, char *from) 
+p_strcpy(char *to, char *from) P_NOEXCEPT
 {
         if (from == NULL || *from == '\0')
                 return P_ERROR;
@@ -207,7 +207,7 @@ p_strcpy(char *to, char *from)
 }
 
 void *
-p_memcpy(void *dest, const void *src, size_t size) 
+p_memcpy(void *dest, const void *src, size_t size) P_NOEXCEPT
 {
         unsigned char *d = (unsigned char*)dest;
         const unsigned char *s = (const unsigned char*)src;
@@ -229,29 +229,29 @@ p_memcpy(void *dest, const void *src, size_t size)
 }
 
 string_s *
-p_string_new(void) 
+p_string_new(void) P_NOEXCEPT
 {
-        string_s *str = malloc(sizeof(string_s));
+        string_s *str = (string_s *)malloc(sizeof(string_s));
         str->capacity = 16;
         str->length = 0;
-        str->data = malloc(str->capacity);
+        str->data = (char *)malloc(str->capacity);
         str->data[0] = '\0';
         return str;
 }
 
 string_s *
-p_string_from_cstr(const char *cstr) 
+p_string_from_cstr(const char *cstr) P_NOEXCEPT
 {
-        string_s *str = malloc(sizeof(string_s));
+        string_s *str = (string_s *)malloc(sizeof(string_s));
         str->length = strlen(cstr);
         str->capacity = str->length + 1;
-        str->data = malloc(str->capacity);
+        str->data = (char *)malloc(str->capacity);
         strcpy(str->data, cstr);
         return str;
 }
 
 void 
-p_string_free(string_s *str) 
+p_string_free(string_s *str) P_NOEXCEPT
 {
         if (str) {
                 free(str->data);
@@ -260,62 +260,62 @@ p_string_free(string_s *str)
 }
 
 void 
-p_string_append(string_s *str, const char *s) 
+p_string_append(string_s *str, const char *s) P_NOEXCEPT
 {
         size_t add_len = strlen(s);
         if (str->length + add_len + 1 >= str->capacity) {
                 str->capacity = (str->length + add_len + 1) * 2;
-                str->data = realloc(str->data, str->capacity);
+                str->data = (char *)realloc(str->data, str->capacity);
         }
         strcat(str->data, s);
         str->length += add_len;
 }
 
 void 
-p_string_append_char(string_s *str, char c) 
+p_string_append_char(string_s *str, char c) P_NOEXCEPT
 {
         if (str->length + 2 >= str->capacity) {
                 str->capacity *= 2;
-                str->data = realloc(str->data, str->capacity);
+                str->data = (char *)realloc(str->data, str->capacity);
         }
         str->data[str->length++] = c;
         str->data[str->length] = '\0';
 }
 
 void 
-p_string_clear(string_s *str) 
+p_string_clear(string_s *str) P_NOEXCEPT
 {
         str->length = 0;
         str->data[0] = '\0';
 }
 
 int 
-p_string_empty(const string_s *str) 
+p_string_empty(const string_s *str) P_NOEXCEPT
 {
         if (str->length == 0) return P_TRUE;
         else                  return P_FALSE;
 }
 
 int 
-p_string_compare(const string_s *str1, const string_s *str2) 
+p_string_compare(const string_s *str1, const string_s *str2) P_NOEXCEPT
 {
         return strcmp(str1->data, str2->data);
 }
 
 size_t 
-p_string_size(const string_s *str) 
+p_string_size(const string_s *str) P_NOEXCEPT
 {
         return str->length;
 }
 
 const char *
-p_string_cstr(const string_s *str) 
+p_string_cstr(const string_s *str) P_NOEXCEPT
 {
         return str->data;
 }
 
 int 
-p_strjoin(char **strings, size_t count, const char *delimiter, char **result)
+p_strjoin(char **strings, size_t count, const char *delimiter, char **result) P_NOEXCEPT
 {
         size_t  i;
         size_t  rlen, dlen;

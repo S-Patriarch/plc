@@ -13,7 +13,7 @@
 #include <stdio.h>
 #include <sys/types.h>
 
-logger_s *p_logger_create(const char *file_name)
+logger_s *p_logger_create(const char *file_name) P_NOEXCEPT
 {
         /* выделяем память под структуру логгера */
         logger_s *log = (logger_s *)malloc(sizeof(logger_s));
@@ -44,7 +44,7 @@ logger_s *p_logger_create(const char *file_name)
         return log;
 }
 
-void p_logger_destroy(logger_s *log)
+void p_logger_destroy(logger_s *log) P_NOEXCEPT
 {
         if (!log) return;
 
@@ -57,7 +57,7 @@ void p_logger_destroy(logger_s *log)
         free(log);
 }
 
-void p_logger_write(logger_s *log, const char *msg)
+void p_logger_write(logger_s *log, const char *msg) P_NOEXCEPT
 {
         if (!log || !msg) return;
 
@@ -73,7 +73,7 @@ void p_logger_write(logger_s *log, const char *msg)
         pthread_mutex_unlock(&log->lck_write);
 }
 
-char *p_logger_read(logger_s *log)
+char *p_logger_read(logger_s *log) P_NOEXCEPT
 {
         if (!log) return NULL;
 

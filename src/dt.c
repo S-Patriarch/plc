@@ -12,7 +12,7 @@
 #include <time.h>
 #include <stdio.h>
 
-int p_getdate(char *s, size_t size) 
+int p_getdate(char *s, size_t size) P_NOEXCEPT 
 {
         time_t now;
 
@@ -26,7 +26,7 @@ int p_getdate(char *s, size_t size)
         return P_SUCCESS;
 }
 
-int p_gettime(char *s, size_t size) 
+int p_gettime(char *s, size_t size) P_NOEXCEPT
 {
         time_t now;
 
@@ -42,7 +42,7 @@ int p_gettime(char *s, size_t size)
 
 int p_date_convert(const char *s_in,  size_t size_s_in, 
                    char       *s_out, size_t size_s_out,
-                   enum dcf    dcf) 
+                   enum dcf    dcf) P_NOEXCEPT
 {
         if (s_in == NULL || *s_in == '\0')
                 return P_ERROR;
@@ -75,7 +75,7 @@ int p_date_convert(const char *s_in,  size_t size_s_in,
  * - 1 миллисекунда = 1 000 000 наносекунд
  * - функция может быть прервана сигналом, поэтому нужен цикл
  */
-void p_delay_ms(unsigned int ms) 
+void p_delay_ms(unsigned int ms) P_NOEXCEPT
 {
         struct timespec ts;
         ts.tv_sec = ms / 1000;              /* целые секунды */

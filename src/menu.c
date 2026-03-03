@@ -13,7 +13,7 @@
 
 void p_setmenu(const char *attrcolor_n,
                const char *attrcolor_s,
-               menu_style_s *mst)
+               menu_style_s *mst) P_NOEXCEPT
 {
         if (attrcolor_n == NULL || *attrcolor_n == '\0')
                 strncpy(mst->m_attrcolor_n, "\033[39;49m", LEN_ATTR_COLOR-1);
@@ -29,7 +29,7 @@ void p_setmenu(const char *attrcolor_n,
 void p_mdraw(const menu_style_s *mst,
              const menu_s *m,
              size_t menu_size,
-             size_t selected)
+             size_t selected) P_NOEXCEPT
 {
         for (size_t i = 0; i != menu_size; ++i) {
                 if (i == selected) {

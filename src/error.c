@@ -13,10 +13,10 @@
 #include <stdio.h>
 #include <string.h>
 
-static void p_err_doit(int, int, const char *, va_list); 
+static void p_err_doit(int, int, const char *, va_list) P_NOEXCEPT; 
 
 void
-p_err_ret(const char *fmt, ...) 
+p_err_ret(const char *fmt, ...) P_NOEXCEPT
 {
         va_list         ap;
 
@@ -26,7 +26,7 @@ p_err_ret(const char *fmt, ...)
 } 
 
 void
-p_err_sys(const char *fmt, ...) 
+p_err_sys(const char *fmt, ...) P_NOEXCEPT
 {
         va_list         ap;
 
@@ -36,7 +36,7 @@ p_err_sys(const char *fmt, ...)
 }
 
 void
-p_err_cont(int error, const char *fmt, ...) 
+p_err_cont(int error, const char *fmt, ...) P_NOEXCEPT 
 {
         va_list         ap;
 
@@ -46,7 +46,7 @@ p_err_cont(int error, const char *fmt, ...)
 } 
 
 void
-p_err_exit(int error, const char *fmt, ...) 
+p_err_exit(int error, const char *fmt, ...) P_NOEXCEPT
 {
         va_list         ap;
 
@@ -57,7 +57,7 @@ p_err_exit(int error, const char *fmt, ...)
 } 
 
 void
-p_err_dump(const char *fmt, ...) 
+p_err_dump(const char *fmt, ...) P_NOEXCEPT
 {
         va_list         ap;
 
@@ -69,7 +69,7 @@ p_err_dump(const char *fmt, ...)
 } 
 
 void
-p_err_msg(const char *fmt, ...) 
+p_err_msg(const char *fmt, ...) P_NOEXCEPT
 {
         va_list         ap;
 
@@ -79,7 +79,7 @@ p_err_msg(const char *fmt, ...)
 } 
 
 void
-p_err_quit(const char *fmt, ...) 
+p_err_quit(const char *fmt, ...) P_NOEXCEPT
 {
         va_list         ap;
 
@@ -94,7 +94,7 @@ p_err_quit(const char *fmt, ...)
  * Вызывающая функция определяет значение флага "errno_flag".
  */
 static void
-p_err_doit(int errno_flag, int error, const char *fmt, va_list ap) 
+p_err_doit(int errno_flag, int error, const char *fmt, va_list ap) P_NOEXCEPT
 {
         char    buf[P_BUFSIZ_4K];
 

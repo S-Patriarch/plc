@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-future_s *p_async_create(void *(*func)(void*), void *arg) 
+future_s *p_async_create(void *(*func)(void*), void *arg) P_NOEXCEPT 
 {
         future_s *future = (future_s*)malloc(sizeof(future_s));
         if (!future) return NULL;
@@ -15,7 +15,7 @@ future_s *p_async_create(void *(*func)(void*), void *arg)
         return future;
 }
 
-int p_async_launch(future_s *future) 
+int p_async_launch(future_s *future) P_NOEXCEPT
 {
         return pthread_create(&future->thread, 
                               NULL, 
@@ -23,7 +23,7 @@ int p_async_launch(future_s *future)
                               future->argument);
 }
 
-void *p_async_get(future_s *future) 
+void *p_async_get(future_s *future) P_NOEXCEPT
 {
         if (!future->completed) {
                 pthread_join(future->thread, &future->result);
@@ -33,7 +33,7 @@ void *p_async_get(future_s *future)
         return future->result;
 }
 
-void p_async_free(future_s *future)
+void p_async_free(future_s *future) P_NOEXCEPT
 {
         if (!future) return;
 

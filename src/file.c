@@ -12,7 +12,7 @@
 #include <sys/syscall.h>
 
 int 
-p_file_copy(const char *f_src, const char *f_dst) 
+p_file_copy(const char *f_src, const char *f_dst) P_NOEXCEPT 
 {
         int src = syscall(SYS_open, f_src, O_RDONLY, 0);
         if (src == -1) 
@@ -37,7 +37,7 @@ p_file_copy(const char *f_src, const char *f_dst)
 }
 
 int 
-p_file_move(const char *f_src, const char *f_dst) 
+p_file_move(const char *f_src, const char *f_dst) P_NOEXCEPT
 {
         int src = syscall(SYS_open, f_src, O_RDONLY, 0);
         if (src == -1) 
@@ -65,7 +65,7 @@ p_file_move(const char *f_src, const char *f_dst)
 }
 
 int
-p_file_setfl(int fd, int flags) 
+p_file_setfl(int fd, int flags) P_NOEXCEPT
 {
         int     val;
 

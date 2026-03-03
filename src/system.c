@@ -13,7 +13,7 @@
 #include <string.h>
 
 int 
-p_locale_available(const char *locale)
+p_locale_available(const char *locale) P_NOEXCEPT
 {
         char *old_locale = setlocale(LC_ALL, NULL);
         char *res = setlocale(LC_ALL, locale);
@@ -26,7 +26,7 @@ p_locale_available(const char *locale)
 }
 
 char *
-p_getlocale(void) 
+p_getlocale(void) P_NOEXCEPT
 {
         const char     *env_name = "LANG";
         char           *env_val;
@@ -63,7 +63,7 @@ p_getlocale(void)
 }
 
 void
-p_free_ptr(void **ptr) 
+p_free_ptr(void **ptr) P_NOEXCEPT
 {
         if (ptr != NULL && *ptr != NULL) {
                 free(*ptr);

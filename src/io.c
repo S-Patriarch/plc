@@ -13,7 +13,7 @@
 int p_mout(const char       *message, 
            enum mess_format  format, 
            const char       *attr_m, 
-           const char       *attr_f)
+           const char       *attr_f) P_NOEXCEPT
 {
         if (message == NULL || *message == '\0') 
                 return P_ERROR;
@@ -47,7 +47,7 @@ int p_mout(const char       *message,
         return (res_f + res_m);
 }
 
-int p_cout(const char *s) 
+int p_cout(const char *s) P_NOEXCEPT
 {
         if (s == NULL || *s == '\0') return P_ERROR;
 
