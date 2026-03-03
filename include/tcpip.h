@@ -15,7 +15,7 @@
 #include <pthread.h>
 #include <plc/plcdef.h>
 
-typedef void Sigfunc(int); /* для обработчиков сигналов  */
+typedef void Sigfunc(int) P_NOEXCEPT; /* для обработчиков сигналов  */
 
 /* создание сокета  */
 int     p_tcp_socket(int domain, int type, int protocol) P_NOEXCEPT;

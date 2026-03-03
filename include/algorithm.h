@@ -42,7 +42,8 @@ void    p_unpack_bools(uint8_t p,
  * unsigned int, в которой хэш сохраняется, но это всего лишь еще один неявный
  * детерминированный шаг алгоритма.
  */
-unsigned int    p_strhash(const char *s) P_NOEXCEPT;
+unsigned int            p_strhash32(const char *s) P_NOEXCEPT;
+unsigned long long      p_strhash64(const char *s) P_NOEXCEPT;
 
 /* Хэширование списка указателей  */
 unsigned int    p_ptr_list_hash(void **in) P_NOEXCEPT;
