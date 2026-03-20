@@ -1,5 +1,5 @@
 /*
- * (C) 2025, S-Patriarch
+ * (C) 2026, S-Patriarch
  * This file is part of the PLC library.
  *
  * Patriarch Library C : plc.h
