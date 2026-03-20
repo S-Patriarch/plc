@@ -11,6 +11,7 @@
 #include <plc/algorithm.h>
 #include <plc/async.h>
 #include <plc/conio.h>
+#include <plc/crypto.h>
 #include <plc/dt.h>
 #include <plc/error.h>
 #include <plc/file.h>
