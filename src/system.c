@@ -1,5 +1,5 @@
 /*
- * (C) 2025, S-Patriarch
+ * (C) 2025-26, S-Patriarch
  * This file is part of the PLC library.
  *
  * Patriarch Library C : system.c
@@ -7,6 +7,8 @@
 
 #include <plc/system.h>
 #include <plc/plcdef.h>
+#include <time.h>
+#include <sys/time.h>
 #include <locale.h>
 #include <stdlib.h>
 #include <stddef.h>
@@ -69,5 +71,22 @@ p_free_ptr(void **ptr) P_NOEXCEPT
                 free(*ptr);
                 *ptr = NULL;
         }
+}
+
+int
+p_make_timeout(struct timespec *tsp, long minutes) P_NOEXCEPT 
+{
+        struct timeval  now;
+
+        if (gettimeofday(&now, NULL) != 0) /* получить текущее время  */
+                return(-1);
+
+        tsp->tv_sec = now.tv_sec;
+        tsp->tv_nsec = now.tv_usec * 1000; /* микросекунды в наносекунды  */
+
+        /* добавить величину тайм-аута  */
+        tsp->tv_sec += minutes * 60;
+
+        return(0);
 }
 
