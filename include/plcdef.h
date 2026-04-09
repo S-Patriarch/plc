@@ -18,12 +18,12 @@
         #define P_NOEXCEPT
 #endif
 
-#define P_SUCCESS       0
-#define P_FAILURE       1
+#define P_SUCCESS       (0)
+#define P_FAILURE       (1)
 #define P_ERROR         (-1)
 
-#define P_FALSE         0
-#define P_TRUE          1
+#define P_FALSE         (0)
+#define P_TRUE          (1)
 
 #define P_ESC           '\033' 
 #define P_VTAB          '\013'
@@ -49,6 +49,8 @@
 #define P_BUFSIZ_131K   (131072)
 #define P_BUFSIZ_262K   (262144)
 #define P_BUFSIZ_524K   (524288)
+
+#define P_MAXLINE       (4096)  /* максимальная длина строки  */
 
 /* Права доступа по умолчанию к создаваемым файлам.  */
 #define P_FILE_MODE     (S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH)
@@ -104,5 +106,7 @@
  */
 #define P_DECLARE_AND_ZERO_DYNAMIC_ARRAY(type, name, size)              \
         type *name = (type *)calloc(size, sizeof(type))
+
+typedef void p_sigfunc(int);    /* обработчик сигналов  */
 
 #endif  /* __PLC_PLCDEF_H  */

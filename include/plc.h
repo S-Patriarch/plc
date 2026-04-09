@@ -8,6 +8,7 @@
 #ifndef __PLC_H
 #define __PLC_H  1
 
+#include <plc/plcdef.h>
 #include <plc/algorithm.h>
 #include <plc/async.h>
 #include <plc/conio.h>
@@ -20,7 +21,6 @@
 #include <plc/line.h>
 #include <plc/logger.h>
 #include <plc/menu.h>
-#include <plc/plcdef.h>
 #include <plc/stack.h>
 #include <plc/stopif.h>
 #include <plc/string.h>
