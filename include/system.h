@@ -50,4 +50,9 @@ void    p_free_ptr(void **ptr) P_NOEXCEPT;
  */
 int     p_make_timeout(struct timespec *tsp, long minutes) P_NOEXCEPT;
 
+/* Надежная версия функции signal() с использованием функции sigaction()
+ * стандарта POSIX.
+ */
+p_sigfunc * p_signal(int signo, p_sigfunc *func) P_NOEXCEPT;
+
 #endif  /* __PLC_SYSTEM_H  */
