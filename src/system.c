@@ -5,6 +5,8 @@
  * Patriarch Library C : system.c
  */
 
+#define _POSIX_C_SOURCE 200809L
+
 #include <plc/system.h>
 #include <plc/plcdef.h>
 #include <time.h>
@@ -13,6 +15,7 @@
 #include <stdlib.h>
 #include <stddef.h>
 #include <string.h>
+#include <signal.h>
 
 int 
 p_locale_available(const char *locale) P_NOEXCEPT
@@ -88,5 +91,28 @@ p_make_timeout(struct timespec *tsp, long minutes) P_NOEXCEPT
         tsp->tv_sec += minutes * 60;
 
         return(0);
+}
+
+p_sigfunc * 
+p_signal(int signo, p_sigfunc *func) P_NOEXCEPT 
+{
+        struct sigaction        act, oact;
+
+        act.sa_handler = func;
+        sigemptyset(&act.sa_mask);
+        act.sa_flags = 0;
+
+        if (signo == SIGALRM) {
+#ifdef SA_INTERRUPT
+                act.sa_flags |= SA_INTERRUPT;
+#endif        
+        } else {
+                act.sa_flags |= SA_RESTART;
+        }
+
+        if (sigaction(signo, &act, &oact) < 0)
+                return(SIG_ERR);
+
+        return(oact.sa_handler);
 }
 
