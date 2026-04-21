@@ -1,5 +1,5 @@
 /*
- * (C) 2025, S-Patriarch
+ * (C) 2025-26, S-Patriarch
  * This file is part of the PLC library.
  *
  * Patriarch Library C : algorithm.h
@@ -31,5 +31,19 @@ uint8_t p_pack_bools(bool b1, bool b2, bool b3, bool b4,
 void    p_unpack_bools(uint8_t p,                            
                        bool *b1, bool *b2, bool *b3, bool *b4,
                        bool *b5, bool *b6, bool *b7, bool *b8) P_NOEXCEPT;
+
+/* упаковка 8 значений unsigned char в 1 байт  */
+void    p_pack_chars(unsigned char *p,
+                     unsigned char c1, unsigned char c2, 
+                     unsigned char c3, unsigned char c4, 
+                     unsigned char c5, unsigned char c6, 
+                     unsigned char c7, unsigned char c8) P_NOEXCEPT;
+
+/* распаковка 1 байта на 8 значений типа unsigned char  */
+void    p_unpack_chars(unsigned char p,
+                       unsigned char *c1, unsigned char *c2, 
+                       unsigned char *c3, unsigned char *c4, 
+                       unsigned char *c5, unsigned char *c6, 
+                       unsigned char *c7, unsigned char *c8) P_NOEXCEPT;
 
 #endif  /* __PLC_ALGORITHM_H  */
