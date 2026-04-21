@@ -1,5 +1,5 @@
 /*
- * (C) 2025, S-Patriarch
+ * (C) 2025-26, S-Patriarch
  * This file is part of the PLC library.
  *
  * Patriarch Library C : algorithm.c
@@ -188,5 +188,39 @@ p_unpack_bools(uint8_t p,
         *b6 = (p >> 2) & 1;
         *b7 = (p >> 1) & 1;
         *b8 = p & 1;
+}
+
+void 
+p_pack_chars(unsigned char *p,
+             unsigned char c1, unsigned char c2, 
+             unsigned char c3, unsigned char c4, 
+             unsigned char c5, unsigned char c6, 
+             unsigned char c7, unsigned char c8) P_NOEXCEPT 
+{
+        *p |= c1 << 7;
+        *p |= c2 << 6;
+        *p |= c3 << 5;
+        *p |= c4 << 4;
+        *p |= c5 << 3;
+        *p |= c6 << 2;
+        *p |= c7 << 1;
+        *p |= c8;
+}
+
+void 
+p_unpack_chars(unsigned char p,
+               unsigned char *c1, unsigned char *c2, 
+               unsigned char *c3, unsigned char *c4, 
+               unsigned char *c5, unsigned char *c6, 
+               unsigned char *c7, unsigned char *c8) P_NOEXCEPT 
+{
+        *c1 = (p >> 7) & 1;
+        *c2 = (p >> 6) & 1;
+        *c3 = (p >> 5) & 1;
+        *c4 = (p >> 4) & 1;
+        *c5 = (p >> 3) & 1;
+        *c6 = (p >> 2) & 1;
+        *c7 = (p >> 1) & 1;
+        *c8 = p & 1;
 }
 
