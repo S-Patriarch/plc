@@ -6,23 +6,11 @@
  */
 
 #include <plc/algorithm.h>
+#include <plc/string.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include <time.h>
-
-int 
-p_powi(int base, int exponent) P_NOEXCEPT 
-{
-        int res = 1;
-
-        while (exponent > 0) {
-                if ((exponent % 2) == 1)
-                        res *= base;
-                base *= base;
-                exponent /= 2;
-        }
-
-        return res;
-}
+#include <string.h>
 
 int 
 p_bintodec(long long bin_number) P_NOEXCEPT
@@ -136,6 +124,73 @@ p_octtobin(int oct_number) P_NOEXCEPT
         }
 
         return bin_number;
+}
+
+char *
+p_bintohex(char bin_number[]) P_NOEXCEPT 
+{
+        int     i, j;
+        int     length = strlen(bin_number);
+        int     padding = (4 - (length % 4)) % 4;
+        char    padded_bin[129];
+        char    hex_adecimal[33] = "";
+
+        memset(padded_bin, '0', padding);
+        strcpy(padded_bin + padding, bin_number);
+
+        char   *bin_hex_digits[] = {
+                "0000", "0001", "0010", "0011", "0100", "0101",
+                "0110", "0111", "1000", "1001", "1010", "1011",
+                "1100", "1101", "1110", "1111"
+        };
+        for (i = 0; i < length + padding; i += 4) {
+                char group[5];
+                strncpy(group, padded_bin + i, 4);
+                group[4] = '\0';
+                for (j = 0; j < 16; j++) {
+                        if (strcmp(group, j[bin_hex_digits]) == 0) {
+                                char hex_digit[2];
+                                sprintf(hex_digit, "%X", j);
+                                strcat(hex_adecimal, hex_digit);
+                                break;
+                        }
+                }
+        }
+
+        return(strdup(hex_adecimal));
+}
+
+char *
+p_hextobin(char hex_number[]) P_NOEXCEPT 
+{
+        unsigned int    hexnum;
+        int             i = 0;
+        char            binary[33] = "";
+
+        sscanf(hex_number, "%x", &hexnum);
+        while (hexnum) {
+                i++[binary] = '0' + hexnum % 2;
+                hexnum /= 2;
+        }
+        i[binary] = '\0';
+        p_strrev(binary);
+
+        return(strdup(binary));
+}
+
+int
+p_powi(int base, int exponent) P_NOEXCEPT 
+{
+        int res = 1;
+
+        while (exponent > 0) {
+                if ((exponent % 2) == 1)
+                        res *= base;
+                base *= base;
+                exponent /= 2;
+        }
+
+        return res;
 }
 
 int 
