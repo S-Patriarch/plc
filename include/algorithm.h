@@ -12,16 +12,25 @@
 #include <stdint.h>
 #include <plc/plcdef.h>
 
-int     p_powi(int base, int exponentnt) P_NOEXCEPT;   /* бинарное возведение в степень  */
+int        p_bintodec(long long bin_number) P_NOEXCEPT; /* преобразование 2-ного числа в 10-ное  */
+long long  p_dectobin(int dec_number) P_NOEXCEPT;       /* преобразование 10-ного числа в 2-ное  */
+int        p_octtodec(int oct_number) P_NOEXCEPT;       /* преобразование 8-ного числа в 10-ное  */
+int        p_dectooct(int dec_number) P_NOEXCEPT;       /* преобразование 10-ного числа в 8-ное  */
+int        p_bintooct(long long bin_number) P_NOEXCEPT; /* преобразование 2-ного числа в 8-ное  */
+long long  p_octtobin(int oct_number) P_NOEXCEPT;       /* преобразование 8-ного числа в 2-ное  */
 
-int       p_bintodec(long long bin_number) P_NOEXCEPT; /* преобразование 2-ного числа в 10-ное  */
-long long p_dectobin(int dec_number) P_NOEXCEPT;       /* преобразование 10-ного числа в 2-ное  */
-int       p_octtodec(int oct_number) P_NOEXCEPT;       /* преобразование 8-ного числа в 10-ное  */
-int       p_dectooct(int dec_number) P_NOEXCEPT;       /* преобразование 10-ного числа в 8-ное  */
-int       p_bintooct(long long bin_number) P_NOEXCEPT; /* преобразование 2-ного числа в 8-ное  */
-long long p_octtobin(int oct_number) P_NOEXCEPT;       /* преобразование 8-ного числа в 2-ное  */
+/* Функции p_bintohex и p_hextobin возвращают результирующую
+ * строку, память которой в последствии необходимо освободить.
+ * Пример:
+ *      res = p_bintohex(input);
+ *      ...
+ *      free(res);
+ */
+char   *p_bintohex(char bin_number[]) P_NOEXCEPT;       /* преобразование 2-ного числа в 16-ное  */
+char   *p_hextobin(char hex_number[]) P_NOEXCEPT;       /* преобразование 16-ного числа в 2-ное  */
 
-int     p_random_int(int min, int max) P_NOEXCEPT;     /* генерация случайного числа  */
+int     p_powi(int base, int exponentnt) P_NOEXCEPT;    /* бинарное возведение в степень  */
+int     p_random_int(int min, int max) P_NOEXCEPT;      /* генерация случайного числа  */
 
 /* упаковка 8 значений bool в 1 байт  */
 uint8_t p_pack_bools(bool b1, bool b2, bool b3, bool b4,
