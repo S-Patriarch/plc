@@ -1,5 +1,5 @@
 /*
- * (C) 2025, S-Patriarch
+ * (C) 2025-26, S-Patriarch
  * This file is part of the PLC library.
  *
  * Patriarch Library C : dt.h
@@ -12,19 +12,15 @@
 #include <plc/plcdef.h>
 
 enum dcf {
-        DCF_dBY, /* формат конвертации "%d %B %Y"  */
-        DCF_BdY  /* формат конвертации "%B %d, %Y"  */
+        DCF_dBY,                                    /* формат конвертации "%d %B %Y"  */
+        DCF_BdY                                     /* формат конвертации "%B %d, %Y"  */
 };
 
 int     p_getdate(char *s, size_t size) P_NOEXCEPT; /* получить текущую дату  */
 int     p_gettime(char *s, size_t size) P_NOEXCEPT; /* получить текущее время  */
-
-/* преобразует строку даты в иной вид строки  */
+void    p_delay_ms(unsigned int ms) P_NOEXCEPT;     /* осуществляет задержку в миллисекундах  */
 int     p_date_convert(const char *s_in,  size_t size_s_in, 
                        char       *s_out, size_t size_s_out, 
-                       enum dcf    dcf) P_NOEXCEPT;
-
-/* осуществляет задержку в миллисекундах  */
-void    p_delay_ms(unsigned int ms) P_NOEXCEPT;
+                       enum dcf    dcf) P_NOEXCEPT; /* преобразовать строку даты в иной вид строки  */
 
 #endif  /* __PLC_DT_H  */

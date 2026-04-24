@@ -1,5 +1,5 @@
 /*
- * (C) 2025, S-Patriarch
+ * (C) 2025-26, S-Patriarch
  * This file is part of the PLC library.
  *
  * Patriarch Library C : string.h
@@ -11,26 +11,13 @@
 #include <stddef.h>
 #include <plc/plcdef.h>
 
-/* переворот строки  */
-int     p_strrev(char *s) P_NOEXCEPT;
-
-/* разделение строки на слова  */
-char  **p_strspl(const char *s, size_t *w_count) P_NOEXCEPT;
-
-/* освобождение памяти, выделенной под массив слов  */
-void    p_free_words(char **words, size_t w_count) P_NOEXCEPT;
-
-/* подсчет количества вхождений символов в строку  */
-size_t  p_count_char(const char *s, char c) P_NOEXCEPT;
-
-/* подсчет количества слов в строке  */
-size_t  p_count_words(const char *s) P_NOEXCEPT;
-
-/*подсчет количества символов utf8 в строке  */
-size_t  p_count_utf8_chars(const char *s) P_NOEXCEPT;
-
-/* последовательное извлечение цифр из строки  */
-size_t *p_extract_digits(const char *s, size_t *d_count) P_NOEXCEPT;
+int     p_strrev(char *s) P_NOEXCEPT;                                /* переворот строки  */
+char  **p_strspl(const char *s, size_t *w_count) P_NOEXCEPT;         /* разделение строки на слова  */
+void    p_free_words(char **words, size_t w_count) P_NOEXCEPT;       /* освобождение памяти, выделенной под массив слов  */
+size_t  p_count_char(const char *s, char c) P_NOEXCEPT;              /* подсчет количества вхождений символов в строку  */
+size_t  p_count_words(const char *s) P_NOEXCEPT;                     /* подсчет количества слов в строке  */
+size_t  p_count_utf8_chars(const char *s) P_NOEXCEPT;                /* подсчет количества символов utf8 в строке  */
+size_t *p_extract_digits(const char *s, size_t *d_count) P_NOEXCEPT; /* последовательное извлечение цифр из строки  */
 
 /* Копирование одной строки в другую.
  * 
@@ -89,7 +76,6 @@ const char *p_string_cstr(const string_s *str) P_NOEXCEPT;                      
  *              free(result);
  */
 int     p_strjoin(char **strings, size_t count, 
-                  const char *delimiter, 
-                  char **result) P_NOEXCEPT;
+                  const char *delimiter, char **result) P_NOEXCEPT;
 
 #endif  /* __PLC_STRING_H  */

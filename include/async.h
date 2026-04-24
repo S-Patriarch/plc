@@ -1,5 +1,5 @@
 /*
- * (C) 2025, S-Patriarch
+ * (C) 2025-26, S-Patriarch
  * This file is part of the PLC library.
  *
  * Patriarch Library C : async.h
@@ -13,11 +13,11 @@
 #include <plc/plcdef.h>
 
 typedef struct {
-        pthread_t       thread;             /* идентификатор потока  */
-        void           *result;             /* указатель на результат  */
-        atomic_bool     completed;          /* флаг завершения задачи  */
-        void           *(*function)(void*); /* функция для выполнения  */
-        void           *argument;           /* аргумент для функции  */
+        pthread_t       thread;                                       /* идентификатор потока  */
+        void           *result;                                       /* указатель на результат  */
+        atomic_bool     completed;                                    /* флаг завершения задачи  */
+        void           *(*function)(void*);                           /* функция для выполнения  */
+        void           *argument;                                     /* аргумент для функции  */
 } future_s;
 
 future_s *p_async_create(void *(*func)(void*), void *arg) P_NOEXCEPT; /* создание задачи  */

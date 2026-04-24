@@ -1,5 +1,5 @@
 /*
- * (C) 2025, S-Patriarch
+ * (C) 2025-26, S-Patriarch
  * This file is part of the PLC library.
  *
  * Patriarch Library C : io.h
@@ -11,18 +11,15 @@
 #include <plc/plcdef.h>
 
 enum mess_format {
-        mess_n,         /* нет формата - ""  */
-        mess_w,         /* предупреждение - "W: "  */
-        mess_e          /* ошибка - "E: "  */
+        mess_n,                                      /* нет формата - ""  */
+        mess_w,                                      /* предупреждение - "W: "  */
+        mess_e                                       /* ошибка - "E: "  */
 };
 
-/* вывод сообщения в stdout  */
 int     p_mout(const char       *message, 
                enum mess_format  format, 
                const char       *attr_m, 
-               const char       *attr_f) P_NOEXCEPT;
-
-/* вывод строки в stdout  */
-int     p_cout(const char *s) P_NOEXCEPT;
+               const char       *attr_f) P_NOEXCEPT; /* вывод сообщения в stdout  */
+int     p_cout(const char *s) P_NOEXCEPT;            /* вывод строки в stdout  */
 
 #endif  /* __PLC_IO_H  */
