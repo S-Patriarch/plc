@@ -58,55 +58,51 @@
 /* Права доступа по умолчанию к создаваемым каталогам.  */
 #define P_DIR_MODE      (P_FILE_MODE | S_IXUSR | S_IXGRP | S_IXOTH)
 
-#define P_MIN(a, b)     ({                                              \
-                                __typeof__(a) _a = (a);                 \
-                                __typeof__(b) _b = (b);                 \
+#define P_MIN (a, b)    ({                                              \
+                                __typeof__ (a) _a = (a);                \
+                                __typeof__ (b) _b = (b);                \
                                 _a < _b ? _a : _b;                      \
                         })
 
-#define P_MAX(a, b)     ({                                              \
-                                __typeof__(a) _a = (a);                 \
-                                __typeof__(b) _b = (b);                 \
+#define P_MAX (a, b)    ({                                              \
+                                __typeof__ (a) _a = (a);                \
+                                __typeof__ (b) _b = (b);                \
                                 _a > _b ? _a : _b;                      \
                         })
 
 /* Макрос P_SWAP на базе typeof позволяет одной строкой менять
- * местами int, double, struct, указатели и вообще любые типы.
- * Только не следует использовать его с i++ и похожими 
- * выражениями.
- */
-#define P_SWAP(a, b)    do {                                            \
-                                __typeof__(a) _t = (a);                 \
+   местами int, double, struct, указатели и вообще любые типы.
+   Только не следует использовать его с i++ и похожими 
+   выражениями.  */
+#define P_SWAP (a, b)   do {                                            \
+                                __typeof__ (a) _t = (a);                \
                                 (a) = (b);                              \
                                 (b) = _t;                               \
                         } while (0)
 
 /* В стандарте С доступен атрибут cleanup (очистка) через расширение
- * GNU C (__attribute__((cleanup))). Он не является частью стандартов
- * ISO C (C99, C11, c17 и т.д.), но поддерживается компиляторами
- * GCC и Clang.
- * Атрибут cleanup автоматически вызывает указанную функцию очистки
- * при выходе переменной из области видимости (например, при выходе 
- * из блока {}, возврате из функции или при возникновении исключения
- * через setjmp/longjmp в некоторых случаях). 
- */
-#define P_CLEANUP(func)         __attribute__((cleanup(func)))
+   GNU C (__attribute__ ((cleanup))). Он не является частью стандартов
+   ISO C (C99, C11, c17 и т.д.), но поддерживается компиляторами
+   GCC и Clang.
+   Атрибут cleanup автоматически вызывает указанную функцию очистки
+   при выходе переменной из области видимости (например, при выходе 
+   из блока {}, возврате из функции или при возникновении исключения
+   через setjmp/longjmp в некоторых случаях).  */
+#define P_CLEANUP (func) __attribute__ ((cleanup (func)))
 
 /* Макрос для объявления массива переменной длины (VLA) 
- * на стеке и обнуления всех его элементов.
- */
-#define P_DECLARE_AND_ZERO_ARRAY(type, name, size)                      \
+   на стеке и обнуления всех его элементов.  */
+#define P_DECLARE_AND_ZERO_ARRAY (type, name, size)                     \
         type name[size];                                                \
-        memset(name, 0, (size) * sizeof(type))
+        memset (name, 0, (size) * sizeof (type))
 
 /* Макрос для объявления массива переменной длины (VLA) 
- * в динамической памяти.
- * В этом случае не забывайте освобождать память с
- * помощью free().
- */
-#define P_DECLARE_AND_ZERO_DYNAMIC_ARRAY(type, name, size)              \
-        type *name = (type *)calloc(size, sizeof(type))
+   в динамической памяти.
+   В этом случае не забывайте освобождать память с
+   помощью free.  */
+#define P_DECLARE_AND_ZERO_DYNAMIC_ARRAY (type, name, size)             \
+        type *name = (type *) calloc (size, sizeof (type))
 
-typedef void p_sigfunc(int);    /* обработчик сигналов  */
+typedef void p_sigfunc (int);   /* обработчик сигналов  */
 
 #endif  /* __PLC_PLCDEF_H  */
