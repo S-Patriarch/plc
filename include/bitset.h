@@ -14,14 +14,14 @@
         представлении).
 
    Пример использования:
-        struct bitset_s *bs = p_bitset_create (100);
-        p_bitset_set (bs, 42, 1);
-        p_bitset_flip (bs, 73);
-        printf ("Count: %zu\n", p_bitset_count (bs));
-        char *str = p_bitset_to_string (bs);
-        printf ("Bits: %s\n", str);
-        free (str);
-        p_bitset_destroy (bs);  */
+        struct bitset_s *bs = p_bitset_create(100);
+        p_bitset_set(bs, 42, 1);
+        p_bitset_flip(bs, 73);
+        printf("Count: %zu\n", p_bitset_count(bs));
+        char *str = p_bitset_to_string(bs);
+        printf("Bits: %s\n", str);
+        free(str);
+        p_bitset_destroy(bs);  */
 
 #ifndef __PLC_BITSET_H
 #define __PLC_BITSET_H  1

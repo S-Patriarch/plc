@@ -101,7 +101,7 @@
    В этом случае не забывайте освобождать память с
    помощью free.  */
 #define P_DECLARE_AND_ZERO_DYNAMIC_ARRAY (type, name, size)             \
-        type *name = (type *) calloc (size, sizeof (type))
+        type *name = (type *)calloc (size, sizeof (type))
 
 typedef void p_sigfunc (int);   /* обработчик сигналов  */
 
