@@ -1,22 +1,20 @@
 /*
- * (C) 2025, S-Patriarch
+ * (C) 2025-26, S-Patriarch
  * This file is part of the PLC library.
  *
  * Patriarch Library C : io.c
  */
 
 #include <plc/io.h>
-#include <plc/plcdef.h>
 #include <stdio.h>
 #include <string.h>
 
-int p_mout(const char       *message, 
-           enum mess_format  format, 
-           const char       *attr_m, 
-           const char       *attr_f) P_NOEXCEPT
+int 
+p_mout(const char *message, enum mess_format format, 
+       const char *attr_m, const char *attr_f) P_NOEXCEPT
 {
         if (message == NULL || *message == '\0') 
-                return P_ERROR;
+                return(P_ERROR);
 
         char sf[4];
         int res_m, res_f;
@@ -34,7 +32,7 @@ int p_mout(const char       *message,
                 res_f = printf("%s%s\033[0m", attr_f, sf);
         
         if (res_f == EOF) 
-                return P_ERROR;
+                return(P_ERROR);
 
         if (attr_m == NULL) 
                 res_m = printf("%s", message);
@@ -42,14 +40,15 @@ int p_mout(const char       *message,
                 res_m = printf("%s%s\033[0m", attr_m, message);
         
         if (res_m == EOF) 
-                return P_ERROR;
+                return(P_ERROR);
 
-        return (res_f + res_m);
+        return(res_f + res_m);
 }
 
-int p_cout(const char *s) P_NOEXCEPT
+int 
+p_cout(const char *s) P_NOEXCEPT
 {
-        if (s == NULL || *s == '\0') return P_ERROR;
+        if (s == NULL || *s == '\0') return(P_ERROR);
 
         int count = 0;       
         while (*s != '\0') {
@@ -65,6 +64,17 @@ int p_cout(const char *s) P_NOEXCEPT
                 ++count;
         }
 
-        return count;
+        return(count);
+}
+
+void 
+p_gets(char *dst, size_t len) P_NOEXCEPT 
+{
+        int c;
+        while ((c = getchar()) != EOF && c != '\n' && len != 1) {
+                *dst++ = c;
+                --len;
+        }
+        *dst = '\0';
 }
 
