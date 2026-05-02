@@ -8,6 +8,7 @@
 #include <plc/io.h>
 #include <stdio.h>
 #include <string.h>
+#include <unistd.h>
 
 int 
 p_mout(const char *message, enum mess_format format, 
@@ -50,7 +51,7 @@ p_cout(const char *s) P_NOEXCEPT
 {
         if (s == NULL || *s == '\0') return(P_ERROR);
 
-        int count = 0;       
+        size_t count = 0;       
         while (*s != '\0') {
                 int char_len = 1;
                 if ((*s & 0xE0) == 0xC0) char_len = 2;
@@ -65,6 +66,21 @@ p_cout(const char *s) P_NOEXCEPT
         }
 
         return(count);
+}
+
+int
+p_puts(const char *s) P_NOEXCEPT
+{
+        if (s == NULL || *s == '\0') return(-1);
+
+        size_t len = 0;
+        while (len[s] != '\0') len++;
+
+        if (write(STDOUT_FILENO, s, len) == -1) return(-1);
+        if (write(STDOUT_FILENO, "\n", 1) == -1) return(-1);
+
+        fflush(stdout);
+        return(0);
 }
 
 void 
