@@ -1,9 +1,12 @@
+/* Copyright (C) 2026, S-Patriarch
+   This file is part of the PLC library.  */
+
 /*
- * (C) 2026, S-Patriarch
- * This file is part of the PLC library.
- *
- * Patriarch Library C : bitset.h
+ *      Patriarch Library C:                            <bitset.h>
  */
+
+#ifndef __PLC_BITSET_H
+#define __PLC_BITSET_H  1
 
 /* Данная реализация является попыткой написания аналога std::bitset из С++.
    Используется динамический массив 64-битных слов для хранения битов и 
@@ -23,19 +26,18 @@
         free(str);
         p_bitset_destroy(bs);  */
 
-#ifndef __PLC_BITSET_H
-#define __PLC_BITSET_H  1
-
-#include <plc/plcdef.h>
 #include <stddef.h>
 #include <stdint.h>
+#include <plc/plcdef.h>
+
+P_BEGIN_DECLS
 
 #define P_BITSET_WORDBITS       (64)
 
 struct bitset_s {
         unsigned long long int *bs_data;        /* массив слов  */
-        size_t                  bs_numbits;     /* количество бит  */
-        size_t                  bs_numwords;    /* количество слов  */
+        size_t bs_numbits;                      /* количество бит  */
+        size_t bs_numwords;                     /* количество слов  */
 };
  
 /* Создание и уничтожение.  */
@@ -97,4 +99,6 @@ extern void p_bitset_foreach_set (const struct bitset_s *bs,
                                   p_bitset_foreach_cb cb, 
                                   void *user_data) P_NOEXCEPT;
 
-#endif  /* __PLC_BITSET_H  */
+P_END_DECLS
+
+#endif /* bitset.h  */

@@ -1,29 +1,35 @@
+/* Copyright (C) 2025-2026, S-Patriarch
+ * This file is part of the PLC library.  */
+
 /*
- * (C) 2025-26, S-Patriarch
- * This file is part of the PLC library.
- *
- * Patriarch Library C : plcdef.h
+ *      Patriarch Library C:                            <plcdef.h>
  */
 
 #ifndef __PLC_PLCDEF_H
 #define __PLC_PLCDEF_H  1
 
+#ifdef __cplusplus
+#  define P_BEGIN_DECLS extern "C" {
+#  define P_END_DECLS }
+#  define P_NOEXCEPT noexcept
+#else
+#  define P_BEGIN_DECLS 
+#  define P_END_DECLS 
+#  define P_NOEXCEPT 
+#endif
+
 #include <stdlib.h>
 #include <string.h>
 #include <sys/stat.h>
 
-#ifdef __cplusplus
-        #define P_NOEXCEPT      noexcept
-#else
-        #define P_NOEXCEPT
-#endif
+P_BEGIN_DECLS
 
-#define P_SUCCESS       (0)
-#define P_FAILURE       (1)
-#define P_ERROR         (-1)
+#define P_SUCCESS       0
+#define P_FAILURE       1
+#define P_ERROR         -1
 
-#define P_FALSE         (0)
-#define P_TRUE          (1)
+#define P_FALSE         0
+#define P_TRUE          1
 
 #define P_ESC           '\033' 
 #define P_VTAB          '\013'
@@ -58,15 +64,15 @@
 /* Права доступа по умолчанию к создаваемым каталогам.  */
 #define P_DIR_MODE      (P_FILE_MODE | S_IXUSR | S_IXGRP | S_IXOTH)
 
-#define P_MIN (a, b)    ({                                              \
-                                __typeof__ (a) _a = (a);                \
-                                __typeof__ (b) _b = (b);                \
+#define P_MIN(a, b)     ({                                              \
+                                __typeof__(a) _a = (a);                 \
+                                __typeof__(b) _b = (b);                 \
                                 _a < _b ? _a : _b;                      \
                         })
 
-#define P_MAX (a, b)    ({                                              \
-                                __typeof__ (a) _a = (a);                \
-                                __typeof__ (b) _b = (b);                \
+#define P_MAX(a, b)     ({                                              \
+                                __typeof__(a) _a = (a);                 \
+                                __typeof__(b) _b = (b);                 \
                                 _a > _b ? _a : _b;                      \
                         })
 
@@ -74,35 +80,37 @@
    местами int, double, struct, указатели и вообще любые типы.
    Только не следует использовать его с i++ и похожими 
    выражениями.  */
-#define P_SWAP (a, b)   do {                                            \
-                                __typeof__ (a) _t = (a);                \
+#define P_SWAP(a, b)    do {                                            \
+                                __typeof__(a) _t = (a);                 \
                                 (a) = (b);                              \
                                 (b) = _t;                               \
                         } while (0)
 
 /* В стандарте С доступен атрибут cleanup (очистка) через расширение
-   GNU C (__attribute__ ((cleanup))). Он не является частью стандартов
+   GNU C (__attribute__((cleanup))). Он не является частью стандартов
    ISO C (C99, C11, c17 и т.д.), но поддерживается компиляторами
    GCC и Clang.
    Атрибут cleanup автоматически вызывает указанную функцию очистки
    при выходе переменной из области видимости (например, при выходе 
    из блока {}, возврате из функции или при возникновении исключения
    через setjmp/longjmp в некоторых случаях).  */
-#define P_CLEANUP (func) __attribute__ ((cleanup (func)))
+#define P_CLEANUP(func) __attribute__((cleanup(func)))
 
 /* Макрос для объявления массива переменной длины (VLA) 
    на стеке и обнуления всех его элементов.  */
-#define P_DECLARE_AND_ZERO_ARRAY (type, name, size)                     \
+#define P_DECLARE_AND_ZERO_ARRAY(type, name, size)                      \
         type name[size];                                                \
-        memset (name, 0, (size) * sizeof (type))
+        memset(name, 0, (size) * sizeof(type))
 
 /* Макрос для объявления массива переменной длины (VLA) 
    в динамической памяти.
    В этом случае не забывайте освобождать память с
    помощью free.  */
-#define P_DECLARE_AND_ZERO_DYNAMIC_ARRAY (type, name, size)             \
-        type *name = (type *)calloc (size, sizeof (type))
+#define P_DECLARE_AND_ZERO_DYNAMIC_ARRAY(type, name, size)              \
+        type *name = (type *)calloc(size, sizeof(type))
 
 typedef void p_sigfunc (int);   /* обработчик сигналов  */
 
-#endif  /* __PLC_PLCDEF_H  */
+P_END_DECLS
+
+#endif /* plcdef.h  */
