@@ -1,21 +1,21 @@
+/* Copyright (C) 2025-2026, S-Patriarch
+   This file is part of the PLC library.  */
+
 /*
- * (C) 2025-26, S-Patriarch
- * This file is part of the PLC library.
- *
- * Patriarch Library C : io.c
+ *      Patriarch Library C:                            io.c
  */
 
-#include <plc/io.h>
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
+#include <plc/io.h>
 
 int 
 p_mout(const char *message, enum mess_format format, 
        const char *attr_m, const char *attr_f) P_NOEXCEPT
 {
         if (message == NULL || *message == '\0') 
-                return(P_ERROR);
+                return (P_ERROR);
 
         char sf[4];
         int res_m, res_f;
@@ -33,7 +33,7 @@ p_mout(const char *message, enum mess_format format,
                 res_f = printf("%s%s\033[0m", attr_f, sf);
         
         if (res_f == EOF) 
-                return(P_ERROR);
+                return (P_ERROR);
 
         if (attr_m == NULL) 
                 res_m = printf("%s", message);
@@ -41,15 +41,15 @@ p_mout(const char *message, enum mess_format format,
                 res_m = printf("%s%s\033[0m", attr_m, message);
         
         if (res_m == EOF) 
-                return(P_ERROR);
+                return (P_ERROR);
 
-        return(res_f + res_m);
+        return (res_f + res_m);
 }
 
 int 
 p_cout(const char *s) P_NOEXCEPT
 {
-        if (s == NULL || *s == '\0') return(P_ERROR);
+        if (s == NULL || *s == '\0') return (P_ERROR);
 
         size_t count = 0;       
         while (*s != '\0') {
@@ -65,22 +65,22 @@ p_cout(const char *s) P_NOEXCEPT
                 ++count;
         }
 
-        return(count);
+        return (count);
 }
 
 int
 p_puts(const char *s) P_NOEXCEPT
 {
-        if (s == NULL || *s == '\0') return(-1);
+        if (s == NULL || *s == '\0') return (-1);
 
         size_t len = 0;
         while (len[s] != '\0') len++;
 
-        if (write(STDOUT_FILENO, s, len) == -1) return(-1);
-        if (write(STDOUT_FILENO, "\n", 1) == -1) return(-1);
+        if (write(STDOUT_FILENO, s, len) == -1) return (-1);
+        if (write(STDOUT_FILENO, "\n", 1) == -1) return (-1);
 
         fflush(stdout);
-        return(0);
+        return (0);
 }
 
 void 

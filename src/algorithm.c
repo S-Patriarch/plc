@@ -1,16 +1,16 @@
+/* Copyright (C) 2025-2026, S-Patriarch
+   This file is part of the PLC library.  */
+
 /*
- * (C) 2025-26, S-Patriarch
- * This file is part of the PLC library.
- *
- * Patriarch Library C : algorithm.c
+ *      Patriarch Library C:                            algorithm.c
  */
 
-#include <plc/algorithm.h>
-#include <plc/string.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
 #include <string.h>
+#include <plc/algorithm.h>
+#include <plc/string.h>
 
 int 
 p_bintodec(long long bin_number) P_NOEXCEPT
@@ -26,7 +26,7 @@ p_bintodec(long long bin_number) P_NOEXCEPT
                 ++i;
         }
 
-        return dec_number;
+        return (dec_number);
 }
 
 long long 
@@ -43,7 +43,7 @@ p_dectobin(int dec_number) P_NOEXCEPT
                 i *= 10;
         }
 
-        return bin_number;
+        return (bin_number);
 }
  
 int 
@@ -60,7 +60,7 @@ p_octtodec(int oct_number) P_NOEXCEPT
                 ++i;
         }
 
-        return dec_number;
+        return (dec_number);
 }
 
 int 
@@ -77,7 +77,7 @@ p_dectooct(int dec_number) P_NOEXCEPT
                 i *= 10;
         }
 
-        return oct_number;
+        return (oct_number);
 }
 
 int 
@@ -100,7 +100,7 @@ p_bintooct(long long bin_number) P_NOEXCEPT
                 i *= 10;
         }
 
-        return oct_number;
+        return (oct_number);
 }
 
 long long 
@@ -123,7 +123,7 @@ p_octtobin(int oct_number) P_NOEXCEPT
                 i *= 10;
         }
 
-        return bin_number;
+        return (bin_number);
 }
 
 char *
@@ -157,7 +157,7 @@ p_bintohex(char bin_number[]) P_NOEXCEPT
                 }
         }
 
-        return(strdup(hex_adecimal));
+        return (strdup(hex_adecimal));
 }
 
 char *
@@ -175,7 +175,7 @@ p_hextobin(char hex_number[]) P_NOEXCEPT
         i[binary] = '\0';
         p_strrev(binary);
 
-        return(strdup(binary));
+        return (strdup(binary));
 }
 
 int
@@ -190,7 +190,7 @@ p_powi(int base, int exponent) P_NOEXCEPT
                 exponent /= 2;
         }
 
-        return res;
+        return (res);
 }
 
 int 
@@ -200,18 +200,16 @@ p_random_int(int min, int max) P_NOEXCEPT
         return (min + rand() % (max - min + 1));
 }
 
-/*
- * Функция упаковывает 8 значений типа bool впеременную размером 
- * 1 байт.
- * Это значительно может сэкономить потребление памяти, поскольку
- * в логическом типе данных bool есть лишь два возможных значения
- * (true и false), которые могут быть представлены одним битом,
- * но по факту занимают целый байт памяти.
- * А это, в свою очередь, из-за того, что переменные используют
- * уникальные адреса памяти, а они выделяются только в байтах
- * переменная bool занимает 1 бит, а другие 7 бит - тратятся 
- * впустую.
- */
+/* Функция упаковывает 8 значений типа bool впеременную размером 
+   1 байт.
+   Это значительно может сэкономить потребление памяти, поскольку
+   в логическом типе данных bool есть лишь два возможных значения
+   (true и false), которые могут быть представлены одним битом,
+   но по факту занимают целый байт памяти.
+   А это, в свою очередь, из-за того, что переменные используют
+   уникальные адреса памяти, а они выделяются только в байтах
+   переменная bool занимает 1 бит, а другие 7 бит - тратятся 
+   впустую.  */
 uint8_t 
 p_pack_bools(bool b1, bool b2, bool b3, bool b4,
              bool b5, bool b6, bool b7, bool b8) P_NOEXCEPT
@@ -227,7 +225,7 @@ p_pack_bools(bool b1, bool b2, bool b3, bool b4,
         p |= b7 << 1;
         p |= b8;
 
-        return p;
+        return (p);
 }
 
 void 
