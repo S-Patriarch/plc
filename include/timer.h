@@ -1,8 +1,8 @@
+/* Copyright (C) 2025-2026, S-Patriarch
+   This file is part of the PLC library.  */
+
 /*
- * (C) 2025, S-Patriarch
- * This file is part of the PLC library.
- *
- * Patriarch Library C : timer.h
+ *      Patriarch Library C:                            <timer.h>
  */
 
 #ifndef __PLC_TIMER_H
@@ -10,11 +10,20 @@
 
 #include <plc/plcdef.h>
 
-void    p_start_timer(void) P_NOEXCEPT;      /* начало замера  */
-void    p_stop_timer(void) P_NOEXCEPT;       /* завершение замера  */
+P_BEGIN_DECLS
 
-double  p_duration_seconds(void) P_NOEXCEPT; /* результат замера в секундах  */
-double  p_duration_minutes(void) P_NOEXCEPT; /* результат замера в минутах  */
-double  p_duration_hours(void) P_NOEXCEPT;   /* результат замера в часах  */
+extern void p_start_timer (void) P_NOEXCEPT;
+extern void p_stop_timer (void) P_NOEXCEPT;
 
-#endif  /* __PLC_TIMER_H  */
+/* Результат замера в секундах.  */
+extern double p_duration_seconds (void) P_NOEXCEPT; 
+
+/* Результат замера в минутах.  */
+extern double p_duration_minutes (void) P_NOEXCEPT; 
+
+/* Результат замера в часах.  */
+extern double p_duration_hours (void) P_NOEXCEPT;
+
+P_END_DECLS
+
+#endif /* timer.h  */
