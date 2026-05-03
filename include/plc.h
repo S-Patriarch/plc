@@ -1,8 +1,8 @@
+/* Copyright (C) 2026, S-Patriarch
+   This file is part of the PLC library.  */
+
 /*
- * (C) 2026, S-Patriarch
- * This file is part of the PLC library.
- *
- * Patriarch Library C : plc.h
+ *      Patriarch Library C:                            <plc.h>
  */
 
 #ifndef __PLC_H
@@ -31,4 +31,4 @@
 #include <plc/void_cast.h>
 #include <plc/window.h>
 
-#endif  /* __PLC_H  */
+#endif /* plc.h  */
