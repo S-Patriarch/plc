@@ -1,15 +1,17 @@
+/* Copyright (C) 2025-2026, S-Patriarch
+   This file is part of the PLC library.  */
+
 /*
- * (C) 2025-26, S-Patriarch
- * This file is part of the PLC library.
- *
- * Patriarch Library C : io.h
+ *      Patriarch Library C:                            <io.h>
  */
 
 #ifndef __PLC_IO_H
 #define __PLC_IO_H      1
 
-#include <plc/plcdef.h>
 #include <stddef.h>
+#include <plc/plcdef.h>
+
+P_BEGIN_DECLS
 
 enum mess_format {
         mess_n,         /* нет формата - ""  */
@@ -41,4 +43,6 @@ extern int p_puts (const char *s) P_NOEXCEPT;
    символов, функция добавляет в dst символ '\0'.  */
 extern void p_gets (char *dst, size_t len) P_NOEXCEPT;
 
-#endif  /* __PLC_IO_H  */
+P_END_DECLS
+
+#endif /* io.h  */
