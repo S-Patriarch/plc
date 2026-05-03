@@ -1,8 +1,8 @@
+/* Copyright (C) 2025-2026, S-Patriarch
+   This file is part of the PLC library.  */
+
 /*
- * (C) 2025-26, S-Patriarch
- * This file is part of the PLC library.
- *
- * Patriarch Library C : algorithm.h
+ *      Patriarch Library C:                            <algorithm.h>
  */
 
 #ifndef __PLC_ALGORITHM_H
@@ -12,47 +12,66 @@
 #include <stdint.h>
 #include <plc/plcdef.h>
 
-int        p_bintodec(long long bin_number) P_NOEXCEPT; /* преобразование 2-ного числа в 10-ное  */
-long long  p_dectobin(int dec_number) P_NOEXCEPT;       /* преобразование 10-ного числа в 2-ное  */
-int        p_octtodec(int oct_number) P_NOEXCEPT;       /* преобразование 8-ного числа в 10-ное  */
-int        p_dectooct(int dec_number) P_NOEXCEPT;       /* преобразование 10-ного числа в 8-ное  */
-int        p_bintooct(long long bin_number) P_NOEXCEPT; /* преобразование 2-ного числа в 8-ное  */
-long long  p_octtobin(int oct_number) P_NOEXCEPT;       /* преобразование 8-ного числа в 2-ное  */
+P_BEGIN_DECLS
+
+/* Преобразование 2-ного числа в 10-ное.  */
+extern int p_bintodec (long long bin_number) P_NOEXCEPT;
+
+/* Преобразование 10-ного числа в 2-ное.  */
+extern long long p_dectobin (int dec_number) P_NOEXCEPT;
+
+/* Преобразование 8-ного числа в 10-ное.  */
+extern int p_octtodec (int oct_number) P_NOEXCEPT;
+
+/* Преобразование 10-ного числа в 8-ное.  */
+extern int p_dectooct (int dec_number) P_NOEXCEPT;
+
+/* Преобразование 2-ного числа в 8-ное.  */
+extern int p_bintooct (long long bin_number) P_NOEXCEPT;
+
+/* Преобразование 8-ного числа в 2-ное.  */
+extern long long p_octtobin (int oct_number) P_NOEXCEPT;
 
 /* Функции p_bintohex и p_hextobin возвращают результирующую
- * строку, память которой в последствии необходимо освободить.
- * Пример:
- *      res = p_bintohex(input);
- *      ...
- *      free(res);
- */
-char   *p_bintohex(char bin_number[]) P_NOEXCEPT;       /* преобразование 2-ного числа в 16-ное  */
-char   *p_hextobin(char hex_number[]) P_NOEXCEPT;       /* преобразование 16-ного числа в 2-ное  */
+   строку, память которой в последствии необходимо освободить.
+   Пример:
+        res = p_bintohex(input);
+        ...
+        free(res);  */
+/* Преобразование 2-ного числа в 16-ное.  */
+extern char *p_bintohex (char bin_number[]) P_NOEXCEPT;
+/* Преобразование 16-ного числа в 2-ное.  */
+extern char *p_hextobin (char hex_number[]) P_NOEXCEPT;
 
-int     p_powi(int base, int exponentnt) P_NOEXCEPT;    /* бинарное возведение в степень  */
-int     p_random_int(int min, int max) P_NOEXCEPT;      /* генерация случайного числа  */
+/* Бинарное возведение в степень.  */
+extern int p_powi (int base, int exponentnt) P_NOEXCEPT;
 
-/* упаковка 8 значений bool в 1 байт  */
-uint8_t p_pack_bools(bool b1, bool b2, bool b3, bool b4,
-                     bool b5, bool b6, bool b7, bool b8) P_NOEXCEPT;
+/* Генерация случайного числа.  */
+extern int p_random_int (int min, int max) P_NOEXCEPT;
 
-/* распаковка 1 байта на 8 значений типа bool  */
-void    p_unpack_bools(uint8_t p,                            
-                       bool *b1, bool *b2, bool *b3, bool *b4,
-                       bool *b5, bool *b6, bool *b7, bool *b8) P_NOEXCEPT;
+/* Упаковка 8 значений bool в 1 байт.  */
+extern uint8_t p_pack_bools (bool b1, bool b2, bool b3, bool b4,
+                             bool b5, bool b6, bool b7, bool b8) P_NOEXCEPT;
 
-/* упаковка 8 значений unsigned char в 1 байт  */
-void    p_pack_chars(unsigned char *p,
-                     unsigned char c1, unsigned char c2, 
-                     unsigned char c3, unsigned char c4, 
-                     unsigned char c5, unsigned char c6, 
-                     unsigned char c7, unsigned char c8) P_NOEXCEPT;
+/* Распаковка 1 байта на 8 значений типа bool.  */
+extern void p_unpack_bools (uint8_t p,                            
+                            bool *b1, bool *b2, bool *b3, bool *b4,
+                            bool *b5, bool *b6, bool *b7, bool *b8) P_NOEXCEPT;
 
-/* распаковка 1 байта на 8 значений типа unsigned char  */
-void    p_unpack_chars(unsigned char p,
-                       unsigned char *c1, unsigned char *c2, 
-                       unsigned char *c3, unsigned char *c4, 
-                       unsigned char *c5, unsigned char *c6, 
-                       unsigned char *c7, unsigned char *c8) P_NOEXCEPT;
+/* Упаковка 8 значений unsigned char в 1 байт.  */
+extern void p_pack_chars (unsigned char *p,
+                          unsigned char c1, unsigned char c2, 
+                          unsigned char c3, unsigned char c4, 
+                          unsigned char c5, unsigned char c6, 
+                          unsigned char c7, unsigned char c8) P_NOEXCEPT;
 
-#endif  /* __PLC_ALGORITHM_H  */
+/* Распаковка 1 байта на 8 значений типа unsigned char.  */
+extern void p_unpack_chars (unsigned char p,
+                            unsigned char *c1, unsigned char *c2, 
+                            unsigned char *c3, unsigned char *c4, 
+                            unsigned char *c5, unsigned char *c6, 
+                            unsigned char *c7, unsigned char *c8) P_NOEXCEPT;
+
+P_END_DECLS
+
+#endif /* algorithm.h  */
