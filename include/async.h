@@ -14,25 +14,26 @@
 
 P_BEGIN_DECLS
 
-typedef struct {
+struct future_s {
         pthread_t thread;               /* идентификатор потока  */
         void *result;                   /* указатель на результат  */
         atomic_bool completed;          /* флаг завершения задачи  */
         void *(*function)(void*);       /* функция для выполнения  */
         void *argument;                 /* аргумент для функции  */
-} future_s;
+};
 
 /* Создание задачи.  */
-extern future_s *p_async_create (void *(*func)(void*), void *arg) P_NOEXCEPT;
+extern struct future_s *p_async_create (void *(*func)(void*), void *arg) 
+        P_NOEXCEPT;
 
 /* Запуск задачи.  */
-extern int p_async_launch (future_s *future) P_NOEXCEPT;
+extern int p_async_launch (struct future_s *future) P_NOEXCEPT;
 
 /* Получение результата.  */
-extern void *p_async_get (future_s *future) P_NOEXCEPT;
+extern void *p_async_get (struct future_s *future) P_NOEXCEPT;
 
 /* Освобождение ресурсов.  */
-extern void p_async_free (future_s *future) P_NOEXCEPT;
+extern void p_async_free (struct future_s *future) P_NOEXCEPT;
 
 P_END_DECLS
 
