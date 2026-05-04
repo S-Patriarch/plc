@@ -1,8 +1,8 @@
+/* Copyright (C) 2025, S-Patriarch
+   This file is part of the PLC library.  */
+
 /*
- * (C) 2025, S-Patriarch
- * This file is part of the PLC library.
- *
- * Patriarch Library C : logger.h
+ *      Patriarch Library C:                            <logger.h>
  */
 
 #ifndef __PLC_LOGGER_H
@@ -12,15 +12,26 @@
 #include <pthread.h>
 #include <plc/plcdef.h>
 
+P_BEGIN_DECLS
+
 typedef struct logger {
-        FILE             *file;                                      /* указатель на файл логов  */
-        pthread_mutex_t   lck_write;                                 /* блокировка для записи (эксклюзивный доступ)  */
-        pthread_rwlock_t  lck_read;                                  /* блокировка для чтения (разделяемый доступ)  */
+        FILE *file;                /* указатель на файл логов  */
+        pthread_mutex_t lck_write; /* бло-ка для записи (экскл. доступ)  */
+        pthread_rwlock_t lck_read; /* бло-ка для чтения (раздел. доступ)  */
 } logger_s;
 
-logger_s *p_logger_create(const char *file_name) P_NOEXCEPT;         /* создание нового логгера  */
-void      p_logger_destroy(logger_s *log) P_NOEXCEPT;                /* уничтожение логгера и освобождение ресурсов  */
-void      p_logger_write(logger_s *log, const char *msg) P_NOEXCEPT; /* запись сообщений в лог (потокобезопасная)  */
-char     *p_logger_read(logger_s *log) P_NOEXCEPT;                   /* чтение строки из лога (потокобезопасное)  */
+/* Создание нового логгера.  */
+extern logger_s *p_logger_create (const char *file_name) P_NOEXCEPT;
 
-#endif  /* __PLC_LOGGER_H  */
+/* Уничтожение логгера и освобождение ресурсов.  */
+extern void p_logger_destroy (logger_s *log) P_NOEXCEPT;
+
+/* Запись сообщений в лог (потокобезопасная).  */
+extern void p_logger_write (logger_s *log, const char *msg) P_NOEXCEPT;
+
+/* Чтение строки из лога (потокобезопасное).  */
+extern char *p_logger_read (logger_s *log) P_NOEXCEPT;
+
+P_END_DECLS
+
+#endif /* logger.h  */

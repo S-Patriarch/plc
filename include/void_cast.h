@@ -1,8 +1,8 @@
+/* Copyright (C) 2025, S-Patriarch
+   This file is part of the PLC library.  */
+
 /*
- * (C) 2025, S-Patriarch
- * This file is part of the PLC library.
- *
- * Patriarch Library C : void_cast.h
+ *      Patriarch Library C:                            <void_cast.h>
  */
 
 #ifndef __PLC_VOID_CAST_H
@@ -20,4 +20,4 @@
         #define P_VOID_CAST(x) x
 #endif
 
-#endif  /* __PLC_VOID_CAST_H  */
+#endif /* void_cast.h  */

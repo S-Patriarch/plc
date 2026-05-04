@@ -1,8 +1,8 @@
+/* Copyright (C) 2025, S-Patriarch
+   This file is part of the PLC library.  */
+
 /*
- * (C) 2025, S-Patriarch
- * This file is part of the PLC library.
- *
- * Patriarch Library C : stopif.h
+ *      Patriarch Library C:                            <stopif.h>
  */
 
 #ifndef __PLC_STOPIF_H
@@ -10,6 +10,9 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <plc/plcdef.h>
+
+P_BEGIN_DECLS
 
 /* Присвоить этой переменной значение 's', если нужно, чтобы программа
  * останавливалась после ошибки.
@@ -29,4 +32,6 @@ FILE   *error_log;
                 }                                                             \
         }
 
-#endif  /* __PLC_STOPIF_H  */
+P_END_DECLS
+
+#endif /* stopif.h  */
