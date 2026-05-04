@@ -1,14 +1,12 @@
+/* Copyright (C) 2025-2026, S-Patriarch
+   This file is part of the PLC library.  */
+
 /*
- * (C) 2025-26, S-Patriarch
- * This file is part of the PLC library.
- *
- * Patriarch Library C : system.c
+ *      Patriarch Library C:                            system.c
  */
 
 #define _POSIX_C_SOURCE 200809L
 
-#include <plc/system.h>
-#include <plc/plcdef.h>
 #include <time.h>
 #include <sys/time.h>
 #include <locale.h>
@@ -16,6 +14,8 @@
 #include <stddef.h>
 #include <string.h>
 #include <signal.h>
+#include <plc/system.h>
+#include <plc/plcdef.h>
 
 int 
 p_locale_available(const char *locale) P_NOEXCEPT
@@ -27,7 +27,7 @@ p_locale_available(const char *locale) P_NOEXCEPT
                 return(P_FALSE);
 
         setlocale(LC_ALL, old_locale);
-        return(P_TRUE);
+        return (P_TRUE);
 }
 
 char *
@@ -41,30 +41,30 @@ p_getlocale(void) P_NOEXCEPT
 
         env_val = getenv(env_name);
         if (env_name == NULL)
-                return(NULL);
+                return (NULL);
 
-        /* Находим позицию первой точки в env_val */
+        /* находим позицию первой точки в env_val  */
         dot_pos = strchr(env_val, '.');
 
-        /* Если точки нет, возвращаем копию всей строки */
+        /* если точки нет, возвращаем копию всей строки  */
         if (dot_pos == NULL) {
                 env_res = strdup(env_val);
-                return(env_res);
+                return (env_res);
         }
 
-        /* Вычисляем длину подстроки до точки */
+        /* вычисляем длину подстроки до точки  */
         len = dot_pos - env_val;
 
-        /* Выделяем память для подстроки (+1 для нулевого терминатора) */
+        /* выделяем память для подстроки (+1 для нулевого терминатора)  */
         env_res = (char *)malloc(len + 1);
         if (env_res == NULL)
-                return(NULL);
+                return (NULL);
 
-        /* Копируем подстроку */
+        /* копируем подстроку  */
         memcpy(env_res, env_val, len);
         env_res[len] = '\0';
 
-        return(env_res);
+        return (env_res);
 }
 
 void
@@ -82,7 +82,7 @@ p_make_timeout(struct timespec *tsp, long minutes) P_NOEXCEPT
         struct timeval  now;
 
         if (gettimeofday(&now, NULL) != 0) /* получить текущее время  */
-                return(-1);
+                return (P_ERROR);
 
         tsp->tv_sec = now.tv_sec;
         tsp->tv_nsec = now.tv_usec * 1000; /* микросекунды в наносекунды  */
@@ -90,13 +90,13 @@ p_make_timeout(struct timespec *tsp, long minutes) P_NOEXCEPT
         /* добавить величину тайм-аута  */
         tsp->tv_sec += minutes * 60;
 
-        return(0);
+        return (P_SUCCESS);
 }
 
 p_sigfunc * 
 p_signal(int signo, p_sigfunc *func) P_NOEXCEPT 
 {
-        struct sigaction        act, oact;
+        struct sigaction act, oact;
 
         act.sa_handler = func;
         sigemptyset(&act.sa_mask);
@@ -111,8 +111,8 @@ p_signal(int signo, p_sigfunc *func) P_NOEXCEPT
         }
 
         if (sigaction(signo, &act, &oact) < 0)
-                return(SIG_ERR);
+                return (SIG_ERR);
 
-        return(oact.sa_handler);
+        return (oact.sa_handler);
 }
 

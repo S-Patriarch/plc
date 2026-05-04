@@ -1,22 +1,23 @@
+/* Copyright (C) 2025, S-Patriarch
+   This file is part of the PLC library.  */
+
 /*
- * (C) 2025, S-Patriarch
- * This file is part of the PLC library.
- *
- * Patriarch Library C : line.c
+ *      Patriarch Library C:                            line.c
  */
 
-#include <plc/line.h>
-#include <plc/conio.h>
 #include <string.h>
 #include <stdio.h>
+#include <plc/line.h>
+#include <plc/conio.h>
 
-void p_setline(size_t y,
-               size_t x,
-               size_t length,
-               enum line_direct line_direct,
-               enum line_view line_view,
-               const char *attrcolor,
-               line_s *line) P_NOEXCEPT 
+void 
+p_setline(size_t y,
+          size_t x,
+          size_t length,
+          enum line_direct line_direct,
+          enum line_view line_view,
+          const char *attrcolor,
+          line_s *line) P_NOEXCEPT 
 {
         line->line_y = y;
         line->line_x = x;
@@ -31,7 +32,8 @@ void p_setline(size_t y,
         line->line_attrcolor[LEN_ATTR_COLOR-1] = '\0';
 }
 
-void p_ldraw(const line_s *line) P_NOEXCEPT
+void 
+p_ldraw(const line_s *line) P_NOEXCEPT
 {
         p_resattr();
         p_setattr(line->line_attrcolor);

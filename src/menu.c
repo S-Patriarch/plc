@@ -1,19 +1,20 @@
+/* Copyright (C) 2025, S-Patriarch
+   This file is part of the PLC library.  */
+
 /*
- * (C) 2025, S-Patriarch
- * This file is part of the PLC library.
- *
- * Patriarch Library C : menu.c
+ *      Patriarch Library C:                            menu.c
  */
 
+#include <string.h>
+#include <stdio.h>
 #include <plc/plcdef.h>
 #include <plc/menu.h>
 #include <plc/conio.h>
-#include <string.h>
-#include <stdio.h>
 
-void p_setmenu(const char *attrcolor_n,
-               const char *attrcolor_s,
-               menu_style_s *mst) P_NOEXCEPT
+void 
+p_setmenu(const char *attrcolor_n,
+          const char *attrcolor_s,
+          menu_style_s *mst) P_NOEXCEPT
 {
         if (attrcolor_n == NULL || *attrcolor_n == '\0')
                 strncpy(mst->m_attrcolor_n, "\033[39;49m", LEN_ATTR_COLOR-1);
@@ -26,10 +27,11 @@ void p_setmenu(const char *attrcolor_n,
         mst->m_attrcolor_s[LEN_ATTR_COLOR-1] = '\0';
 }
 
-void p_mdraw(const menu_style_s *mst,
-             const menu_s *m,
-             size_t menu_size,
-             size_t selected) P_NOEXCEPT
+void 
+p_mdraw(const menu_style_s *mst,
+        const menu_s *m,
+        size_t menu_size,
+        size_t selected) P_NOEXCEPT
 {
         for (size_t i = 0; i != menu_size; ++i) {
                 if (i == selected) {
@@ -59,7 +61,7 @@ void p_mdraw(const menu_style_s *mst,
                         p_getchar(&c);
                         key[1] = c;
 
-                        // cтрелка вверх - влево
+                        /* cтрелка вверх - влево  */
                         if (key[0] == '[' && (key[1] == 'A' || key[1] == 'D'))
                                 if (selected > 0) {
                                         --selected;
@@ -73,7 +75,7 @@ void p_mdraw(const menu_style_s *mst,
                                         printf("%s", m[selected].m_name);
                                         fflush(stdout);
                                 }
-                        // cтрелка вниз - вправо
+                        /* cтрелка вниз - вправо  */
                         if (key[0] == '[' && (key[1] == 'B' || key[1] == 'C'))
                                 if (selected < menu_size-1) {
                                         ++selected;
@@ -87,11 +89,10 @@ void p_mdraw(const menu_style_s *mst,
                                         printf("%s", m[selected].m_name);
                                         fflush(stdout);
                                 }
-                }
-                else if (c == '\n')
+                } else if (c == '\n') {
                         m[selected].function();
+                }
         }
-
         p_resattr();
 }
 

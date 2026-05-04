@@ -1,23 +1,23 @@
+/* Copyright (C) 2025, S-Patriarch
+   This file is part of the PLC library.  */
+
 /*
- * (C) 2025, S-Patriarch
- * This file is part of the PLC library.
- *
- * Patriarch Library C : string.c
+ *      Patriarch Library C:                            string.c
  */
 
-#include <plc/string.h>
-#include <plc/plcdef.h>
 #include <string.h>
 #include <emmintrin.h>
 #include <ctype.h>
 #include <stdbool.h>
 #include <stdlib.h>
+#include <plc/string.h>
+#include <plc/plcdef.h>
 
 int 
 p_strrev(char *s) P_NOEXCEPT
 {
         if (s == NULL || *s == '\0')
-                return P_ERROR;
+                return (P_ERROR);
 
         size_t i = 0;
         size_t j = strlen(s) - 1;
@@ -28,18 +28,18 @@ p_strrev(char *s) P_NOEXCEPT
                 s[j--] = t;
         }
 
-        return P_SUCCESS;
+        return (P_SUCCESS);
 }
 
 char **
 p_strspl(const char *s, size_t *w_count) P_NOEXCEPT
 {
         if (s == NULL || *s == '\0')
-                return NULL;
+                return (NULL);
 
         char *copy = strdup(s);
         if (copy == NULL)
-                return NULL;
+                return (NULL);
 
         *w_count = 0;
         char *temp = strtok(copy, " ");
@@ -52,7 +52,7 @@ p_strspl(const char *s, size_t *w_count) P_NOEXCEPT
         if (words == NULL) {
                 free(copy);
                 copy = NULL;
-                return NULL;
+                return (NULL);
         }
 
         strcpy(copy, s);
@@ -67,7 +67,7 @@ p_strspl(const char *s, size_t *w_count) P_NOEXCEPT
                         words = NULL;
                         free(copy);
                         copy = NULL;
-                        return NULL;
+                        return (NULL);
                 }
                 i++;
                 temp = strtok(NULL, " ");
@@ -76,7 +76,7 @@ p_strspl(const char *s, size_t *w_count) P_NOEXCEPT
         free(copy);
         copy = NULL;
 
-        return words;
+        return (words);
 }
 
 void 
@@ -93,21 +93,21 @@ size_t
 p_count_char(const char *s, char c) P_NOEXCEPT
 {
         if (s == NULL || *s == '\0')
-                return 0;
+                return (0);
 
         size_t count = 0;
         for (size_t i = 0; s[i] != '\0'; i++)
                 if (s[i] == c)
                         count++;
 
-        return count;
+        return (count);
 }
 
 size_t 
 p_count_words(const char *s) P_NOEXCEPT
 {
         if (s == NULL || *s == '\0')
-                return 0;
+                return (0);
 
         size_t count = 0;
         bool in_word = false;
@@ -122,34 +122,34 @@ p_count_words(const char *s) P_NOEXCEPT
                         in_word = false;
         }
 
-        return count;
+        return (count);
 }
 
 size_t 
 p_count_utf8_chars(const char *s) P_NOEXCEPT
 {
         if (s == NULL || *s == '\0')
-                return 0;
+                return (0);
 
         size_t count = 0;
         size_t i = 0;
 
         while (s[i] != '\0') {
                 if ((s[i] & 0x80) == 0)
-                        i += 1;                 /* однобайтовый символ 0xxxxxxx */
+                        i += 1;                 /* однобайтовый символ 0xxxxxxx  */
                 else if ((s[i] & 0xE0) == 0xC0)
-                        i += 2;                 /* двухбайтовый символ 110xxxxx */
+                        i += 2;                 /* двухбайтовый символ 110xxxxx  */
                 else if ((s[i] & 0xF0) == 0xE0)
-                        i += 3;                 /* трехбайтовый символ 1110xxxx */
+                        i += 3;                 /* трехбайтовый символ 1110xxxx  */
                 else if ((s[i] & 0xF8) == 0xF0)
-                        i += 4;                 /* четырехбайтовый символ 11110xxx */
+                        i += 4;                 /* четырехбайтовый символ 11110xxx  */
                 else
-                        i += 1; /* некорректный utf8 символ, пропускаем его */
+                        i += 1; /* некорректный utf8 символ, пропускаем его  */
 
                 count++;
         }
 
-        return count;
+        return (count);
 }
 
 size_t *
@@ -157,36 +157,36 @@ p_extract_digits(const char *s, size_t *d_count) P_NOEXCEPT
 {
         if (s == NULL || *s == '\0') {
                 *d_count = 0;
-                return NULL;
+                return (NULL);
         }
 
-        /* подсчитываем количество цифр в строке */
+        /* подсчитываем количество цифр в строке  */
         *d_count = 0;
         for (size_t i = 0; s[i] != '\0'; i++)
                 if (isdigit(s[i]))
                         (*d_count)++;
 
-        /* выделяем память под массив для хранения цифр */
+        /* выделяем память под массив для хранения цифр  */
         size_t *digits = (size_t *)malloc(*d_count * sizeof(size_t));
         if (digits == NULL) {
                 *d_count = 0;
-                return NULL;
+                return (NULL);
         }
 
-        /* заполняем массив цифрами */
+        /* заполняем массив цифрами  */
         size_t itr = 0;
         for (size_t i = 0; s[i] != '\0'; i++)
                 if (isdigit(s[i]))
-                        digits[itr++] = s[i] - '0'; /* преобразуем символ в цифру */
+                        digits[itr++] = s[i] - '0'; /* преобразуем символ в цифру  */
 
-        return digits;
+        return (digits);
 }
 
 int 
 p_strcpy(char *to, char *from) P_NOEXCEPT
 {
         if (from == NULL || *from == '\0')
-                return P_ERROR;
+                return (P_ERROR);
 
         int count = strlen(from);
         int n = (count + 7) / 8;
@@ -203,7 +203,7 @@ p_strcpy(char *to, char *from) P_NOEXCEPT
                 } while (--n > 0);
         }
 
-        return P_SUCCESS;
+        return (P_SUCCESS);
 }
 
 void *
@@ -214,18 +214,18 @@ p_memcpy(void *dest, const void *src, size_t size) P_NOEXCEPT
 
         size_t i = 0;
 
-        /* Копируем 16 байт за раз с помощью SSE2 */
+        /* Копируем 16 байт за раз с помощью SSE2  */
         for (; i + 15 < size; i += 16) {
                 __m128i chunk = _mm_loadu_si128((__m128i*)(s + i));
                 _mm_storeu_si128((__m128i*)(d + i), chunk);
         }
 
-        /* Копируем оставшиеся байты один за другим */
+        /* Копируем оставшиеся байты один за другим  */
         for (; i < size; ++i) {
                 d[i] = s[i];
         }
 
-        return dest;
+        return (dest);
 }
 
 string_s *
@@ -236,7 +236,7 @@ p_string_new(void) P_NOEXCEPT
         str->length = 0;
         str->data = (char *)malloc(str->capacity);
         str->data[0] = '\0';
-        return str;
+        return (str);
 }
 
 string_s *
@@ -247,7 +247,7 @@ p_string_from_cstr(const char *cstr) P_NOEXCEPT
         str->capacity = str->length + 1;
         str->data = (char *)malloc(str->capacity);
         strcpy(str->data, cstr);
-        return str;
+        return (str);
 }
 
 void 
@@ -292,26 +292,26 @@ p_string_clear(string_s *str) P_NOEXCEPT
 int 
 p_string_empty(const string_s *str) P_NOEXCEPT
 {
-        if (str->length == 0) return P_TRUE;
-        else                  return P_FALSE;
+        if (str->length == 0) return (P_TRUE);
+        else                  return (P_FALSE);
 }
 
 int 
 p_string_compare(const string_s *str1, const string_s *str2) P_NOEXCEPT
 {
-        return strcmp(str1->data, str2->data);
+        return (strcmp(str1->data, str2->data));
 }
 
 size_t 
 p_string_size(const string_s *str) P_NOEXCEPT
 {
-        return str->length;
+        return (str->length);
 }
 
 const char *
 p_string_cstr(const string_s *str) P_NOEXCEPT
 {
-        return str->data;
+        return (str->data);
 }
 
 int 
@@ -321,35 +321,34 @@ p_strjoin(char **strings, size_t count, const char *delimiter, char **result) P_
         size_t  rlen, dlen;
 
         if (strings == NULL || delimiter == NULL || result == NULL)
-                return(-1);
+                return (P_ERROR);
 
         if (count == 0) {
                 *result = (char *)malloc(1);
                 if (*result == NULL)
-                        return(-1);
+                        return (P_ERROR);
                 (*result)[0] = '\0';
-                return(0);
+                return (P_SUCCESS);
         }
 
-        /* Вычисляем общую длину результирующей строки,
-         * суммируя длину всех строк.
-         */
+        /* вычисляем общую длину результирующей строки,
+           суммируя длину всех строк  */
         rlen = 0;
         for (i = 0; i < count; i++) {
                 if (strings[i] != NULL)
                         rlen += strlen(strings[i]);
         }
 
-        /* Добавляем длину разделителей (count - 1 раз) */
+        /* добавляем длину разделителей (count - 1 раз)  */
         dlen = strlen(delimiter);
         rlen += dlen * (count-1);
 
-        /* Выделяем память для результата (+1 для нулевого терминатора) */
+        /* выделяем память для результата (+1 для нулевого терминатора)  */
         *result = (char *)malloc(rlen + 1);
         if (*result == NULL)
-                return(-1);
+                return (P_ERROR);
 
-        /* Объединяем строки, начиная с пустой строки. */
+        /* объединяем строки, начиная с пустой строки  */
         (*result)[0] = '\0';
         for (i = 0; i < count; i++) {
                 if (strings[i] != NULL)
@@ -358,6 +357,6 @@ p_strjoin(char **strings, size_t count, const char *delimiter, char **result) P_
                         strcat(*result, delimiter);
         }
 
-        return(0);
+        return (P_SUCCESS);
 }
 

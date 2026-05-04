@@ -1,8 +1,8 @@
+/* Copyright (C) 2025, S-Patriarch
+   This file is part of the PLC library.  */
+
 /*
- * (C) 2025, S-Patriarch
- * This file is part of the PLC library.
- *
- * Patriarch Library C : p_conio.h
+ *      Patriarch Library C:                            p_conio.h
  */
 
 #ifndef __PLC_P_CONIO_H
@@ -20,4 +20,4 @@ struct win_size {
         size_t  ws_col;
 };
 
-#endif  /* __PLC_P_CONIO_H */
+#endif /* p_conio.h  */

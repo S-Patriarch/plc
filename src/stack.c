@@ -1,13 +1,14 @@
+/* Copyright (C) 2025, S-Patriarch
+   This file is part of the PLC library.  */
+
 /*
- * (C) 2025, S-Patriarch
- * This file is part of the PLC library.
- *
- * Patriarch Library C : stack.c
+ *      Patriarch Library C:                            stack.c
  */
 
 #include <plc/stack.h>
 
-void p_stack_init(thread_safe_stack_s *stack) P_NOEXCEPT 
+void 
+p_stack_init(thread_safe_stack_s *stack) P_NOEXCEPT 
 {
         if (stack == NULL) return;
 
@@ -17,7 +18,8 @@ void p_stack_init(thread_safe_stack_s *stack) P_NOEXCEPT
         pthread_mutex_init(&stack->mutex, NULL);
 }
 
-void p_stack_destroy(thread_safe_stack_s *stack, void (*free_data)(void*)) P_NOEXCEPT
+void 
+p_stack_destroy(thread_safe_stack_s *stack, void (*free_data)(void*)) P_NOEXCEPT
 {
         if (stack == NULL) return;
 
@@ -39,7 +41,8 @@ void p_stack_destroy(thread_safe_stack_s *stack, void (*free_data)(void*)) P_NOE
         pthread_mutex_destroy(&stack->mutex);
 }
 
-bool p_stack_push(thread_safe_stack_s *stack, void *data) P_NOEXCEPT
+bool 
+p_stack_push(thread_safe_stack_s *stack, void *data) P_NOEXCEPT
 {
         if (stack == NULL) return false;
 
@@ -58,7 +61,8 @@ bool p_stack_push(thread_safe_stack_s *stack, void *data) P_NOEXCEPT
        return true;
 }
 
-void *p_stack_pop(thread_safe_stack_s *stack) P_NOEXCEPT
+void *
+p_stack_pop(thread_safe_stack_s *stack) P_NOEXCEPT
 {
         if (stack == NULL) return NULL;
 
@@ -80,7 +84,8 @@ void *p_stack_pop(thread_safe_stack_s *stack) P_NOEXCEPT
         return data;
 }
 
-void *p_stack_peek(thread_safe_stack_s *stack) P_NOEXCEPT
+void *
+p_stack_peek(thread_safe_stack_s *stack) P_NOEXCEPT
 {
         if (stack == NULL) return NULL;
 
@@ -92,7 +97,8 @@ void *p_stack_peek(thread_safe_stack_s *stack) P_NOEXCEPT
         return data;
 }
 
-bool p_stack_empty(thread_safe_stack_s *stack) P_NOEXCEPT
+bool 
+p_stack_empty(thread_safe_stack_s *stack) P_NOEXCEPT
 {
         if (stack == NULL) return true;
 
@@ -103,7 +109,8 @@ bool p_stack_empty(thread_safe_stack_s *stack) P_NOEXCEPT
         return empty;
 }
 
-size_t p_stack_size(thread_safe_stack_s *stack) P_NOEXCEPT
+size_t 
+p_stack_size(thread_safe_stack_s *stack) P_NOEXCEPT
 {
         if (stack == NULL) return 0;
 

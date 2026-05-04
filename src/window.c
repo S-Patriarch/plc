@@ -1,22 +1,23 @@
+/* Copyright (C) 2025, S-Patriarch
+   This file is part of the PLC library.  */
+
 /*
- * (C) 2025, S-Patriarch
- * This file is part of the PLC library.
- *
- * Patriarch Library C : window.c
+ *      Patriarch Library C:                            window.c
  */
 
+#include <string.h>
+#include <stdio.h>
+#include <unistd.h>
 #include <plc/plcdef.h>
 #include <plc/window.h>
 #include <plc/conio.h>
 #include <plc/string.h>
-#include <string.h>
-#include <stdio.h>
-#include <unistd.h>
 
-void p_setwintitle(const char *title,
-                   enum win_title_location location,
-                   const char *attrcolor,
-                   window_s *win) P_NOEXCEPT
+void 
+p_setwintitle(const char *title,
+              enum win_title_location location,
+              const char *attrcolor,
+              window_s *win) P_NOEXCEPT
 {
         if (title == NULL || *title == '\0')
                 strncpy(win->wtl.wtl_title, "", LEN_TITLE-1);
@@ -36,13 +37,14 @@ void p_setwintitle(const char *title,
         win->wtl.wtl_location = location;
 }
 
-void p_setwindow(size_t y,
-                 size_t x,
-                 size_t height,
-                 size_t width,
-                 enum win_box_view view,
-                 const char *attrcolor,
-                 window_s *win) P_NOEXCEPT
+void 
+p_setwindow(size_t y,
+            size_t x,
+            size_t height,
+            size_t width,
+            enum win_box_view view,
+            const char *attrcolor,
+            window_s *win) P_NOEXCEPT
 {
         win->win_y = y;
         win->win_x = x;
@@ -58,7 +60,8 @@ void p_setwindow(size_t y,
         win->win_attrcolor[LEN_ATTR_COLOR-1] = '\0';
 }
 
-void p_wdraw(const window_s *win) P_NOEXCEPT
+void 
+p_wdraw(const window_s *win) P_NOEXCEPT
 {
         p_resattr();
         p_setattr(win->win_attrcolor);
@@ -163,12 +166,14 @@ void p_wdraw(const window_s *win) P_NOEXCEPT
         }
 }
 
-int p_wout(const char *s,
-           const char *attrcolor,
-           size_t from_tb,
-           const window_s *win) P_NOEXCEPT
+int 
+p_wout(const char *s,
+       const char *attrcolor,
+       size_t from_tb,
+       const window_s *win) P_NOEXCEPT
 {
-        if (s == NULL || *s == '\0') return P_ERROR;
+        if (s == NULL || *s == '\0') 
+                return (P_ERROR);
 
         size_t count = 0; // счетчик символов в текущей строке
         size_t y = win->win_y + 1 + from_tb;
@@ -203,6 +208,6 @@ int p_wout(const char *s,
         fflush(stdout);
         p_resattr();
 
-        return P_SUCCESS;
+        return (P_SUCCESS);
 }
 

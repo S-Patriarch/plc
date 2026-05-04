@@ -1,23 +1,24 @@
+/* Copyright (C) 2025, S-Patriarch
+   This file is part of the PLC library.  */
+
 /*
- * (C) 2025, S-Patriarch
- * This file is part of the PLC library.
- *
- * Patriarch Library C : conio.c
+ *      Patriarch Library C:                            conio.c
  */
 
-#include "p_conio.h"
-#include <plc/conio.h>
-#include <plc/plcdef.h>
 #include <termios.h>
 #include <unistd.h>
 #include <sys/ioctl.h>
 #include <stdio.h>
 #include <string.h>
+#include "p_conio.h"
+#include <plc/conio.h>
+#include <plc/plcdef.h>
 
 struct text_info t;
 struct win_size ws;
 
-void p_conio_init(void) P_NOEXCEPT
+void 
+p_conio_init(void) P_NOEXCEPT
 {
         struct winsize s;
 
@@ -33,49 +34,57 @@ void p_conio_init(void) P_NOEXCEPT
         }
 }
 
-void p_setrow(size_t row) P_NOEXCEPT
+void 
+p_setrow(size_t row) P_NOEXCEPT
 {
         t.cur_row = row;
 }
 
-void p_setcol(size_t col) P_NOEXCEPT
+void 
+p_setcol(size_t col) P_NOEXCEPT
 {
         t.cur_col = col;
 }
 
-size_t p_getrow(void) P_NOEXCEPT
+size_t 
+p_getrow(void) P_NOEXCEPT
 {
-        return t.cur_row;
+        return (t.cur_row);
 }
 
-size_t p_getcol(void) P_NOEXCEPT
+size_t 
+p_getcol(void) P_NOEXCEPT
 {
-        return t.cur_col;
+        return (t.cur_col);
 }
 
-size_t p_getwsrow(void) P_NOEXCEPT
+size_t 
+p_getwsrow(void) P_NOEXCEPT
 {
-        return ws.ws_row;
+        return (ws.ws_row);
 }
 
-size_t p_getwscol(void) P_NOEXCEPT
+size_t 
+p_getwscol(void) P_NOEXCEPT
 {
-        return ws.ws_col;
+        return (ws.ws_col);
 }
 
-void p_gotoyx(size_t row, size_t col) P_NOEXCEPT
+void 
+p_gotoyx(size_t row, size_t col) P_NOEXCEPT
 {
         t.cur_row = row;
         t.cur_col = col;
         printf("\033[%zu;%zuH", t.cur_row, t.cur_col);
 }
 
-int p_getchar(char *c) P_NOEXCEPT
+int 
+p_getchar(char *c) P_NOEXCEPT
 {
         struct termios old_t;
 
         if (tcgetattr(0, &old_t) < 0) 
-                return P_ERROR;
+                return (P_ERROR);
 
         old_t.c_lflag &= ~ICANON;
         old_t.c_lflag &= ~ECHO;
@@ -83,67 +92,73 @@ int p_getchar(char *c) P_NOEXCEPT
         old_t.c_cc[VTIME] = 0;
         
         if (tcsetattr(0, TCSANOW, &old_t) < 0) 
-                return P_ERROR;
+                return (P_ERROR);
         if (read(0, c, 1) < 0) 
-                return P_ERROR;
+                return (P_ERROR);
         
         old_t.c_lflag |= ICANON;
         old_t.c_lflag |= ECHO;
         
         if (tcsetattr(0, TCSADRAIN, &old_t) < 0) 
-                return P_ERROR;
+                return (P_ERROR);
 
-        return P_SUCCESS;
+        return (P_SUCCESS);
 }
 
-int p_gethiddens(char *s, size_t size) P_NOEXCEPT
+int 
+p_gethiddens(char *s, size_t size) P_NOEXCEPT
 {
         struct termios old_t, new_t;
 
         if (tcgetattr(STDIN_FILENO, &old_t) < 0) 
-                return P_ERROR;
+                return (P_ERROR);
         
         new_t = old_t;
         new_t.c_lflag &= ~ECHO;
         
         if (tcsetattr(STDIN_FILENO, TCSANOW, &new_t) < 0) 
-                return P_ERROR;
+                return (P_ERROR);
         
         if (fgets(s, size, stdin) != NULL) {
                 size_t len = strlen(s);
                 if (len > 0 && s[len-1] == '\n')
                         s[len-1] = '\0';
         } else  
-                return P_ERROR;
+                return (P_ERROR);
         
         if (tcsetattr(STDIN_FILENO, TCSANOW, &old_t) < 0) 
-                return P_ERROR;
+                return (P_ERROR);
 
-        return P_SUCCESS;
+        return (P_SUCCESS);
 }
 
-void p_setattr(const char *attr) P_NOEXCEPT
+void 
+p_setattr(const char *attr) P_NOEXCEPT
 {
         printf("%s", attr);
 }
 
-void p_resattr(void) P_NOEXCEPT
+void 
+p_resattr(void) P_NOEXCEPT
 {
         const size_t RESET = 0;
         printf("\033[%zum", RESET);
 }
 
-void p_screen_save(void) P_NOEXCEPT
+void 
+p_screen_save(void) P_NOEXCEPT
 {
         printf("\033[?1049h");
 }
 
-void p_screen_restore(void) P_NOEXCEPT
+void 
+p_screen_restore(void) P_NOEXCEPT
 {
         printf("\033[?1049l");
 }
 
-void p_clrscr(void) P_NOEXCEPT
+void 
+p_clrscr(void) P_NOEXCEPT
 {
         printf("\033[2J\033[1;1H");
 }
@@ -151,63 +166,74 @@ void p_clrscr(void) P_NOEXCEPT
 /*
  * Функции управления положением курсора.
  */
-void p_cursor_move(size_t row, size_t col) P_NOEXCEPT
+void 
+p_cursor_move(size_t row, size_t col) P_NOEXCEPT
 {
         t.cur_row = row;
         t.cur_col = col;
         printf("\033[%zu;%zuH", t.cur_row, t.cur_col);
 }
 
-void p_cursor_down(size_t count) P_NOEXCEPT
+void 
+p_cursor_down(size_t count) P_NOEXCEPT
 {
         t.cur_row += count;
         printf("\033[%zuB", count);
 }
 
-void p_cursor_up(size_t count) P_NOEXCEPT
+void 
+p_cursor_up(size_t count) P_NOEXCEPT
 {
         t.cur_row -= count;
         printf("\033[%zuA", count);
 }
 
-void p_cursor_forward(size_t count) P_NOEXCEPT
+void 
+p_cursor_forward(size_t count) P_NOEXCEPT
 {
         t.cur_col += count;
         printf("\033[%zuC", count);
 }
 
-void p_cursor_backward(size_t count) P_NOEXCEPT
+void 
+p_cursor_backward(size_t count) P_NOEXCEPT
 {
         t.cur_col -= count;
         printf("\033[%zuD", count);
 }
 
-void p_cursor_save(void) P_NOEXCEPT
+void 
+p_cursor_save(void) P_NOEXCEPT
 {
         printf("\033[s");
 }
 
-void p_cursor_unsave(void) P_NOEXCEPT
+void 
+p_cursor_unsave(void) P_NOEXCEPT
 {
         printf("\033[u");
 }
 
-void p_cursor_save_and_attr(void) P_NOEXCEPT
+void 
+p_cursor_save_and_attr(void) P_NOEXCEPT
 {
         printf("\0337");
 }
 
-void p_cursor_unsave_and_attr(void) P_NOEXCEPT
+void 
+p_cursor_unsave_and_attr(void) P_NOEXCEPT
 {
         printf("\0338");
 }
 
-void p_cursor_hidden(void) P_NOEXCEPT
+void 
+p_cursor_hidden(void) P_NOEXCEPT
 {
         printf("\033[?25l");
 }
 
-void p_cursor_visible(void) P_NOEXCEPT  
+void 
+p_cursor_visible(void) P_NOEXCEPT  
 {
         printf("\033[?25h");
 }
@@ -215,22 +241,26 @@ void p_cursor_visible(void) P_NOEXCEPT
 /*
  * Функции управления скроллингом экрана.
  */
-void p_scroll_screen_all(void) P_NOEXCEPT
+void 
+p_scroll_screen_all(void) P_NOEXCEPT
 {
         printf("\033[r");
 }
 
-void p_scroll_screen(size_t begin, size_t end) P_NOEXCEPT
+void 
+p_scroll_screen(size_t begin, size_t end) P_NOEXCEPT
 {
         printf("\033[%zu;%zur", begin, end);
 }
 
-void p_scroll_down(void) P_NOEXCEPT
+void 
+p_scroll_down(void) P_NOEXCEPT
 {
         printf("\033D");
 }
 
-void p_scroll_up(void) P_NOEXCEPT
+void 
+p_scroll_up(void) P_NOEXCEPT
 {
         printf("\033M");
 }
@@ -238,17 +268,20 @@ void p_scroll_up(void) P_NOEXCEPT
 /*
  * Функции управления табуляцией.
  */
-void p_tab_set(void) P_NOEXCEPT
+void 
+p_tab_set(void) P_NOEXCEPT
 {
         printf("\033H");
 }
 
-void p_tab_clear(void) P_NOEXCEPT
+void 
+p_tab_clear(void) P_NOEXCEPT
 {
         printf("\033[g");
 }
 
-void p_tab_clear_all(void) P_NOEXCEPT
+void 
+p_tab_clear_all(void) P_NOEXCEPT
 {
         printf("\033[3g");
 }
@@ -256,32 +289,38 @@ void p_tab_clear_all(void) P_NOEXCEPT
 /*
  * Функции стирания текста.
  */
-void p_erase_end_of_line(void) P_NOEXCEPT
+void 
+p_erase_end_of_line(void) P_NOEXCEPT
 {
         printf("\033[K");
 }
 
-void p_erase_begin_of_line(void) P_NOEXCEPT
+void 
+p_erase_begin_of_line(void) P_NOEXCEPT
 {
         printf("\033[1K");
 }
 
-void p_erase_line(void) P_NOEXCEPT
+void 
+p_erase_line(void) P_NOEXCEPT
 {
         printf("\033[2K");
 }
 
-void p_erase_down(void) P_NOEXCEPT
+void 
+p_erase_down(void) P_NOEXCEPT
 {
         printf("\033[J");
 }
 
-void p_erase_up(void) P_NOEXCEPT
+void 
+p_erase_up(void) P_NOEXCEPT
 {
         printf("\033[1J");
 }
 
-void p_erase_screen(void) P_NOEXCEPT
+void 
+p_erase_screen(void) P_NOEXCEPT
 {
         printf("\033[2J");
 }
@@ -289,17 +328,20 @@ void p_erase_screen(void) P_NOEXCEPT
 /*
  * Функции установки режима терминала.
  */
-void p_device_reset(void) P_NOEXCEPT
+void 
+p_device_reset(void) P_NOEXCEPT
 {
         printf("\033c");
 }
 
-void p_line_wrap_enable(void) P_NOEXCEPT
+void 
+p_line_wrap_enable(void) P_NOEXCEPT
 {
         printf("\033[7h");
 }
 
-void p_line_wrap_disable(void) P_NOEXCEPT
+void 
+p_line_wrap_disable(void) P_NOEXCEPT
 {
         printf("\033[7l");
 }

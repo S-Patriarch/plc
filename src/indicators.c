@@ -1,34 +1,35 @@
+/* Copyright (C) 2025, S-Patriarch
+   This file is part of the PLC library.  */
+
 /*
- * (C) 2025, S-Patriarch
- * This file is part of the PLC library.
- *
- * Patriarch Library C : indicators.c
+ *      Patriarch Library C:                            indicators.c
  */
 
-#include <plc/indicators.h>
-#include <plc/conio.h>
-#include <plc/dt.h>
 #include <string.h>
 #include <stdio.h>
 #include <stdbool.h>
+#include <plc/indicators.h>
+#include <plc/conio.h>
+#include <plc/dt.h>
 
-void p_setind_pr(size_t y,
-                 size_t x,
-                 size_t width,
-                 size_t min_iterator,
-                 size_t max_iterator,
-                 const char *attrcolor_block,
-                 const char *attrcolor_backing,
-                 const char *attrcolor_bracket,
-                 const char *block,
-                 const char *backing,
-                 char bracket_left,
-                 char bracket_rigth,
-                 size_t count_y,
-                 size_t count_x,
-                 const char *attrcolor_count,
-                 const char *count,
-                 ind_progress_s *pr) P_NOEXCEPT
+void 
+p_setind_pr(size_t y,
+            size_t x,
+            size_t width,
+            size_t min_iterator,
+            size_t max_iterator,
+            const char *attrcolor_block,
+            const char *attrcolor_backing,
+            const char *attrcolor_bracket,
+            const char *block,
+            const char *backing,
+            char bracket_left,
+            char bracket_rigth,
+            size_t count_y,
+            size_t count_x,
+            const char *attrcolor_count,
+            const char *count,
+            ind_progress_s *pr) P_NOEXCEPT
 {
         pr->pr_y = y;
         pr->pr_x = x;
@@ -87,17 +88,20 @@ void p_setind_pr(size_t y,
         pr->pr_count[LEN_BLOCK-1] = '\0';
 }
 
-size_t p_getind_pr_min(ind_progress_s *pr) P_NOEXCEPT
+size_t 
+p_getind_pr_min(ind_progress_s *pr) P_NOEXCEPT
 {
-        return pr->pr_min_iterator;
+        return (pr->pr_min_iterator);
 }
 
-size_t p_getind_pr_max(ind_progress_s *pr) P_NOEXCEPT
+size_t 
+p_getind_pr_max(ind_progress_s *pr) P_NOEXCEPT
 {
-        return pr->pr_max_iterator;
+        return (pr->pr_max_iterator);
 }
 
-void p_idraw_pr(size_t index, ind_progress_s *pr) P_NOEXCEPT
+void 
+p_idraw_pr(size_t index, ind_progress_s *pr) P_NOEXCEPT
 {
         bool is_yx;
 
@@ -106,7 +110,7 @@ void p_idraw_pr(size_t index, ind_progress_s *pr) P_NOEXCEPT
         else
                 is_yx = false;
 
-        // вычисляем процент выполнения
+        /* вычисляем процент выполнения  */
         double progress = (double)index / (double)pr->pr_max_iterator;
         size_t complete = (size_t)(progress * (double)pr->pr_width);
 
@@ -155,10 +159,11 @@ void p_idraw_pr(size_t index, ind_progress_s *pr) P_NOEXCEPT
         p_resattr();
 }
 
-void p_setind_sp(size_t y,
-                 size_t x,
-                 const char *attrcolor,
-                 ind_spinner_s *sp) P_NOEXCEPT
+void 
+p_setind_sp(size_t y,
+            size_t x,
+            const char *attrcolor,
+            ind_spinner_s *sp) P_NOEXCEPT
 {
         sp->sp_spinner[0] = '|';
         sp->sp_spinner[1] = '/';
@@ -177,7 +182,8 @@ void p_setind_sp(size_t y,
         sp->sp_attrcolor[LEN_ATTR_COLOR-1] = '\0';
 }
 
-void p_idraw_sp(ind_spinner_s *sp) P_NOEXCEPT
+void 
+p_idraw_sp(ind_spinner_s *sp) P_NOEXCEPT
 {
         p_resattr();
         p_setattr(sp->sp_attrcolor);
@@ -198,11 +204,12 @@ void p_idraw_sp(ind_spinner_s *sp) P_NOEXCEPT
         p_resattr();
 }
 
-void p_setind_c(size_t y,
-                size_t x,
-                const char *attrcolor,
-                const char *counter,
-                ind_counter_s *c) P_NOEXCEPT
+void 
+p_setind_c(size_t y,
+           size_t x,
+           const char *attrcolor,
+           const char *counter,
+           ind_counter_s *c) P_NOEXCEPT
 {
         c->c_y = y;
         c->c_x = x;
@@ -220,7 +227,8 @@ void p_setind_c(size_t y,
         c->c_counter[LEN_COUNTER-1] = '\0';
 }
 
-void p_idraw_c(size_t index, ind_counter_s *c) P_NOEXCEPT
+void 
+p_idraw_c(size_t index, ind_counter_s *c) P_NOEXCEPT
 {
         p_resattr();
         p_setattr(c->c_attrcolor);
@@ -240,11 +248,12 @@ void p_idraw_c(size_t index, ind_counter_s *c) P_NOEXCEPT
         p_resattr();
 }
 
-void p_setind_p(size_t y,
-                size_t x,
-                const char *attrcolor,
-                unsigned int ms_delay, 
-                ind_points_s *p) P_NOEXCEPT
+void 
+p_setind_p(size_t y,
+           size_t x,
+           const char *attrcolor,
+           unsigned int ms_delay, 
+           ind_points_s *p) P_NOEXCEPT
 {
         p->p_y = y;
         p->p_x = x;
@@ -258,7 +267,8 @@ void p_setind_p(size_t y,
         p->p_ms_delay = ms_delay;
 }
 
-void p_idraw_p(ind_points_s *p) P_NOEXCEPT
+void 
+p_idraw_p(ind_points_s *p) P_NOEXCEPT
 {
         const char *str = "   ";
 
@@ -290,11 +300,12 @@ void p_idraw_p(ind_points_s *p) P_NOEXCEPT
         p_resattr();
 }
 
-void p_setind_w(size_t y,
-                size_t x,
-                const char *attrcolor,
-                unsigned int ms_delay, 
-                ind_wave_s *w) P_NOEXCEPT
+void 
+p_setind_w(size_t y,
+           size_t x,
+           const char *attrcolor,
+           unsigned int ms_delay, 
+           ind_wave_s *w) P_NOEXCEPT
 {
         w->w_y = y;
         w->w_x = x;
@@ -320,7 +331,8 @@ void p_setind_w(size_t y,
         w->w_wave[10] = "\u2581\u2581\u2581";
 }
 
-void p_idraw_w(ind_wave_s *w) P_NOEXCEPT
+void 
+p_idraw_w(ind_wave_s *w) P_NOEXCEPT
 {
         bool is_yx;
 

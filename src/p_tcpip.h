@@ -1,8 +1,8 @@
+/* Copyright (C) 2025, S-Patriarch
+   This file is part of the PLC library.  */
+
 /*
- * (C) 2025, S-Patriarch
- * This file is part of the PLC library.
- *
- * Patriarch Library C : p_tcpip.h
+ *      Patriarch Library C:                            p_tcpip.h
  */
 
 #ifndef __PLC_P_TCPIP_H
@@ -12,13 +12,15 @@
 #include <sys/types.h>
 #include <plc/plcdef.h>
 
-#define LISTENQ         1024  // максимальное количество клиентских соединений 
-#define MAXLINE         4096  // максимальная длина текстовой строки
-#define BUFFSIZE        8192  // размер буфера для чтения и записи
-#define MAXSOCKADDR     128   // максимальный размер структуры адреса сокета
-#define SERV_PORT       9877  // клиент-серверы TCP и UDP
+P_BEGIN_DECLS
 
-typedef void Sigfunc(int) P_NOEXCEPT; // для обработчиков сигналов
+#define LISTENQ     1024  /* максимальное количество клиентских соединений  */ 
+#define MAXLINE     4096  /* максимальная длина текстовой строки  */
+#define BUFFSIZE    8192  /* размер буфера для чтения и записи  */
+#define MAXSOCKADDR 128   /* максимальный размер структуры адреса сокета  */
+#define SERV_PORT   9877  /* клиент-серверы TCP и UDP  */
+
+typedef void Sigfunc(int) P_NOEXCEPT; /* для обработчиков сигналов  */
 
 typedef struct tcpip {
         int   _read_cnt;
@@ -26,10 +28,12 @@ typedef struct tcpip {
         char  _read_buf[MAXLINE];
 } tcpip_s;
 
-Sigfunc *_signal(int signo, Sigfunc *func) P_NOEXCEPT;
-ssize_t _my_read(int fd, char *ptr) P_NOEXCEPT;
-ssize_t _readline(int fd, void *vptr, size_t maxlen) P_NOEXCEPT;
-ssize_t _readlinebuf(void **vptrptr)P_NOEXCEPT;
-ssize_t _writen(int fd, const void *vptr, size_t n) P_NOEXCEPT;
+extern Sigfunc *_signal (int signo, Sigfunc *func) P_NOEXCEPT;
+extern ssize_t _my_read (int fd, char *ptr) P_NOEXCEPT;
+extern ssize_t _readline (int fd, void *vptr, size_t maxlen) P_NOEXCEPT;
+extern ssize_t _readlinebuf (void **vptrptr)P_NOEXCEPT;
+extern ssize_t _writen (int fd, const void *vptr, size_t n) P_NOEXCEPT;
 
-#endif  /* __PLC_P_TCPIP_H */
+P_END_DECLS
+
+#endif /* p_tcpip.h  */
