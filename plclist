@@ -1,0 +1,304 @@
+/* Copyright (C) 2026, S-Patriarch
+   Список функций, макросов и дефайнов, находящихся в библиотеке
+   Patriarch Library C  */
+
+
+algorithm.h
+
+        p_bintodec               - преобразование 2-ного числа в 10-ное
+        p_dectobin               - преобразование 10-ного числа в 2-ное
+        p_octtodec               - преобразование 8-ного числа в 2-ное
+        p_dectooct               - преобразование 2-ного числа в 8-ное
+        p_bittooct               - преобразование 2-ного числа в 8-ное
+        p_octtobin               - преобразование 8-ного числа в 2-ное
+        p_bintohex               - преобразование 2-ного числа в 16-ное
+        p_hextobin               - преобразование 16-ного числа в 2-ное
+        p_powi                   - бинарное возведение в степень
+        p_random_int             - генерация случайного числа
+        p_pack_bools             - упаковка 8 значений bool в 1 байт
+        p_unpack_bools           - распаковка 1 байта на 8 значений типа bool
+        p_pack_chars             - упаковка 8 значений unsigned char в 1 байт
+        p_unpack_chars           - распаковка 1 байта на 8 значений типа unsigned char
+
+async.h
+
+        p_async_create           - создание задачи
+        p_async_launch           - запуск задачи
+        p_async_get              - получение результатов
+        p_async_free             - освобождение ресурсов
+
+bitset.h
+
+        p_bitset_create          - создание нового bitset
+        p_bitset_destroy         - уничтожение bitset
+        p_bitset_clone           - создание копии bitset
+        p_bitset_test            - проверка бита
+        p_bitset_set             - установка значения бита
+        p_bitset_set_all         - установить все биты в заданное значение
+        p_bitset_flip            - инвертировать бит
+        p_bitset_flip_all        - инвертировать все биты
+        p_bitset_reset           - сбросить бит
+        p_bitset_reset_all       - сбросить все биты
+        p_bitset_and             - побитовое И (dst &= src)
+        p_bitset_or              - побитовое ИЛИ (dst |= src)
+        p_bitset_xor             - побитовое исключение ИЛИ (dst ^= src)
+        p_bitset_not             - побитовое НЕ (bs = ~bs)
+        p_bitset_shl             - сдвиг влево
+        p_bitset_shr             - сдвиг вправо
+        p_bitset_count           - подсчет установленных битов
+        p_bitset_size            - размер в битах
+        p_bitset_all             - все биты установлены?
+        p_bitset_any             - хотябы один бит установлен?
+        p_bitset_none            - ни один бит не установлен?
+        p_bitset_ullong          - конвертация в unsigned long long int
+        p_bitset_to_string       - строковое представление
+        p_bitset_from_string     - создание из строк (ожидает строку из '0' и '1')
+        p_bitset_equal           - сравнение на равенство
+        p_bitset_not_equal       - сравнение на неравенство
+        p_bitset_hash            - хеш-функция (FNV-1a)
+        p_bitset_foreach_set     - итерация по установленным битам
+
+conio.h
+
+        p_conio_init             - инициализация структур и ...
+        p_setrow                 - установка координаты y
+        p_setcol                 - установка координаты x
+        p_getrow                 - получение координаты y
+        p_getcol                 - получение координаты x
+        p_getwsrow               - получение количества строк экрана
+        p_getwscol               - получение количества столбцов экрана
+        p_gotoyx                 - установка позиции курсора
+        p_getchar                - получение символа с stdin без нажатия enter
+        p_gethiddens             - скрытое считывание неформатированных данных из потока
+        p_setattr                - установка атрибутов
+        p_resattr                - сброс всех атрибутов
+        p_screen_save            - вход в альтернативный экран
+        p_screen_restore         - выход из альтернативного экрана
+        p_clrscr                 - очистка экрана и установка курсора в позицию 1, 1
+        p_cursor_move            - установка позиции курсора
+        p_cursor_down            - перемещение курсора вниз
+        p_cursor_up              - перемещение курсора вверх
+        p_cursor_forward         - перемещение курсора вперед
+        p_cursor_backward        - перемещение курсора назад
+        p_cursor_save            - сохранение текущей позиции курсора
+        p_cursor_unsave          - восстановление позиции курсора
+        p_cursor_save_and_attr   - сохранение текущей позиции курсора вместе с атрибутами
+        p_cursor_unsave_and_attr - восстановление позиции курсора вместе с атрибутами
+        p_cursor_hidden          - скрытие курсора
+        p_cursor_visible         - показ курсора
+        p_scroll_screen_all      - разрешает прокрутку всего экрана целиком
+        p_scroll_screen          - разрешает прокрутку от начальной до конечной строки
+        p_scroll_down            - прокрутка экрана на одну строку вниз
+        p_scroll_up              - прокрутка экрана на одну строку вверх
+        p_tab_set                - установка табуляции в текущей позиции
+        p_tab_clear              - очищение табуляции в текущей позиции
+        p_tab_clear_all          - очищение всех установленных позиций табуляции
+        p_erase_end_of_line      - стирание текста от текущей позиции курсора до конца текущей строки
+        p_erase_begin_of_line    - стирание текста от текущей позиции курсора до начала текущей позиции
+        p_erase_line             - стирание всей текущей строки
+        p_erase_down             - стирание экрана от текущей строки вниз до нижней границе экрана
+        p_erase_up               - стирание экрана от текущей строки вверх до верхней границе экрана
+        p_erase_screen           - стирание экрана с заполнением его цветом фона
+        p_device_reset           - сброс всех настроек терминала в значения по умолчанию
+        p_line_wrap_enable       - разрешает переход на следующую строку
+        p_line_wrap_disable      - запрещает переход на следующую строку
+
+crypto.h
+
+        p_strhash32              - хэширование строки (32 бита) 
+        p_strhash64              - хэширование строки (64 бита)
+        p_ptr_list_hash          - хэширование списка указателей
+        p_crle                   - сжатие строки
+        p_drle                   - востановление строки
+
+dt.h
+
+        p_getdate                - получить текущую дату
+        p_gettime                - получить текущее время
+        p_delay_ms               - осуществляет задержку в миллисекундах
+        p_date_convert           - преобразовать строку даты в иной вид строки
+
+error.h
+
+        p_error_ret              - обрабатывает нефатальные ошибки, связанные с системными вызовами
+        p_error_sys              - обрабатывает фатальные ошибки, связанные с системными вызовами
+        p_error_cont             - обрабатывает нефатальные ошибки, не связанные с системными вызовами
+        p_error_exit             - обрабатывает фатальные ошибки, не связанные с системными вызовами
+        p_error_dump             - обрабатывает фатальные ошибки, связанные с системными вызовами
+        p_error_msg              - обрабатывает нефатальные ошибки, не связанные с системными вызовами
+        p_error_quit             - обрабатывает фатальные ошибки, не связанные с системными вызовами
+
+file.h
+
+        p_file_setfl             - функция включает один или более флагов состояния файла
+        p_file_copy              - копирование файла 
+        p_file_move              - перемещение файла
+
+indicators.h
+
+        p_setind_pr              - progress bar
+        p_getind_pr_min          - progress bar
+        p_getind_pr_max          - progress bar
+        p_idraw_pr               - progress bar
+        p_setind_sp              - spinner
+        p_idraw_sp               - spinner
+        p_setind_c               - counter
+        p_idraw_c                - counter
+        p_setind_p               - points
+        p_idraw_p                - points
+        p_setind_w               - wave
+        p_idraw_w                - wave
+
+io.h
+
+        p_mout                   - вывод сообщения в stdout
+        p_cout                   - вывод строки в stdout
+        p_puts                   - функция записывает строку в стандартный поток вывода stdout
+        p_gets                   - функция принимает ввод
+
+line.h
+
+        p_setline
+        p_ldraw
+
+logger.h
+
+        p_logger_create          - создание нового логгера
+        p_logger_destroy         - уничтожение логгера и освобождение ресурсов
+        p_logger_write           - запись сообщений в лог (потокобезопасная)
+        p_logger_read            - чтение строки из лога (потокобезопасное)
+
+menu.h
+
+        p_setmenu
+        p_mdraw
+
+plcdef.h
+
+        P_SUCCESS
+        P_FAILURE
+        P_ERROR
+        P_FALSE
+        P_TRUE
+        P_ESC 
+        P_VTAB
+        P_BELL
+        P_BUFSIZ_1
+        P_BUFSIZ_2
+        P_BUFSIZ_4
+        P_BUFSIZ_8
+        P_BUFSIZ_16
+        P_BUFSIZ_32
+        P_BUFSIZ_64
+        P_BUFSIZ_128
+        P_BUFSIZ_256
+        P_BUFSIZ_512
+        P_BUFSIZ_1K
+        P_BUFSIZ_2K
+        P_BUFSIZ_4K
+        P_BUFSIZ_8K
+        P_BUFSIZ_16K
+        P_BUFSIZ_32K
+        P_BUFSIZ_65K
+        P_BUFSIZ_131K
+        P_BUFSIZ_262K
+        P_BUFSIZ_524K
+        P_MAXLINE                        - максимальная длина строки
+        P_FILE_MODE                      - права доступа по умолчанию к создаваемым файлам
+        P_DIR_MODE                       - права доступа по умолчанию к создаваемым каталогам
+        P_MIN
+        P_MAX
+        P_SWAP                           - макрос, позволяющий одной строкой менять местами int, double, struct, указатели и вообще любые типы
+        P_CLEANUP                        - макрос для вызыва указанной функции очистки 
+        P_DECLARE_AND_ZERO_ARRAY         - макрос для объявления массива переменной длины (VLA) на стеке и обнуления всех его элементов
+        P_DECLARE_AND_ZERO_DYNAMIC_ARRAY - макрос для объявления массива переменной длины (VLA) в динамической памяти
+        p_sigfunc                        - обработчик сигналов
+
+stack.h
+
+        p_stack_init             - инициализация стека
+        p_stack_destroy          - уничтожение стека
+        p_stack_push             - добавление элемента в стек
+        p_stack_pop              - извлечение элемента из стека
+        p_stack_peek             - просмотр верхнего элемента без извлечения
+        p_stack_empty            - проверка на пустоту
+        p_stack_size             - получение размера стека
+
+stopif.h
+
+        P_STOPIF
+
+string.h
+
+        p_strrev                 - переворот строки
+        p_strspl                 - разделение строки на слова
+        p_free_words             - освобождение памяти, выделенной под массив слов
+        p_count_char             - подсчет количества вхождений символов в строку
+        p_count_words            - подсчет количества слов в строке
+        p_count_utf8_chars       - подсчет количества символов utf8 в строке
+        p_extract_digits         - последовательное извлечение цифр из строки
+        p_strcpy                 - копирование одной строки в другую
+        p_memcpy                 - аллокатор памяти - копирует байт за байтом
+        p_string_new             - создание пустой строки
+        p_string_from_cstr       - создание строки
+        p_string_free            - удаление строки
+        p_string_append          - добавление строки
+        p_string_append_char     - добавление символа к строке
+        p_string_clear           - очистка строки
+        p_string_empty           - проверка пустой строки
+        p_string_compare         - сравнение строк
+        p_string_length          - длина строки
+        p_string_cstr            - предоставление строки
+        p_strjoin                - объединение массива строк в одну через разделитель 
+
+system.h
+
+        p_locale_available       - определение доступности языковой локали
+        p_getlocale              - получает языковую локаль из параметров окружения пользователя
+        p_free_ptr               - функция-обертка для освобождения ресурса и обнуления указателя на этот освобождаемый ресурс
+        p_make_timeout           - данная функция используется при необходимости указания абсолютного времени, а не относительного
+        p_signal                 - надежная версия функции signal()
+
+tcpip.h
+
+        p_tcp_socket             - создание сокета
+        p_tcp_bind               - привязка сокета
+        p_tcp_listen             - прослушивание подключений
+        p_tcp_accept             - прием данных
+        p_tcp_connect            - установка соединения
+        p_tcp_close              - закрытие созданного сокета
+        p_tcp_recv               - чтение данных из сокета
+        p_tcp_send               - запись данных в сокет
+        p_tcp_read               - чтение данных из потока
+        p_tcp_readline            
+        p_tcp_write              - запись данных в поток
+        p_tcp_writen              
+        p_tcp_fork               - порождение дочернего процесса
+        p_tcp_signal             - обработчик сигналов
+        p_tcp_shutdown           - установка признака конца файла в стандартном потоке ввода
+        p_tcp_fgets              - ввод из потока
+        p_tcp_fputs              - вывод в поток
+        p_tcp_pthread_create     - создание потока
+        p_tcp_pthread_join       - завершение потока
+        p_tcp_pthread_detach     - отсоединение потока
+        p_tcp_pthread_kill       - уничтожение потока
+
+timer.h
+
+        p_timer_start
+        p_timer_stop
+        p_duration_seconds       - результат замера в секундах
+        p_duration_minutes       - результат замера в минутах
+        p_duration_hours         - результат замера в часах
+
+void_cast.h
+
+        P_VOID_CAST
+
+window.h
+
+        p_setwintitle
+        p_setwindow
+        p_wdraw
+        p_wout
+
