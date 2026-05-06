@@ -13,78 +13,78 @@
 #include <plc/error.h>
 #include <plc/plcdef.h>
 
-static void p_err_doit(int, int, const char *, va_list) P_NOEXCEPT; 
+static void p_error_doit(int, int, const char *, va_list) P_NOEXCEPT; 
 
 void
-p_err_ret(const char *fmt, ...) P_NOEXCEPT
+p_error_ret(const char *fmt, ...) P_NOEXCEPT
 {
         va_list ap;
 
         va_start(ap, fmt);
-        p_err_doit(1, errno, fmt, ap);
+        p_error_doit(1, errno, fmt, ap);
         va_end(ap);
 } 
 
 void
-p_err_sys(const char *fmt, ...) P_NOEXCEPT
+p_error_sys(const char *fmt, ...) P_NOEXCEPT
 {
         va_list ap;
 
         va_start(ap, fmt);
-        p_err_doit(1, errno, fmt, ap);
+        p_error_doit(1, errno, fmt, ap);
         exit(1);
 }
 
 void
-p_err_cont(int error, const char *fmt, ...) P_NOEXCEPT 
+p_error_cont(int error, const char *fmt, ...) P_NOEXCEPT 
 {
         va_list ap;
 
         va_start(ap, fmt);
-        p_err_doit(1, error, fmt, ap);
+        p_error_doit(1, error, fmt, ap);
         va_end(ap);
 } 
 
 void
-p_err_exit(int error, const char *fmt, ...) P_NOEXCEPT
+p_error_exit(int error, const char *fmt, ...) P_NOEXCEPT
 {
         va_list ap;
 
         va_start(ap, fmt);
-        p_err_doit(1, error, fmt, ap);
+        p_error_doit(1, error, fmt, ap);
         va_end(ap);
         exit(1);
 } 
 
 void
-p_err_dump(const char *fmt, ...) P_NOEXCEPT
+p_error_dump(const char *fmt, ...) P_NOEXCEPT
 {
         va_list ap;
 
         va_start(ap, fmt);
-        p_err_doit(1, errno, fmt, ap);
+        p_error_doit(1, errno, fmt, ap);
         va_end(ap);
         abort();
         exit(1);
 } 
 
 void
-p_err_msg(const char *fmt, ...) P_NOEXCEPT
+p_error_msg(const char *fmt, ...) P_NOEXCEPT
 {
         va_list ap;
 
         va_start(ap, fmt);
-        p_err_doit(0, 0, fmt, ap);
+        p_error_doit(0, 0, fmt, ap);
         va_end(ap);
 } 
 
 void
-p_err_quit(const char *fmt, ...) P_NOEXCEPT
+p_error_quit(const char *fmt, ...) P_NOEXCEPT
 {
         va_list ap;
 
         va_start(ap, fmt);
-        p_err_doit(0, 0, fmt, ap);
+        p_error_doit(0, 0, fmt, ap);
         va_end(ap);
         exit(1);
 }
@@ -92,7 +92,7 @@ p_err_quit(const char *fmt, ...) P_NOEXCEPT
 /* Выводит сообщение и возвращает управление в вызывающую функцию.
    Вызывающая функция определяет значение флага "errno_flag".  */
 static void
-p_err_doit(int errno_flag, int error, const char *fmt, va_list ap) P_NOEXCEPT
+p_error_doit(int errno_flag, int error, const char *fmt, va_list ap) P_NOEXCEPT
 {
         char buf[P_BUFSIZ_4K];
 

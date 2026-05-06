@@ -11,13 +11,13 @@
 struct timer timer;
 
 void 
-p_start_timer(void) P_NOEXCEPT
+p_timer_start(void) P_NOEXCEPT
 {
         time(&timer.begin_time);
 }
 
 void 
-p_stop_timer(void) P_NOEXCEPT
+p_timer_stop(void) P_NOEXCEPT
 {
         time(&timer.end_time);
 }
