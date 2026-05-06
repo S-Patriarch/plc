@@ -37,7 +37,7 @@ extern void p_stack_destroy (thread_safe_stack_s *stack,
 /* Добавление элемента в стек.  */
 extern bool p_stack_push (thread_safe_stack_s *stack, void *data) P_NOEXCEPT;
 
-/* Пзвлечение элемента из стека.  */
+/* Извлечение элемента из стека.  */
 extern void *p_stack_pop (thread_safe_stack_s *stack) P_NOEXCEPT;
 
 /* Просмотр верхнего элемента без извлечения.  */

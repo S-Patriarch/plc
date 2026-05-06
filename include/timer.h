@@ -12,8 +12,8 @@
 
 P_BEGIN_DECLS
 
-extern void p_start_timer (void) P_NOEXCEPT;
-extern void p_stop_timer (void) P_NOEXCEPT;
+extern void p_timer_start (void) P_NOEXCEPT;
+extern void p_timer_stop (void) P_NOEXCEPT;
 
 /* Результат замера в секундах.  */
 extern double p_duration_seconds (void) P_NOEXCEPT; 
