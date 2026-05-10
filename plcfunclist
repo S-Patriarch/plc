@@ -149,6 +149,9 @@ indicators.h
         p_setind_w               - wave
         p_idraw_w                - wave
 
+inet.h
+        p_dcheck                 - проверка доступности и отзывчивости домена (хоста)
+
 io.h
 
         p_mout                   - вывод сообщения в stdout
