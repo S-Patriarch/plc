@@ -18,6 +18,7 @@
 #include <plc/error.h>
 #include <plc/file.h>
 #include <plc/indicators.h>
+#include <plc/inet.h>
 #include <plc/io.h>
 #include <plc/line.h>
 #include <plc/logger.h>
