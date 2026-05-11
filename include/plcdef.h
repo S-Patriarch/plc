@@ -68,15 +68,21 @@ P_BEGIN_DECLS
 /* Права доступа по умолчанию к создаваемым каталогам.  */
 #define P_DIR_MODE      (P_FILE_MODE | S_IXUSR | S_IXGRP | S_IXOTH)
 
+/* В макросах P_MIN и P_MAX используются выражения в стиле GCC ({ ... }).
+   (void)(&a == &b) является трюком для проверки типов. Он вызыва ошибку
+   компиляции, если a и b имеют разные типы. Результат типобезопасен.  */
+
 #define P_MIN(a, b)     ({                                              \
                                 __typeof__(a) _a = (a);                 \
                                 __typeof__(b) _b = (b);                 \
+                                (void)(&a == &b);                       \
                                 _a < _b ? _a : _b;                      \
                         })
 
 #define P_MAX(a, b)     ({                                              \
                                 __typeof__(a) _a = (a);                 \
                                 __typeof__(b) _b = (b);                 \
+                                (void)(&a == &b);                       \
                                 _a > _b ? _a : _b;                      \
                         })
 
