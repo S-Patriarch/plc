@@ -9,13 +9,13 @@
 #define __PLC_PLCDEF_H  1
 
 #ifdef __cplusplus
-#  define P_BEGIN_DECLS extern "C" {
-#  define P_END_DECLS }
-#  define P_NOEXCEPT noexcept
+#       define P_BEGIN_DECLS extern "C" {
+#       define P_END_DECLS }
+#       define P_NOEXCEPT noexcept
 #else
-#  define P_BEGIN_DECLS 
-#  define P_END_DECLS 
-#  define P_NOEXCEPT 
+#       define P_BEGIN_DECLS 
+#       define P_END_DECLS 
+#       define P_NOEXCEPT 
 #endif
 
 #include <stdlib.h>
