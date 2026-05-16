@@ -119,6 +119,11 @@ P_BEGIN_DECLS
 #define P_DECLARE_AND_ZERO_DYNAMIC_ARRAY(type, name, size)              \
         type *name = (type *)calloc(size, sizeof(type))
 
+/* Преобразование в строку.
+   Пример:      const char *str = P_STR(12);
+   Результат:   const char *str = "12";  */
+#define P_STR(s)  #s
+
 typedef void p_sigfunc (int);   /* обработчик сигналов  */
 
 P_END_DECLS
