@@ -178,8 +178,8 @@ menu.h
 
 plcdef.h
 
-        P_SUCCESS
-        P_FAILURE
+        P_EXIT_SUCCESS
+        P_EXIT_FAILURE
         P_ERROR
         P_FALSE
         P_TRUE
