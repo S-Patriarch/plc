@@ -1,5 +1,5 @@
 /* Copyright (C) 2025-2026, S-Patriarch
- * This file is part of the PLC library.  */
+   This file is part of the PLC library.  */
 
 /*
  *      Patriarch Library C:                            <plcdef.h>
@@ -24,8 +24,8 @@
 
 P_BEGIN_DECLS
 
-#define P_SUCCESS       0
-#define P_FAILURE       1
+#define P_EXIT_SUCCESS  0
+#define P_EXIT_FAILURE  1
 #define P_ERROR         -1
 
 #define P_FALSE         0
