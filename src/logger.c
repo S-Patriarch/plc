@@ -13,25 +13,26 @@
 #include <plc/logger.h>
 #include <plc/dt.h>
 
-logger_s *
+struct logger_s *
 p_logger_create(const char *file_name) P_NOEXCEPT
 {
         /* выделяем память под структуру логгера  */
-        logger_s *log = (logger_s *)malloc(sizeof(logger_s));
-        if (!log) return (NULL);
+        struct logger_s *log = (struct logger_s *)malloc(sizeof(struct logger_s));
+        if (!log) 
+                return NULL;
 
         /* открываем файл в режиме "добавление + чтение" (a+)  */
         log->file = fopen(file_name, "a+");
         if (!log->file) {
                 free(log);
-                return (NULL);
+                return NULL;
         }
 
         /* инициализируем мьютекс для записи  */
         if (pthread_mutex_init(&log->lck_write, NULL) != 0) {
                 fclose(log->file);
                 free(log);
-                return (NULL);
+                return NULL;
         }
 
         /* инициализируем RW-lock для чтения  */
@@ -39,16 +40,17 @@ p_logger_create(const char *file_name) P_NOEXCEPT
                 pthread_mutex_destroy(&log->lck_write);
                 fclose(log->file);
                 free(log);
-                return (NULL);
+                return NULL;
         }
 
-        return (log);
+        return log;
 }
 
 void 
-p_logger_destroy(logger_s *log) P_NOEXCEPT
+p_logger_destroy(struct logger_s *log) P_NOEXCEPT
 {
-        if (!log) return;
+        if (!log) 
+                return;
 
         if (log->file)
                 fclose(log->file);
@@ -60,9 +62,10 @@ p_logger_destroy(logger_s *log) P_NOEXCEPT
 }
 
 void 
-p_logger_write(logger_s *log, const char *msg) P_NOEXCEPT
+p_logger_write(struct logger_s *log, const char *msg) P_NOEXCEPT
 {
-        if (!log || !msg) return;
+        if (!log || !msg) 
+                return;
 
         char s_date[11], s_time[9];
         p_getdate(s_date, sizeof(s_date));
@@ -77,9 +80,10 @@ p_logger_write(logger_s *log, const char *msg) P_NOEXCEPT
 }
 
 char *
-p_logger_read(logger_s *log) P_NOEXCEPT
+p_logger_read(struct logger_s *log) P_NOEXCEPT
 {
-        if (!log) return (NULL);
+        if (!log) 
+                return NULL;
 
         char    *line = NULL;
         size_t   len = 0;
@@ -93,12 +97,12 @@ p_logger_read(logger_s *log) P_NOEXCEPT
 
         if (read == -1) {
                 free(line);
-                return (NULL);
+                return NULL;
         }
         
         /*
          * ВНИМАНИЕ: вызывающий код должен освободить эту память!
          */
-        return (line);
+        return line;
 }
 

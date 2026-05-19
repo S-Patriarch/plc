@@ -28,7 +28,7 @@ p_strrev(char *s) P_NOEXCEPT
                 s[j--] = t;
         }
 
-        return (P_SUCCESS);
+        return 0;
 }
 
 char **
@@ -203,7 +203,7 @@ p_strcpy(char *to, char *from) P_NOEXCEPT
                 } while (--n > 0);
         }
 
-        return (P_SUCCESS);
+        return 0;
 }
 
 void *
@@ -328,7 +328,7 @@ p_strjoin(char **strings, size_t count, const char *delimiter, char **result) P_
                 if (*result == NULL)
                         return (P_ERROR);
                 (*result)[0] = '\0';
-                return (P_SUCCESS);
+                return 0;
         }
 
         /* вычисляем общую длину результирующей строки,
@@ -357,6 +357,6 @@ p_strjoin(char **strings, size_t count, const char *delimiter, char **result) P_
                         strcat(*result, delimiter);
         }
 
-        return (P_SUCCESS);
+        return 0;
 }
 

@@ -90,7 +90,7 @@ p_make_timeout(struct timespec *tsp, long minutes) P_NOEXCEPT
         /* добавить величину тайм-аута  */
         tsp->tv_sec += minutes * 60;
 
-        return (P_SUCCESS);
+        return 0;
 }
 
 p_sigfunc * 

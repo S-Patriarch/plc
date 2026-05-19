@@ -102,7 +102,7 @@ p_getchar(char *c) P_NOEXCEPT
         if (tcsetattr(0, TCSADRAIN, &old_t) < 0) 
                 return (P_ERROR);
 
-        return (P_SUCCESS);
+        return 0;
 }
 
 int 
@@ -129,7 +129,7 @@ p_gethiddens(char *s, size_t size) P_NOEXCEPT
         if (tcsetattr(STDIN_FILENO, TCSANOW, &old_t) < 0) 
                 return (P_ERROR);
 
-        return (P_SUCCESS);
+        return 0;
 }
 
 void 

@@ -33,7 +33,7 @@ p_file_copy(const char *f_src, const char *f_dst) P_NOEXCEPT
         syscall(SYS_close, src);
         syscall(SYS_close, dst);
 
-        return (P_SUCCESS);
+        return 0;
 }
 
 int 
@@ -61,7 +61,7 @@ p_file_move(const char *f_src, const char *f_dst) P_NOEXCEPT
         if (syscall(SYS_unlink, f_src) == -1)
                 return (P_ERROR);
 
-        return (P_SUCCESS);
+        return 0;
 }
 
 int
@@ -77,6 +77,6 @@ p_file_setfl(int fd, int flags) P_NOEXCEPT
         if (fcntl(fd, F_SETFL, val) < 0)
                 return (P_ERROR);
 
-        return (P_SUCCESS);
+        return 0;
 }
 

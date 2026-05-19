@@ -9,6 +9,9 @@
 #define __PLC_P_CONIO_H   2
 
 #include <stddef.h>
+#include <plc/plcdef.h>
+
+P_BEGIN_DECLS
 
 struct text_info {
         size_t  cur_row;
@@ -19,5 +22,7 @@ struct win_size {
         size_t  ws_row;
         size_t  ws_col;
 };
+
+P_END_DECLS
 
 #endif /* p_conio.h  */

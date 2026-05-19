@@ -24,7 +24,7 @@ p_getdate(char *s, size_t size) P_NOEXCEPT
                 return (P_ERROR);
 
         strftime(s, size, "%d-%m-%Y", lt);
-        return (P_SUCCESS);
+        return 0;
 }
 
 int 
@@ -39,7 +39,7 @@ p_gettime(char *s, size_t size) P_NOEXCEPT
                 return (P_ERROR);
 
         strftime(s, size, "%H:%M:%S", lt);
-        return (P_SUCCESS);
+        return 0;
 }
 
 int 
@@ -70,7 +70,7 @@ p_date_convert(const char *s_in, size_t size_s_in, char *s_out,
                 return (P_ERROR);
         }
 
-        return (P_SUCCESS);
+        return 0;
 }
 
 /* Особенности nanosleep:

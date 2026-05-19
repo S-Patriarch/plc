@@ -22,11 +22,11 @@ P_BEGIN_DECLS
 
 typedef void Sigfunc(int) P_NOEXCEPT; /* для обработчиков сигналов  */
 
-typedef struct tcpip {
-        int   _read_cnt;
-        char *_read_ptr;
-        char  _read_buf[MAXLINE];
-} tcpip_s;
+struct tcpip_s {
+        int     _read_cnt;
+        char   *_read_ptr;
+        char    _read_buf[MAXLINE];
+};
 
 extern Sigfunc *_signal (int signo, Sigfunc *func) P_NOEXCEPT;
 extern ssize_t _my_read (int fd, char *ptr) P_NOEXCEPT;

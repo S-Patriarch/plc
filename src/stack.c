@@ -8,9 +8,10 @@
 #include <plc/stack.h>
 
 void 
-p_stack_init(thread_safe_stack_s *stack) P_NOEXCEPT 
+p_stack_init(struct thread_safe_stack_s *stack) P_NOEXCEPT 
 {
-        if (stack == NULL) return;
+        if (stack == NULL) 
+                return;
 
         stack->top = NULL;
         stack->size = 0;
@@ -19,15 +20,16 @@ p_stack_init(thread_safe_stack_s *stack) P_NOEXCEPT
 }
 
 void 
-p_stack_destroy(thread_safe_stack_s *stack, void (*free_data)(void*)) P_NOEXCEPT
+p_stack_destroy(struct thread_safe_stack_s *stack, void (*free_data)(void*)) P_NOEXCEPT
 {
-        if (stack == NULL) return;
+        if (stack == NULL) 
+                return;
 
         pthread_mutex_lock(&stack->mutex);
 
-        stack_node_s *current = stack->top;
+        struct stack_node_s *current = stack->top;
         while (current != NULL) {
-                stack_node_s *next = current->next;
+                struct stack_node_s *next = current->next;
                 if (free_data != NULL)
                         free_data(current->data);
                 free(current);
@@ -42,12 +44,14 @@ p_stack_destroy(thread_safe_stack_s *stack, void (*free_data)(void*)) P_NOEXCEPT
 }
 
 bool 
-p_stack_push(thread_safe_stack_s *stack, void *data) P_NOEXCEPT
+p_stack_push(struct thread_safe_stack_s *stack, void *data) P_NOEXCEPT
 {
-        if (stack == NULL) return false;
+        if (stack == NULL) 
+                return false;
 
-       stack_node_s *new_node = (stack_node_s*)malloc(sizeof(stack_node_s));
-       if (new_node == NULL) return false;
+       struct stack_node_s *new_node = (struct stack_node_s*)malloc(sizeof(struct stack_node_s));
+       if (new_node == NULL) 
+               return false;
 
        new_node->data = data;
 
@@ -62,9 +66,10 @@ p_stack_push(thread_safe_stack_s *stack, void *data) P_NOEXCEPT
 }
 
 void *
-p_stack_pop(thread_safe_stack_s *stack) P_NOEXCEPT
+p_stack_pop(struct thread_safe_stack_s *stack) P_NOEXCEPT
 {
-        if (stack == NULL) return NULL;
+        if (stack == NULL) 
+                return NULL;
 
         pthread_mutex_lock(&stack->mutex);
 
@@ -73,7 +78,7 @@ p_stack_pop(thread_safe_stack_s *stack) P_NOEXCEPT
                 return NULL;
         }
 
-        stack_node_s *node = stack->top;
+        struct stack_node_s *node = stack->top;
         void *data = node->data;
         stack->top = node->next;
         stack->size--;
@@ -85,9 +90,10 @@ p_stack_pop(thread_safe_stack_s *stack) P_NOEXCEPT
 }
 
 void *
-p_stack_peek(thread_safe_stack_s *stack) P_NOEXCEPT
+p_stack_peek(struct thread_safe_stack_s *stack) P_NOEXCEPT
 {
-        if (stack == NULL) return NULL;
+        if (stack == NULL) 
+                return NULL;
 
         pthread_mutex_lock(&stack->mutex);
 
@@ -98,9 +104,10 @@ p_stack_peek(thread_safe_stack_s *stack) P_NOEXCEPT
 }
 
 bool 
-p_stack_empty(thread_safe_stack_s *stack) P_NOEXCEPT
+p_stack_empty(struct thread_safe_stack_s *stack) P_NOEXCEPT
 {
-        if (stack == NULL) return true;
+        if (stack == NULL) 
+                return true;
 
         pthread_mutex_lock(&stack->mutex);
         bool empty = (stack->top == NULL);
@@ -110,9 +117,10 @@ p_stack_empty(thread_safe_stack_s *stack) P_NOEXCEPT
 }
 
 size_t 
-p_stack_size(thread_safe_stack_s *stack) P_NOEXCEPT
+p_stack_size(struct thread_safe_stack_s *stack) P_NOEXCEPT
 {
-        if (stack == NULL) return 0;
+        if (stack == NULL) 
+                return 0;
 
         pthread_mutex_lock(&stack->mutex);
         size_t size = stack->size;

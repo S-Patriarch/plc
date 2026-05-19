@@ -20,7 +20,7 @@
 #include <plc/plcdef.h>
 #include "p_tcpip.h"
 
-tcpip_s t;
+struct tcpip_s t;
 
 Sigfunc *
 _signal(int signo, Sigfunc *func) P_NOEXCEPT 
@@ -123,7 +123,7 @@ p_tcp_bind(int fd, const struct sockaddr *addr, socklen_t len) P_NOEXCEPT
 {
         if (bind(fd, addr, len) < 0)
                 return (P_ERROR);
-        return (P_SUCCESS);
+        return 0;
 }
 
 int 
@@ -131,7 +131,7 @@ p_tcp_listen(int fd, int n) P_NOEXCEPT
 {
         if (listen(fd, n) < 0)
                 return (P_ERROR);
-        return (P_SUCCESS);
+        return 0;
 }
 
 int 
@@ -148,7 +148,7 @@ p_tcp_connect(int fd, const struct sockaddr *addr, socklen_t len) P_NOEXCEPT
 {
         if (connect(fd, addr, len) < 0)
                 return (P_ERROR);
-        return (P_SUCCESS);
+        return 0;
 }
 
 int 
@@ -156,7 +156,7 @@ p_tcp_close(int fd) P_NOEXCEPT
 {
         if (close(fd) < 0)
                 return (P_ERROR);
-        return (P_SUCCESS);
+        return 0;
 }
 
 ssize_t 
@@ -173,7 +173,7 @@ p_tcp_send(int fd, const void *ptr, size_t nbytes, int flags) P_NOEXCEPT
 {
         if (send(fd, ptr, nbytes, flags) < 0)
                 return (P_ERROR);
-        return (P_SUCCESS);
+        return 0;
 }
 
 ssize_t 
@@ -199,7 +199,7 @@ p_tcp_write(int fd, const void *ptr, size_t nbytes) P_NOEXCEPT
 {
         if (write(fd, ptr, nbytes) < 0)
                 return (P_ERROR);
-        return (P_SUCCESS);
+        return 0;
 }
 
 int 
@@ -207,7 +207,7 @@ p_tcp_writen(int fd, const void *ptr, size_t nbytes) P_NOEXCEPT
 {
         if (_writen(fd, ptr, nbytes) != nbytes)
                 return (P_ERROR);
-        return (P_SUCCESS);
+        return 0;
 }
 
 pid_t 
@@ -233,7 +233,7 @@ p_tcp_shutdown(int fd, int how) P_NOEXCEPT
 {
         if (shutdown(fd, how) < 0)
                 return (P_ERROR);
-        return (P_SUCCESS);
+        return 0;
 }
 
 char *
@@ -250,7 +250,7 @@ p_tcp_fputs(const char *str, FILE *stream) P_NOEXCEPT
 {
         if (fputs(str, stream) == feof(stream))
                 return (P_ERROR);
-        return (P_SUCCESS);
+        return 0;
 }
 
 int 
@@ -260,7 +260,7 @@ p_tcp_pthread_create(pthread_t *tid,
                      void *arg) P_NOEXCEPT
 {
         int n = 0;
-        if ((n = pthread_create(tid, attr, func, arg)) == 0) return (P_SUCCESS);
+        if ((n = pthread_create(tid, attr, func, arg)) == 0) return 0;
         else return (P_ERROR);
 }
 
@@ -268,7 +268,7 @@ int
 p_tcp_pthread_join(pthread_t tid, void **status) P_NOEXCEPT
 {
         int n = 0;
-        if ((n = pthread_join(tid, status)) == 0) return (P_SUCCESS);
+        if ((n = pthread_join(tid, status)) == 0) return 0;
         else return (P_ERROR);
 }
 
@@ -276,7 +276,7 @@ int
 p_tcp_pthread_detach(pthread_t tid) P_NOEXCEPT
 {
         int n = 0;
-        if ((n = pthread_detach(tid)) == 0) return (P_SUCCESS);
+        if ((n = pthread_detach(tid)) == 0) return 0;
         else return (P_ERROR);
 }
 
@@ -284,7 +284,7 @@ int
 p_tcp_pthread_kill(pthread_t tid, int signo) P_NOEXCEPT
 {
         int n = 0;
-        if ((n = pthread_kill(tid, signo)) == 0) return (P_SUCCESS);
+        if ((n = pthread_kill(tid, signo)) == 0) return 0;
         else return (P_ERROR);
 }
 

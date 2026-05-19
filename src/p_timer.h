@@ -9,10 +9,15 @@
 #define __PLC_P_TIMER_H         2
 
 #include <time.h>
+#include <plc/plcdef.h>
+
+P_BEGIN_DECLS
 
 struct timer {
         time_t begin_time;
         time_t end_time;
 };
+
+P_END_DECLS
 
 #endif /* p_timer.h  */

@@ -208,6 +208,6 @@ p_wout(const char *s,
         fflush(stdout);
         p_resattr();
 
-        return (P_SUCCESS);
+        return 0;
 }
 

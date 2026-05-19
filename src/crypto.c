@@ -96,7 +96,7 @@ p_crle(const char *s, char *out) P_NOEXCEPT
         /* добавляем завершающий нуль-терминатор  */
         out_pos[out] = '\0';
 
-        return (P_SUCCESS);
+        return 0;
 }
 
 int
@@ -134,6 +134,6 @@ p_drle(const char *s, char *out) P_NOEXCEPT
         /* добавляем завершающий нуль-терминатор  */
         out_pos[out] = '\0';
 
-        return (P_SUCCESS);
+        return 0;
 }
 
