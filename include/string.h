@@ -8,8 +8,7 @@
 #ifndef __PLC_STRING_H
 #define __PLC_STRING_H  1
 
-#include <stddef.h>
-#include <plc/plcdef.h>
+#include <plc/types/string_s.h>
 
 P_BEGIN_DECLS
 
@@ -41,12 +40,6 @@ extern int p_strcpy (char *to, char *from) P_NOEXCEPT;
    Работает безопасно с невыравненной памятью (loadu/storeu), но с 
    выравненной памятью будет быстрее.  */
 extern void *p_memcpy (void *dest, const void *src, size_t size) P_NOEXCEPT;
-
-typedef struct {
-        char   *data;
-        size_t  length;
-        size_t  capacity;
-} string_s;
 
 extern string_s *p_string_new (void) P_NOEXCEPT;                                     /* создание пустой строки  */
 extern string_s *p_string_from_cstr (const char *cstr) P_NOEXCEPT;                   /* создание строки  */
