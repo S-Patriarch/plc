@@ -5,13 +5,7 @@
  *      Patriarch Library C:                            error.c
  */
 
-#include <errno.h>
-#include <stdarg.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
 #include <plc/error.h>
-#include <plc/plcdef.h>
 
 static void p_error_doit(int, int, const char *, va_list) P_NOEXCEPT; 
 
@@ -104,5 +98,35 @@ p_error_doit(int errno_flag, int error, const char *fmt, va_list ap) P_NOEXCEPT
         fflush(stdout);
         fputs(buf, stderr);
         fflush(NULL);
+}
+
+char *
+p_error_get(int errnum) P_NOEXCEPT 
+{
+        /* запрашиваем у системы максимальную длину сообщения об ошибке  */
+        size_t size = 256;
+#ifdef _SC_LINE_MAX
+        long max = sysconf(_SC_LINE_MAX);
+        if (max > 0)
+                size = (size_t)max;
+#endif
+
+        char *msg = (char *)malloc(size);
+        if (msg == NULL)
+                return NULL;
+
+        char *err_str = strerror(errnum);
+        size_t len = strlen(err_str) + 1;
+
+        if (len <= size) {
+                /* копируем вместе с \0  */
+                memcpy(msg, err_str, len);
+        } else {
+                /* если сообщение слишком длинное, обрезаем  */
+                memcpy(msg, err_str, size-1);
+                msg[size-1] = '\0';
+        }
+
+        return msg;     /* ВНИМАНИЕ - вызывающий освобождает free()  */
 }
 
