@@ -23,6 +23,7 @@
 #include <plc/line.h>
 #include <plc/logger.h>
 #include <plc/menu.h>
+#include <plc/ringbuf.h>
 #include <plc/stack.h>
 #include <plc/stopif.h>
 #include <plc/string.h>
