@@ -68,11 +68,20 @@ p_getlocale(void) P_NOEXCEPT
 }
 
 void
-p_free_ptr(void **ptr) P_NOEXCEPT
+p_free(void **ptr) P_NOEXCEPT
 {
         if (ptr != NULL && *ptr != NULL) {
                 free(*ptr);
                 *ptr = NULL;
+        }
+}
+
+void
+p_fclose(FILE **file) P_NOEXCEPT
+{
+        if (file != NULL && *file != NULL) {
+                fclose(*file);
+                *file = NULL;
         }
 }
 
