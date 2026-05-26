@@ -8,6 +8,7 @@
 #ifndef __PLC_SYSTEM_H
 #define __PLC_SYSTEM_H  1
 
+#include <stdio.h>
 #include <time.h>
 #include <sys/time.h>
 #include <plc/plcdef.h>
@@ -26,12 +27,18 @@ extern int p_locale_available (const char *locale) P_NOEXCEPT;
         free(lang);  */
 extern char *p_getlocale (void) P_NOEXCEPT;
 
-/* Функция-обертка для освобождения ресурса и обнуления указателя
-   на этот освобождаемый ресурс.
+/* Функции-обертки для освобождения ресурсов и обнуления указателей
+   на эти освобождаемые ресурсы.
    Использование:
-        int *ip = (int *)malloc(sizeof(int));
-        p_free_ptr((void **)&ip);  */
-extern void p_free_ptr (void **ptr) P_NOEXCEPT;
+        int *p = (int *)malloc(sizeof(int));
+        FILE *f = fopen(patch, "r");
+        p_free((void **)&p);  
+        p_fclose((FILE **)&f);  
+   или
+        __attribute__((cleanup(p_free))) char *buf = (char *)malloc(4096);
+        __attribute__((cleanup(p_fclose))) FILE *f = fopen(patch, "r");  */
+extern void p_free (void **ptr) P_NOEXCEPT;
+extern void p_fclose (FILE **file) P_NOEXCEPT;
 
 /* Данная функция используется при необходимости указания абсолютного времени, 
    а не относительного. 
