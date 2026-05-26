@@ -8,6 +8,9 @@
 #ifndef __PLC_FILE_H
 #define __PLC_FILE_H    1
 
+#include <unistd.h>
+#include <fcntl.h>
+#include <sys/syscall.h>
 #include <plc/plcdef.h>
 
 P_BEGIN_DECLS

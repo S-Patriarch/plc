@@ -8,6 +8,10 @@
 #ifndef __PLC_CRYPTO_H
 #define __PLC_CRYPTO_H  1
 
+#include <stdio.h>
+#include <stdint.h>
+#include <string.h>
+#include <ctype.h>
 #include <plc/plcdef.h>
 
 P_BEGIN_DECLS

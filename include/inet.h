@@ -8,6 +8,11 @@
 #ifndef __PLC_INET_H
 #define __PLC_INET_H    1
 
+#include <netdb.h>
+#include <unistd.h>
+#include <sys/socket.h>
+#include <sys/types.h>
+#include <sys/time.h>
 #include <plc/plcdef.h>
 
 P_BEGIN_DECLS

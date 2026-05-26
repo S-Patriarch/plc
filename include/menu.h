@@ -8,7 +8,11 @@
 #ifndef __PLC_MENU_H
 #define __PLC_MENU_H    1
 
+#include <string.h>
+#include <stdio.h>
 #include <plc/types/menu_s.h>
+#include <plc/plcdef.h>
+#include <plc/conio.h>
 
 P_BEGIN_DECLS
 

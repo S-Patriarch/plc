@@ -8,7 +8,13 @@
 #ifndef __PLC_WINDOW_H
 #define __PLC_WINDOW_H  1
 
+#include <string.h>
+#include <stdio.h>
+#include <unistd.h>
 #include <plc/types/window_s.h>
+#include <plc/plcdef.h>
+#include <plc/conio.h>
+#include <plc/string.h>
 
 P_BEGIN_DECLS
 

@@ -8,9 +8,14 @@
 #ifndef __PLC_ALGORITHM_H
 #define __PLC_ALGORITHM_H       1
 
+#include <stdlib.h>
+#include <stdio.h>
+#include <time.h>
+#include <string.h>
 #include <stdbool.h>
 #include <stdint.h>
 #include <plc/plcdef.h>
+#include <plc/string.h>
 
 P_BEGIN_DECLS
 

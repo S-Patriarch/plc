@@ -8,11 +8,16 @@
 #ifndef __PLC_INDICATORS_H
 #define __PLC_INDICATORS_H      1
 
+#include <string.h>
+#include <stdio.h>
+#include <stdbool.h>
 #include <plc/types/ind_progress_s.h>
 #include <plc/types/ind_spinner_s.h>
 #include <plc/types/ind_counter_s.h>
 #include <plc/types/ind_points_s.h>
 #include <plc/types/ind_wave_s.h>
+#include <plc/conio.h>
+#include <plc/dt.h>
 
 P_BEGIN_DECLS
 

@@ -8,9 +8,14 @@
 #ifndef __PLC_LOGGER_H
 #define __PLC_LOGGER_H  1
 
+#include <stdlib.h>
+#include <string.h>
+#include <stddef.h>
+#include <sys/types.h>
 #include <stdio.h>
 #include <pthread.h>
 #include <plc/plcdef.h>
+#include <plc/dt.h>
 
 P_BEGIN_DECLS
 

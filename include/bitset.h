@@ -26,6 +26,8 @@
         free(str);
         p_bitset_destroy(bs);  */
 
+#include <stdlib.h>
+#include <assert.h>
 #include <stddef.h>
 #include <stdint.h>
 #include <plc/plcdef.h>

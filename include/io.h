@@ -8,6 +8,9 @@
 #ifndef __PLC_IO_H
 #define __PLC_IO_H      1
 
+#include <stdio.h>
+#include <string.h>
+#include <unistd.h>
 #include <stddef.h>
 #include <plc/plcdef.h>
 

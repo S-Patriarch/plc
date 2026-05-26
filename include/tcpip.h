@@ -8,11 +8,17 @@
 #ifndef __PLC_TCPIP_H
 #define __PLC_TCPIP_H   1
 
+#include <stddef.h>
+#include <unistd.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
+#include <string.h>
+#include <signal.h>
+#include <pthread.h>
+#include <errno.h>
+#include <stdio.h>
 #include <sys/socket.h>
 #include <sys/types.h>
-#include <stddef.h>
-#include <stdio.h>
-#include <pthread.h>
 #include <plc/plcdef.h>
 
 P_BEGIN_DECLS

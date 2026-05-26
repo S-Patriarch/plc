@@ -8,7 +8,10 @@
 #ifndef __PLC_LINE_H
 #define __PLC_LINE_H    1
 
+#include <string.h>
+#include <stdio.h>
 #include <plc/types/line_s.h>
+#include <plc/conio.h>
 
 P_BEGIN_DECLS
 

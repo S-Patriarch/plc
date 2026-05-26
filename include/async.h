@@ -10,6 +10,8 @@
 
 #include <pthread.h>
 #include <stdatomic.h>
+#include <stdlib.h>
+#include <stdbool.h>
 #include <plc/plcdef.h>
 
 P_BEGIN_DECLS

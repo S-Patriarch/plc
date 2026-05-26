@@ -8,6 +8,11 @@
 #ifndef __PLC_CONIO_H
 #define __PLC_CONIO_H   1
 
+#include <termios.h>
+#include <unistd.h>
+#include <sys/ioctl.h>
+#include <stdio.h>
+#include <string.h>
 #include <stddef.h>
 #include <plc/plcdef.h>
 

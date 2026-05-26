@@ -8,7 +8,13 @@
 #ifndef __PLC_STRING_H
 #define __PLC_STRING_H  1
 
+#include <string.h>
+#include <emmintrin.h>
+#include <ctype.h>
+#include <stdbool.h>
+#include <stdlib.h>
 #include <plc/types/string_s.h>
+#include <plc/plcdef.h>
 
 P_BEGIN_DECLS
 

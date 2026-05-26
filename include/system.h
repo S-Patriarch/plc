@@ -8,8 +8,13 @@
 #ifndef __PLC_SYSTEM_H
 #define __PLC_SYSTEM_H  1
 
-#include <stdio.h>
 #include <time.h>
+#include <locale.h>
+#include <stdlib.h>
+#include <stddef.h>
+#include <string.h>
+#include <signal.h>
+#include <stdio.h>
 #include <sys/time.h>
 #include <plc/plcdef.h>
 

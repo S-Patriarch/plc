@@ -8,6 +8,8 @@
 #ifndef __PLC_DT_H
 #define __PLC_DT_H      1
 
+#include <time.h>
+#include <stdio.h>
 #include <stddef.h>
 #include <plc/plcdef.h>
 
