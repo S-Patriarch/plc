@@ -7,15 +7,7 @@
 
 #define _POSIX_C_SOURCE 200809L
 
-#include <time.h>
-#include <sys/time.h>
-#include <locale.h>
-#include <stdlib.h>
-#include <stddef.h>
-#include <string.h>
-#include <signal.h>
 #include <plc/system.h>
-#include <plc/plcdef.h>
 
 int 
 p_locale_available(const char *locale) P_NOEXCEPT

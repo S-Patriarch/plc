@@ -5,13 +5,7 @@
  *      Patriarch Library C:                            string.c
  */
 
-#include <string.h>
-#include <emmintrin.h>
-#include <ctype.h>
-#include <stdbool.h>
-#include <stdlib.h>
 #include <plc/string.h>
-#include <plc/plcdef.h>
 
 int 
 p_strrev(char *s) P_NOEXCEPT

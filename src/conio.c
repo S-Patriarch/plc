@@ -5,14 +5,8 @@
  *      Patriarch Library C:                            conio.c
  */
 
-#include <termios.h>
-#include <unistd.h>
-#include <sys/ioctl.h>
-#include <stdio.h>
-#include <string.h>
-#include "p_conio.h"
 #include <plc/conio.h>
-#include <plc/plcdef.h>
+#include "p_conio.h"
 
 struct text_info t;
 struct win_size ws;

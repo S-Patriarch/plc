@@ -5,10 +5,7 @@
  *      Patriarch Library C:                            line.c
  */
 
-#include <string.h>
-#include <stdio.h>
 #include <plc/line.h>
-#include <plc/conio.h>
 
 void 
 p_setline(size_t y,

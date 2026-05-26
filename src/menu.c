@@ -5,11 +5,7 @@
  *      Patriarch Library C:                            menu.c
  */
 
-#include <string.h>
-#include <stdio.h>
-#include <plc/plcdef.h>
 #include <plc/menu.h>
-#include <plc/conio.h>
 
 void 
 p_setmenu(const char *attrcolor_n,

@@ -5,8 +5,6 @@
  *      Patriarch Library C:                            async.c
  */
 
-#include <stdlib.h>
-#include <stdbool.h>
 #include <plc/async.h>
 
 struct future_s *

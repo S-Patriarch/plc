@@ -5,9 +5,6 @@
  *      Patriarch Library C:                            io.c
  */
 
-#include <stdio.h>
-#include <string.h>
-#include <unistd.h>
 #include <plc/io.h>
 
 int 

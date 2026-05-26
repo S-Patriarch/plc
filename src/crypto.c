@@ -5,12 +5,7 @@
  *      Patriarch Library C:                            crypto.c
  */
 
-#include <stdio.h>
-#include <stdint.h>
-#include <string.h>
-#include <ctype.h>
 #include <plc/crypto.h>
-#include <plc/plcdef.h>
 
 unsigned int 
 p_ptr_list_hash(void **in) P_NOEXCEPT 

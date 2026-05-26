@@ -5,13 +5,7 @@
  *      Patriarch Library C:                            window.c
  */
 
-#include <string.h>
-#include <stdio.h>
-#include <unistd.h>
-#include <plc/plcdef.h>
 #include <plc/window.h>
-#include <plc/conio.h>
-#include <plc/string.h>
 
 void 
 p_setwintitle(const char *title,

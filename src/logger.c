@@ -5,13 +5,7 @@
  *      Patriarch Library C:                            logger.c
  */
 
-#include <stdlib.h>
-#include <string.h>
-#include <stddef.h>
-#include <stdio.h>
-#include <sys/types.h>
 #include <plc/logger.h>
-#include <plc/dt.h>
 
 struct logger_s *
 p_logger_create(const char *file_name) P_NOEXCEPT

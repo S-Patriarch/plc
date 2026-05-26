@@ -5,11 +5,7 @@
  *      Patriarch Library C:                            file.c
  */
 
-#include <unistd.h>
-#include <fcntl.h>
-#include <sys/syscall.h>
 #include <plc/file.h>
-#include <plc/plcdef.h>
 
 int 
 p_file_copy(const char *f_src, const char *f_dst) P_NOEXCEPT 

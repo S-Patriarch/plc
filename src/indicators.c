@@ -5,12 +5,7 @@
  *      Patriarch Library C:                            indicators.c
  */
 
-#include <string.h>
-#include <stdio.h>
-#include <stdbool.h>
 #include <plc/indicators.h>
-#include <plc/conio.h>
-#include <plc/dt.h>
 
 void 
 p_setind_pr(size_t y,

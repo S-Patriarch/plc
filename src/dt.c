@@ -7,10 +7,7 @@
 
 #define _POSIX_C_SOURCE 200809L         /* для nanosleep()  */
 
-#include <time.h>
-#include <stdio.h>
 #include <plc/dt.h>
-#include <plc/plcdef.h>
 
 int 
 p_getdate(char *s, size_t size) P_NOEXCEPT 

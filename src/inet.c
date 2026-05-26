@@ -5,13 +5,7 @@
  *      Patriarch Library C:                            inet.c
  */
 
-#include <netdb.h>
-#include <unistd.h>
-#include <sys/socket.h>
-#include <sys/types.h>
-#include <sys/time.h>
 #include <plc/inet.h>
-#include <plc/plcdef.h>
 
 unsigned char
 p_dcheck(const char *hostname, const char *port) P_NOEXCEPT

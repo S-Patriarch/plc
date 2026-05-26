@@ -5,10 +5,7 @@
  *      Patriarch Library C:                            bitset.c
  */
 
-#include <stdlib.h>
-#include <assert.h>
 #include <plc/bitset.h>
-#include <plc/plcdef.h>
 
 /* Вычисление количества слов для заданного числа бит.  */
 static inline size_t

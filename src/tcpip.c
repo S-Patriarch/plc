@@ -7,17 +7,7 @@
 
 #define _GNU_SOURCE
 
-#include <stddef.h>
-#include <unistd.h>
-#include <netinet/in.h>
-#include <arpa/inet.h>
-#include <string.h>
-#include <signal.h>
-#include <pthread.h>
-#include <errno.h>
-#include <stdio.h>
 #include <plc/tcpip.h>
-#include <plc/plcdef.h>
 #include "p_tcpip.h"
 
 struct tcpip_s t;

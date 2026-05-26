@@ -5,12 +5,7 @@
  *      Patriarch Library C:                            algorithm.c
  */
 
-#include <stdlib.h>
-#include <stdio.h>
-#include <time.h>
-#include <string.h>
 #include <plc/algorithm.h>
-#include <plc/string.h>
 
 int 
 p_bintodec(long long bin_number) P_NOEXCEPT
