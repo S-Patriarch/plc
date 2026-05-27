@@ -297,6 +297,10 @@ tcpip.h
         p_tcp_pthread_detach     - отсоединение потока
         p_tcp_pthread_kill       - уничтожение потока
 
+thread.h
+
+        p_thread_detach          - создание потока в обособленном состоянии
+
 timer.h
 
         p_timer_start
