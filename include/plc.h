@@ -24,11 +24,13 @@
 #include <plc/logger.h>
 #include <plc/menu.h>
 #include <plc/ringbuf.h>
+#include <plc/sds.h>
 #include <plc/stack.h>
 #include <plc/stopif.h>
 #include <plc/string.h>
 #include <plc/system.h>
 #include <plc/tcpip.h>
+#include <plc/thread.h>
 #include <plc/timer.h>
 #include <plc/void_cast.h>
 #include <plc/window.h>
