@@ -20,4 +20,5 @@
 #gcc -c src/bitset.c -o bin/bitset.o -Wall -O3 -std=c2x
 #gcc -c src/inet.c -o bin/inet.o -Wall -O3
 #gcc -c src/ringbuf.c -o bin/ringbuf.o -Wall -O3 -std=c2x
-gcc -c src/thread.c -o bin/thread.o -Wall -O3 -std=c2x
+#gcc -c src/thread.c -o bin/thread.o -Wall -O3 -std=c2x
+gcc -c src/sds.c -o bin/sds.o -Wall -O3 -std=c2x
