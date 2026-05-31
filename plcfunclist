@@ -1,6 +1,7 @@
 /* Copyright (C) 2026, S-Patriarch
    Список функций, макросов и дефайнов, находящихся в библиотеке
-   Patriarch Library C  */
+   Patriarch Library C.  
+   github.com/S-Patriarch/plc  */
 
 
 algorithm.h
