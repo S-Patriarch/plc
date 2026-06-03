@@ -17,6 +17,7 @@
 #include <plc/dt.h>
 #include <plc/error.h>
 #include <plc/file.h>
+#include <plc/hashmap.h>
 #include <plc/indicators.h>
 #include <plc/inet.h>
 #include <plc/io.h>
