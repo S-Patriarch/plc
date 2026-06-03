@@ -136,6 +136,21 @@ file.h
         p_file_copy              - копирование файла 
         p_file_move              - перемещение файла
 
+hashmap.h
+
+        p_hashmap_create         - создает новую хеш-таблицу
+        p_hashmap_destroy        - уничтожает хеш-таблицу
+        p_hashmap_put            - вставляет пару ключ-значение в таблицу
+        p_hashmap_get            - возвращает значение по ключу
+        p_hashmap_remove         - удаляет элемент по ключу
+        p_hashmap_contains       - проверяет существование ключа в таблице
+        p_hashmap_size           - возвращает количество элементов в таблице
+        p_hashmap_capacity       - возвращает текущую вместимость таблицы
+        p_hashmap_load_factor    - возвращает коэффициент загрузки
+        p_hashmap_clear          - очищает таблицу, удаляя все элементы
+        p_hashmap_iter_init      - инициализирует итератор для перебора элементов
+        p_hashmap_iter_next      - переходит к следующему элементу
+
 indicators.h
 
         p_setind_pr              - progress bar
