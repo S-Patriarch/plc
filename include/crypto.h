@@ -52,8 +52,7 @@ extern int p_drle (const char *s, char *out) P_NOEXCEPT;
    
    Пример использования:
    unsigned long long int value = 0x0F0F0F0F0F0F0F0F;
-   int bits = p_popcnt64(value); // 32 (каждая маска 0xF лает 4 бита x 8 байт)
-*/
+   int bs = p_popcnt64(value); // 32 (каждая маска 0xF дает 4 бита x 8 байт)  */
 extern unsigned long long int p_popcnt64 (unsigned long long int x) P_NOEXCEPT;
 
 P_END_DECLS
