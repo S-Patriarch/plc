@@ -136,6 +136,15 @@ file.h
         p_file_setfl             - функция включает один или более флагов состояния файла
         p_file_copy              - копирование файла 
         p_file_move              - перемещение файла
+        p_lock_test              - функция проверки возможности наложения блокировки на участок файла
+        P_IS_READ_LOCKABLE
+        P_IS_WRITE_LOCKABLE
+        p_lock_reg               - функция наложения и снятия блокировки на участок файла
+        P_READ_LOCK
+        P_READW_LOCK
+        P_WRITE_LOCK
+        P_WRITEW_LOCK
+        P_UN_LOCK
 
 hashmap.h
 
