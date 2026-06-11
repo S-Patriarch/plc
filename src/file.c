@@ -76,3 +76,35 @@ p_file_setfl(int fd, int flags) P_NOEXCEPT
         return 0;
 }
 
+pid_t 
+p_lock_test(int fd, int type, off_t offset, int whence, off_t len) P_NOEXCEPT 
+{
+        struct flock lock;
+
+        lock.l_type = type;     /* F_RDLCK или F_WRLCK  */
+        lock.l_start = offset;  /* смещение в байтах относительно l_whence  */
+        lock.l_whence = whence; /* SEEL_SET, SEEK_CUR, SEEK_END  */
+        lock.l_len = len;       /* количество байтов (0 - до конца файла)  */
+
+        if (fcntl(fd, F_GETLK, &lock) < 0)
+                p_error_sys("E: fcntl error");
+
+        if (lock.l_type == F_UNLCK)
+                return(0);      /* ложь, заданная область не заблокирована  
+                                   другим процессом  */
+        return(lock.l_pid);     /* истина, вернуть pid владельца блокировки  */
+}
+
+int 
+p_lock_reg(int fd, int cmd, int type, off_t offset, int whence, off_t len) P_NOEXCEPT 
+{
+        struct flock lock;
+
+        lock.l_type = type;     /* F_RDLCK, F_WRLCK, F_UNLCK  */
+        lock.l_start = offset;  /* смещение в байтах относительно l_whence  */
+        lock.l_whence = whence; /* SEEL_SET, SEEK_CUR, SEEK_END  */
+        lock.l_len = len;       /* количество байтов (0 - до конца файла)  */
+
+        return(fcntl(fd, cmd, &lock));
+}
+
