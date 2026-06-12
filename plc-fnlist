@@ -145,6 +145,8 @@ file.h
         P_WRITE_LOCK
         P_WRITEW_LOCK
         P_UN_LOCK
+        p_lock_file              - установка блокировки для записи на весь файл
+        P_LOCK_FILE
 
 hashmap.h
 
