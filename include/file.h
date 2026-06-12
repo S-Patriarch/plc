@@ -68,6 +68,12 @@ extern int p_lock_reg (int fd, int cmd, int type, off_t offset, int whence,
 #define P_UN_LOCK(fd, offset, whence, len) \
                 p_lock_reg((fd), F_SETLK, F_UNLCK, (offset), (whence), (len))
 
+/* Установка блокировки для записи на весь файл.  */
+extern int p_lock_file (int fd) P_NOEXCEPT;
+
+#define P_LOCK_FILE(fd) \
+                P_WRITE_LOCK((fd), 0, SEEK_SET, 0)
+
 P_END_DECLS
 
 #endif /* file.h  */
