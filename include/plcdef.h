@@ -35,6 +35,10 @@ P_BEGIN_DECLS
 #define P_VTAB          '\013'
 #define P_BELL          '\007'
 
+#define P_SEP           ':'
+#define P_SPACE         ' '
+#define P_NEWLINE       '\n'
+
 #define P_BUFSIZ_1      (1)
 #define P_BUFSIZ_2      (2)
 #define P_BUFSIZ_4      (4)
