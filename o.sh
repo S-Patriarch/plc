@@ -23,3 +23,4 @@ gcc -c src/ringbuf.c -o bin/ringbuf.o -Wall -O3 -std=c2x
 gcc -c src/thread.c -o bin/thread.o -Wall -O3 -std=c2x
 gcc -c src/sds.c -o bin/sds.o -Wall -O3 -std=c2x
 gcc -c src/hashmap.c -o bin/hashmap.o -Wall
+gcc -c src/net.c -o bin/net.o -Wall -O3 -std=c2x

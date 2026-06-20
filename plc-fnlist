@@ -205,6 +205,22 @@ menu.h
         p_setmenu
         p_mdraw
 
+net.h
+        p_net_create             - создать TCP-сокет согласно опциям (клиент или серверный listen)
+        p_net_listen             - bind + listen для сервера
+        p_net_accept             - принять входящее соединение (блокирующий или нет - зависит от флага)
+        p_net_connect            - подключиться к серверу (клиент)
+        p_net_free               - закрыть и освободить net_ctx_s (безопасно для NULL) 
+        p_net_recv               - принять сообщение
+        p_net_send               - отправить len байт из data
+        p_net_send_str           - удобная обертка: отправить строку (без завершающего нуля)
+        p_net_buf_data           - получить указатель на данные в буфере
+        p_net_buf_size           - размер данных в буфере
+        p_net_buf_free           - освободить буфер (безопасно для NULL)
+        p_net_set_timeout        - установить таймаут приема/передачи в миллисекундах
+        p_net_set_ttl            - установить TTL (Time-To-Live) для сокета
+        p_net_get_fd             - получить файловый дескриптор для продвинутых операций (poll/epoll/select)
+
 plcdef.h
 
         P_EXIT_SUCCESS
