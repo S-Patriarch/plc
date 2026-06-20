@@ -24,6 +24,7 @@
 #include <plc/line.h>
 #include <plc/logger.h>
 #include <plc/menu.h>
+#include <plc/net.h>
 #include <plc/ringbuf.h>
 #include <plc/sds.h>
 #include <plc/stack.h>
