@@ -1,0 +1,47 @@
+/* Copyright (C) 2025-2026, S-Patriarch
+   This file is part of the PLC library.  */
+
+/*
+ *      Patriarch Library C:                            timer.c
+ */
+
+#include <plc/timer.h>
+
+struct timer {
+        time_t begin_time;
+        time_t end_time;
+} timer;
+
+void 
+p_timer_start(void) P_NOEXCEPT
+{
+        time(&timer.begin_time);
+}
+
+void 
+p_timer_stop(void) P_NOEXCEPT
+{
+        time(&timer.end_time);
+}
+
+double 
+p_duration_seconds(void) P_NOEXCEPT
+{
+        return (difftime(timer.end_time, timer.begin_time));
+}
+
+double 
+p_duration_minutes(void) P_NOEXCEPT
+{
+        double diff_sec = difftime(timer.end_time, timer.begin_time);
+        return (diff_sec / 60);
+}
+
+double 
+p_duration_hours(void) P_NOEXCEPT
+{
+        double diff_sec = difftime(timer.end_time, timer.begin_time);
+        double diff_min = diff_sec / 60;
+        return (diff_min / 60);
+}
+

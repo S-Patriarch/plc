@@ -1,0 +1,281 @@
+/* Copyright (C) 2025, S-Patriarch
+   This file is part of the PLC library.  */
+
+/*
+ *      Patriarch Library C:                            tcpip.c
+ */
+
+#include <plc/tcpip.h>
+
+struct tcpip_s {
+        int     _read_cnt;
+        char   *_read_ptr;
+        char    _read_buf[MAXLINE];
+} t;
+
+static Sigfunc *
+_signal(int signo, Sigfunc *func) P_NOEXCEPT 
+{
+        struct sigaction act;
+        struct sigaction oact;
+         
+        act.sa_handler = func;
+        sigemptyset(&act.sa_mask);
+        act.sa_flags = 0;
+
+        if (signo == SIGALRM) {
+                #ifdef SA_INTERRUPT
+                act.sa_flags |= SA_INTERRUPT; // SunOS 4.x
+                #endif
+        } else {
+                #ifdef SA_RESTART
+                act.sa_flags |= SA_RESTART; // SVR4, 44BSD
+                #endif
+        }
+        if (sigaction(signo, &act, &oact) < 0) return SIG_ERR;
+        return (oact.sa_handler);
+}
+
+static ssize_t 
+_my_read(int fd, char *ptr) P_NOEXCEPT
+{
+        if (t._read_cnt <= 0) {
+                again:
+                if ((t._read_cnt = read(fd, t._read_buf, sizeof(t._read_buf))) < 0) {
+                        if (errno == EINTR) goto again;
+                        return (-1);
+                } else if (t._read_cnt == 0) 
+                        return (0);
+                t._read_ptr = t._read_buf;
+        }
+        t._read_cnt--;
+        *ptr = *t._read_ptr++;
+        return (1);
+}
+
+static ssize_t 
+_readline(int fd, void *vptr, size_t maxlen) P_NOEXCEPT
+{
+        char    c;
+        char    *ptr = (char *)vptr;
+        ssize_t n = 0;
+        ssize_t rc = 0;
+
+        for (n = 1; n < maxlen; n++) {
+                if ((rc = _my_read(fd, &c)) == 1) {
+                        *ptr++ = c;
+                        if (c == '\n') break;
+                } else if (rc == 0) {
+                        *ptr = 0;
+                        return (n - 1);
+                } else {
+                        return (-1);
+                }
+        }
+        *ptr = 0;
+        return (n);
+}
+/*
+static ssize_t 
+_readlinebuf(void **vptrptr) P_NOEXCEPT
+{
+        if (t._read_cnt) *vptrptr = t._read_ptr;
+        return (t._read_cnt);
+}
+*/
+static ssize_t 
+_writen(int fd, const void *vptr, size_t n) P_NOEXCEPT
+{
+        const char *ptr = (const char *)vptr;
+        size_t     nleft = n;
+        ssize_t    nwritten = 0;
+
+        while (nleft > 0) {
+                if ((nwritten = write(fd, ptr, nleft)) <= 0) {
+                        if (nwritten < 0 && errno == EINTR) nwritten = 0;
+                        else return -1;
+                }
+                nleft -= nwritten;
+                ptr += nwritten;
+        }
+        return (n);
+}
+
+int 
+p_tcp_socket(int domain, int type, int protocol) P_NOEXCEPT
+{
+        int n = 0;
+        if ((n = socket(domain, type, protocol)) < 0)
+                return (P_ERROR);
+        return (n);
+}
+int 
+p_tcp_bind(int fd, const struct sockaddr *addr, socklen_t len) P_NOEXCEPT
+{
+        if (bind(fd, addr, len) < 0)
+                return (P_ERROR);
+        return 0;
+}
+
+int 
+p_tcp_listen(int fd, int n) P_NOEXCEPT
+{
+        if (listen(fd, n) < 0)
+                return (P_ERROR);
+        return 0;
+}
+
+int 
+p_tcp_accept(int fd, struct sockaddr *addr, socklen_t *len) P_NOEXCEPT
+{
+        int n = 0;
+        if ((n = accept(fd, addr, len)) < 0)
+                return (P_ERROR);
+        return (n);
+}
+
+int 
+p_tcp_connect(int fd, const struct sockaddr *addr, socklen_t len) P_NOEXCEPT
+{
+        if (connect(fd, addr, len) < 0)
+                return (P_ERROR);
+        return 0;
+}
+
+int 
+p_tcp_close(int fd) P_NOEXCEPT
+{
+        if (close(fd) < 0)
+                return (P_ERROR);
+        return 0;
+}
+
+ssize_t 
+p_tcp_recv(int fd, void *ptr, size_t nbytes, int flags) P_NOEXCEPT
+{
+        ssize_t n = 0;
+        if ((n = recv(fd, ptr, nbytes, flags)) < 0)
+                return (P_ERROR);
+        return (n);
+}
+
+int 
+p_tcp_send(int fd, const void *ptr, size_t nbytes, int flags) P_NOEXCEPT
+{
+        if (send(fd, ptr, nbytes, flags) < 0)
+                return (P_ERROR);
+        return 0;
+}
+
+ssize_t 
+p_tcp_read(int fd, void *ptr, size_t nbytes) P_NOEXCEPT
+{
+        ssize_t n = 0;
+        if ((n = read(fd,ptr,nbytes)) < 0)
+                return (P_ERROR);
+        return (n);
+}
+
+ssize_t 
+p_tcp_readline(int fd, void *ptr, size_t maxlen) P_NOEXCEPT
+{
+        ssize_t n = 0;
+        if ((n = _readline(fd, ptr, maxlen)) < 0)
+                return (P_ERROR);
+        return (n);
+}
+
+int 
+p_tcp_write(int fd, const void *ptr, size_t nbytes) P_NOEXCEPT
+{
+        if (write(fd, ptr, nbytes) < 0)
+                return (P_ERROR);
+        return 0;
+}
+
+int 
+p_tcp_writen(int fd, const void *ptr, size_t nbytes) P_NOEXCEPT
+{
+        if (_writen(fd, ptr, nbytes) != nbytes)
+                return (P_ERROR);
+        return 0;
+}
+
+pid_t 
+p_tcp_fork(void) P_NOEXCEPT
+{
+        pid_t pid = 0;
+        if ((pid = fork()) < 0)
+                return (P_ERROR);
+        return (pid);
+}
+
+Sigfunc *
+p_tcp_signal(int signo, Sigfunc *func) P_NOEXCEPT
+{
+        Sigfunc *sigfunc;
+        if ((sigfunc = _signal(signo, func)) == SIG_ERR)
+                return (NULL);
+        return (sigfunc);
+}
+
+int 
+p_tcp_shutdown(int fd, int how) P_NOEXCEPT
+{
+        if (shutdown(fd, how) < 0)
+                return (P_ERROR);
+        return 0;
+}
+
+char *
+p_tcp_fgets(char *str, int count, FILE *stream) P_NOEXCEPT
+{
+        char *rstr; 
+        if ((rstr = fgets(str, count, stream)) == NULL && ferror(stream))
+                return (NULL);
+        return (rstr);
+}
+
+int 
+p_tcp_fputs(const char *str, FILE *stream) P_NOEXCEPT
+{
+        if (fputs(str, stream) == feof(stream))
+                return (P_ERROR);
+        return 0;
+}
+
+int 
+p_tcp_pthread_create(pthread_t *tid, 
+                     const pthread_attr_t *attr, 
+                     void *(*func)(void*), 
+                     void *arg) P_NOEXCEPT
+{
+        int n = 0;
+        if ((n = pthread_create(tid, attr, func, arg)) == 0) return 0;
+        else return (P_ERROR);
+}
+
+int 
+p_tcp_pthread_join(pthread_t tid, void **status) P_NOEXCEPT
+{
+        int n = 0;
+        if ((n = pthread_join(tid, status)) == 0) return 0;
+        else return (P_ERROR);
+}
+
+int 
+p_tcp_pthread_detach(pthread_t tid) P_NOEXCEPT
+{
+        int n = 0;
+        if ((n = pthread_detach(tid)) == 0) return 0;
+        else return (P_ERROR);
+}
+
+int 
+p_tcp_pthread_kill(pthread_t tid, int signo) P_NOEXCEPT
+{
+        int n = 0;
+        if ((n = pthread_kill(tid, signo)) == 0) return 0;
+        else return (P_ERROR);
+}
+
