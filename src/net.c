@@ -8,12 +8,12 @@
 #include <plc/net.h>
 
 struct net_ctx_s {
-        int             fd;
-        int             family;        /* AF_INET / AF_INET6  */
-        int             bound;         /* 1 если bind уже был вызван  */
+        int               fd;
+        int               family;      /* AF_INET / AF_INET6  */
+        int               bound;       /* 1 если bind уже был вызван  */
         struct sockaddr_storage addr;  /* локальный или удаленный адрес  */
-        socklen_t       addr_len;
-        net_opts_s      opts;
+        socklen_t         addr_len;
+        struct net_opts_s opts;
 };
 
 struct net_buf_s {
@@ -26,7 +26,7 @@ struct net_buf_s {
  */
 
 static int
-_net_family_to_af(net_family_e f) P_NOEXCEPT
+_net_family_to_af(enum net_family_e f) P_NOEXCEPT
 {
         switch (f) {
         case P_NET_IPV4:
@@ -76,7 +76,7 @@ _apply_sock_opts(int fd, int sock_flags) P_NOEXCEPT
                 /* Ядро не поддерживает SO_REUSEPORT.  Игнорируем флаг
                    без ошибки, чтобы пользовательский код оставался
                    переносимым.  */
-        (void)fd;  /* подавляем предупреждение о неиспользуемой переменной  */
+        (void)fd; /* подавляем предупреждение о неиспользуемой переменной  */
 #endif
         }
 
@@ -101,8 +101,8 @@ _apply_sock_opts(int fd, int sock_flags) P_NOEXCEPT
  * Реализация функций интерфейса.
  */
 
-net_ctx_s *
-p_net_create(const net_opts_s *opts, int do_bind) P_NOEXCEPT 
+struct net_ctx_s *
+p_net_create(const struct net_opts_s *opts, int do_bind) P_NOEXCEPT 
 {
         if (!opts || !opts->port) {
                 errno = EINVAL;
@@ -175,7 +175,7 @@ p_net_create(const net_opts_s *opts, int do_bind) P_NOEXCEPT
         if (fd == -1)
                 return(NULL);
 
-        net_ctx_s *ctx = (net_ctx_s *)calloc(1, sizeof(*ctx));
+        struct net_ctx_s *ctx = (struct net_ctx_s *)calloc(1, sizeof(*ctx));
         if (!ctx) {
                 close(fd);
                 errno = ENOMEM;
@@ -193,7 +193,7 @@ p_net_create(const net_opts_s *opts, int do_bind) P_NOEXCEPT
 }
 
 int 
-p_net_listen(net_ctx_s *ctx, int backlog) P_NOEXCEPT 
+p_net_listen(struct net_ctx_s *ctx, int backlog) P_NOEXCEPT 
 {
         if (!ctx || ctx->fd < 0) {
                 errno = EINVAL;
@@ -211,8 +211,8 @@ p_net_listen(net_ctx_s *ctx, int backlog) P_NOEXCEPT
         return(0);
 }
 
-net_ctx_s *
-p_net_accept(net_ctx_s *ctx) P_NOEXCEPT 
+struct net_ctx_s *
+p_net_accept(struct net_ctx_s *ctx) P_NOEXCEPT 
 {
         if (!ctx || ctx->fd < 0) {
                 errno = EINVAL;
@@ -241,7 +241,8 @@ p_net_accept(net_ctx_s *ctx) P_NOEXCEPT
                 }
         }
 
-        net_ctx_s *client_ctx = (net_ctx_s *)calloc(1, sizeof(*client_ctx));
+        struct net_ctx_s *client_ctx = (struct net_ctx_s *)calloc(1, 
+                                        sizeof(*client_ctx));
         if (!client_ctx) {
                 close(client_fd);
                 errno = ENOMEM;
@@ -259,7 +260,7 @@ p_net_accept(net_ctx_s *ctx) P_NOEXCEPT
 }
 
 int 
-p_net_connect(net_ctx_s *ctx) P_NOEXCEPT 
+p_net_connect(struct net_ctx_s *ctx) P_NOEXCEPT 
 {
         if (!ctx || ctx->fd < 0) {
                 errno = EINVAL;
@@ -282,7 +283,7 @@ p_net_connect(net_ctx_s *ctx) P_NOEXCEPT
 }
 
 void 
-p_net_free(net_ctx_s *ctx) P_NOEXCEPT 
+p_net_free(struct net_ctx_s *ctx) P_NOEXCEPT 
 {
         if (!ctx)
                 return;
@@ -295,15 +296,15 @@ p_net_free(net_ctx_s *ctx) P_NOEXCEPT
         free(ctx);
 }
 
-net_buf_s *
-p_net_recv(net_ctx_s *ctx) P_NOEXCEPT 
+struct net_buf_s *
+p_net_recv(struct net_ctx_s *ctx) P_NOEXCEPT 
 {
         if (!ctx || ctx->fd < 0) {
                 errno = EINVAL;
                 return(NULL);
         }
 
-        net_buf_s *buf = (net_buf_s *)calloc(1, sizeof(*buf));
+        struct net_buf_s *buf = (struct net_buf_s *)calloc(1, sizeof(*buf));
         if (!buf) {
                 errno = ENOMEM;
                 return(NULL);
@@ -322,7 +323,7 @@ p_net_recv(net_ctx_s *ctx) P_NOEXCEPT
 }
 
 int 
-p_net_send(net_ctx_s *ctx, const void *data, size_t len) P_NOEXCEPT 
+p_net_send(struct net_ctx_s *ctx, const void *data, size_t len) P_NOEXCEPT 
 {
         if (!ctx || ctx->fd < 0 || !data || len == 0) {
                 errno = EINVAL;
@@ -362,7 +363,7 @@ p_net_send(net_ctx_s *ctx, const void *data, size_t len) P_NOEXCEPT
 }
 
 int 
-p_net_send_str(net_ctx_s *ctx, const char *str) P_NOEXCEPT 
+p_net_send_str(struct net_ctx_s *ctx, const char *str) P_NOEXCEPT 
 {
         if (!str)
                 return(0);
@@ -371,25 +372,25 @@ p_net_send_str(net_ctx_s *ctx, const char *str) P_NOEXCEPT
 }
 
 const void *
-p_net_buf_data(const net_buf_s *buf) P_NOEXCEPT 
+p_net_buf_data(const struct net_buf_s *buf) P_NOEXCEPT 
 {
         return(buf ? buf->data : NULL);
 }
 
 size_t 
-p_net_buf_size(const net_buf_s *buf) P_NOEXCEPT 
+p_net_buf_size(const struct net_buf_s *buf) P_NOEXCEPT 
 {
         return(buf ? buf->len : 0);
 }
 
 void 
-p_net_buf_free(net_buf_s *buf) P_NOEXCEPT 
+p_net_buf_free(struct net_buf_s *buf) P_NOEXCEPT 
 {
         free(buf);
 }
 
 int 
-p_net_set_timeout(net_ctx_s *ctx, int recv_ms, int send_ms) P_NOEXCEPT 
+p_net_set_timeout(struct net_ctx_s *ctx, int recv_ms, int send_ms) P_NOEXCEPT 
 {
         if (!ctx || ctx->fd < 0) {
                 errno = EINVAL;
@@ -427,7 +428,7 @@ p_net_set_timeout(net_ctx_s *ctx, int recv_ms, int send_ms) P_NOEXCEPT
 }
 
 int 
-p_net_set_ttl(net_ctx_s *ctx, int ttl) P_NOEXCEPT 
+p_net_set_ttl(struct net_ctx_s *ctx, int ttl) P_NOEXCEPT 
 {
         if (!ctx || ctx->fd < 0) {
                 errno = EINVAL;
@@ -454,7 +455,7 @@ p_net_set_ttl(net_ctx_s *ctx, int ttl) P_NOEXCEPT
 }
 
 int 
-p_net_get_fd(const net_ctx_s *ctx) P_NOEXCEPT 
+p_net_get_fd(const struct net_ctx_s *ctx) P_NOEXCEPT 
 {
         return(ctx ? ctx->fd : -1);
 }
