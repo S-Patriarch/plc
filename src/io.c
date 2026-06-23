@@ -91,3 +91,51 @@ p_gets(char *dst, size_t len) P_NOEXCEPT
         *dst = '\0';
 }
 
+ssize_t
+p_readn(int fd, void *buf, size_t nbytes) P_NOEXCEPT 
+{
+        size_t          nleft;
+        ssize_t         nread;
+
+        nleft = nbytes;
+        while (nleft > 0) {
+                if ((nread = read(fd, buf, nleft)) < 0) {
+                        if (nleft == nbytes)
+                                return(-1);  /* ошибка, вернуть -1  */
+                        else
+                                break;  /* ошибка, вернуть количество 
+                                           прочитанных байтов  */
+                } else if (nread == 0) {
+                        break;  /* конец файла  */
+                }
+                nleft -= nread;
+                buf += nread;
+        }
+
+        return(nbytes - nleft);  /* возвращаем значение >= 0  */
+}
+
+ssize_t
+p_writen(int fd, const void *buf, size_t nbytes) P_NOEXCEPT 
+{
+        size_t          nleft;
+        ssize_t         nwritten;
+
+        nleft = nbytes;
+        while (nleft > 0) {
+                if ((nwritten = write(fd, buf, nleft)) < 0) {
+                        if (nleft == nbytes)
+                                return(-1);  /* ошибка, вернуть -1  */
+                        else
+                                break;  /* ошибка, вернуть количество 
+                                           записанных байтов  */
+                } else if (nwritten == 0) {
+                        break;
+                }
+                nleft -= nwritten;
+                buf += nwritten;
+        }
+
+        return(nbytes - nleft);  /* возвращаем значение >= 0  */
+}
+
