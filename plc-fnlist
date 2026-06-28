@@ -263,6 +263,9 @@ plcdef.h
         P_DECLARE_AND_ZERO_ARRAY         - макрос для объявления массива переменной длины (VLA) на стеке и обнуления всех его элементов
         P_DECLARE_AND_ZERO_DYNAMIC_ARRAY - макрос для объявления массива переменной длины (VLA) в динамической памяти
         P_STR                            - преобразование в строку
+        p_unlikely
+        P_WARN_printf
+        P_WARN_ON                        - вывод сообщения о предупреждении
         p_sigfunc                        - обработчик сигналов
 
 ringbuf.h
