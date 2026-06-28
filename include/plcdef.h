@@ -18,6 +18,7 @@
 #       define P_NOEXCEPT 
 #endif
 
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <sys/stat.h>
@@ -76,29 +77,29 @@ P_BEGIN_DECLS
    (void)(&a == &b) является трюком для проверки типов. Он вызыва ошибку
    компиляции, если a и b имеют разные типы. Результат типобезопасен.  */
 
-#define P_MIN(a, b)     ({                                              \
-                                __typeof__(a) _a = (a);                 \
-                                __typeof__(b) _b = (b);                 \
-                                (void)(&a == &b);                       \
-                                _a < _b ? _a : _b;                      \
-                        })
+#define P_MIN(a, b) ({                                                  \
+                __typeof__(a) _a = (a);                                 \
+                __typeof__(b) _b = (b);                                 \
+                (void)(&a == &b);                                       \
+                _a < _b ? _a : _b;                                      \
+        })
 
-#define P_MAX(a, b)     ({                                              \
-                                __typeof__(a) _a = (a);                 \
-                                __typeof__(b) _b = (b);                 \
-                                (void)(&a == &b);                       \
-                                _a > _b ? _a : _b;                      \
-                        })
+#define P_MAX(a, b) ({                                                  \
+                __typeof__(a) _a = (a);                                 \
+                __typeof__(b) _b = (b);                                 \
+                (void)(&a == &b);                                       \
+                _a > _b ? _a : _b;                                      \
+        })
 
 /* Макрос P_SWAP на базе typeof позволяет одной строкой менять
    местами int, double, struct, указатели и вообще любые типы.
    Только не следует использовать его с i++ и похожими 
    выражениями.  */
-#define P_SWAP(a, b)    do {                                            \
-                                __typeof__(a) _t = (a);                 \
-                                (a) = (b);                              \
-                                (b) = _t;                               \
-                        } while (0)
+#define P_SWAP(a, b) do {                                               \
+                __typeof__(a) _t = (a);                                 \
+                (a) = (b);                                              \
+                (b) = _t;                                               \
+        } while (0)
 
 /* В стандарте С доступен атрибут cleanup (очистка) через расширение
    GNU C (__attribute__((cleanup))). Он не является частью стандартов
@@ -127,6 +128,17 @@ P_BEGIN_DECLS
    Пример:      const char *str = P_STR(12);
    Результат:   const char *str = "12";  */
 #define P_STR(s)  #s
+
+#define p_unlikely(x)           __builtin_expect(!!(x), 0)
+#define P_WARN_printf(fmt, ...) printf(fmt, ##__VA_ARGS__)
+
+/* Вывод сообщения о предупреждении.  */
+#define P_WARN_ON(condition) ({                                         \
+                int __ret_warn_on = !!(condition);                      \
+                if (p_unlikely(__ret_warn_on))                          \
+                        P_WARN_printf("W: " #condition "\n");           \
+                p_unlikely(__ret_warn_on);                              \
+        })
 
 typedef void p_sigfunc (int);   /* обработчик сигналов  */
 
