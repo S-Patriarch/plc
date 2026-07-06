@@ -140,14 +140,9 @@ P_BEGIN_DECLS
                 p_unlikely(__ret_warn_on);                              \
         })
 
-/* P_ARRAY_SIZE работает только с настоящими массивами (выделенными на стеке
-   или статически).  Для указателей (даже если они указывают на массив) макрос
-   вызовет ошибку компиляции благодаря p_must_be_array.  sizeof вычисляется на
-   этапе компиляции, поэтому макрос не имеет оверхэда в рантайме.  */
-#define p_must_be_array(arr)                                            \
-        (sizeof(arr)/sizeof((arr)[0]) == sizeof(arr)/sizeof((arr)[0]) ? 1 : 0)
+/* Вычисляет размер массива.  */
 #define P_ARRAY_SIZE(arr)                                               \
-        (sizeof(arr)/sizeof((arr)[0]) + p_must_be_array(arr))
+        (sizeof(arr) / sizeof((arr)[0]))
 
 typedef void p_sigfunc (int);   /* обработчик сигналов  */
 
