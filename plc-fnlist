@@ -266,7 +266,6 @@ plcdef.h
         p_unlikely
         P_WARN_printf
         P_WARN_ON                        - вывод сообщения о предупреждении
-        p_must_be_array
         P_ARRAY_SIZE                     - вычисляет размер массива
         p_sigfunc                        - обработчик сигналов
 
