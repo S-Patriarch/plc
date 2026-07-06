@@ -73,6 +73,10 @@ P_BEGIN_DECLS
 /* Права доступа по умолчанию к создаваемым каталогам.  */
 #define P_DIR_MODE      (P_FILE_MODE | S_IXUSR | S_IXGRP | S_IXOTH)
 
+/* Вычисляет размер массива.  */
+#define P_ARRSIZ(arr)                                                   \
+        (sizeof(arr) / sizeof((arr)[0]))
+
 /* В макросах P_MIN и P_MAX используются выражения в стиле GCC ({ ... }).
    (void)(&a == &b) является трюком для проверки типов. Он вызыва ошибку
    компиляции, если a и b имеют разные типы. Результат типобезопасен.  */
@@ -139,10 +143,6 @@ P_BEGIN_DECLS
                         P_WARN_printf("W: " #condition "\n");           \
                 p_unlikely(__ret_warn_on);                              \
         })
-
-/* Вычисляет размер массива.  */
-#define P_ARRAY_SIZE(arr)                                               \
-        (sizeof(arr) / sizeof((arr)[0]))
 
 typedef void p_sigfunc (int);   /* обработчик сигналов  */
 
