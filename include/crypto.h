@@ -93,6 +93,25 @@ extern unsigned long long int p_popcnt64 (unsigned long long int x) P_NOEXCEPT;
 extern uint32_t p_adler32 (const uint8_t *buf, size_t len) P_NOEXCEPT;
 extern uint64_t p_adler64 (const uint8_t *buf, size_t len) P_NOEXCEPT;
 
+/* Функции p_djb2_hash32 и p_djb2_hash64 вычисляют хеш по алгоритму
+   Д. Дж. Бернштейна (djb2).
+  
+   Этот алгоритм широко известен как djb2, создан Дэниелом Джулиусом
+   Бернштейном и часто применяется в хеш-таблицах благодаря своей простоте и
+   хорошему распределению для строковых данных.
+
+   Описание алгоритма:
+   - начальное значение хеша: 5381;
+   - для каждого байта: hash = hash * 33 + byte;
+   - умножение на 33 оптимизировано через сдвиги: (hash << 5) + hash;
+   - используется беззнаковая арифметика с естественным переполнением.  
+ 
+   buf - указатель на буфер данных
+   len - размер буфера в байтах
+   возвращают 32-битное или 64-битное хеш-значение  */
+extern uint32_t p_djb2_hash32 (const unsigned char *buf, size_t len) P_NOEXCEPT;
+extern uint64_t p_djb2_hash64 (const unsigned char *buf, size_t len) P_NOEXCEPT;
+
 P_END_DECLS
 
 #endif /* crypto.h  */
