@@ -141,3 +141,53 @@ p_popcnt64(unsigned long long int x) P_NOEXCEPT
         return((x * 0x0101010101010101ULL) >> 56);
 }
 
+uint32_t 
+p_adler32(const uint8_t *buf, size_t len) P_NOEXCEPT 
+{
+        uint32_t a = 1;
+        uint32_t b = 0;
+        size_t   i, chunk, end;
+
+        for (i = 0; i < len;) {
+                chunk = P_ADLER32_NMAX;
+                if (chunk > len - i)
+                        chunk = len - 1;
+
+                end = i + chunk;
+                for (; i < end; i++) {
+                        a += buf[i];
+                        b += a;
+                }
+
+                a %= P_ADLER32_MOD;
+                b %= P_ADLER32_MOD;
+        }
+
+        return((b << 16) | a);
+}
+
+uint64_t 
+p_adler64(const uint8_t *buf, size_t len) P_NOEXCEPT 
+{
+        uint64_t a = 1;
+        uint64_t b = 0;
+        size_t   i, chunk, end;
+
+        for (i = 0; i < len;) {
+                chunk = P_ADLER64_NMAX;
+                if (chunk > len - i)
+                        chunk = len - 1;
+
+                end = i + chunk;
+                for (; i < end; i++) {
+                        a += buf[i];
+                        b += a;
+                }
+
+                a %= P_ADLER64_MOD;
+                b %= P_ADLER64_MOD;
+        }
+
+        return((b << 32) | a);
+}
+
