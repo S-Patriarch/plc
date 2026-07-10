@@ -191,3 +191,33 @@ p_adler64(const uint8_t *buf, size_t len) P_NOEXCEPT
         return((b << 32) | a);
 }
 
+uint32_t 
+p_djb2_hash32(const unsigned char *buf, size_t len) P_NOEXCEPT 
+{
+        uint32_t hash = 5381;
+        size_t   i;
+
+        if (buf == NULL || len == 0)
+                return(hash);
+
+        for (i = 0; i < len; i++)
+                hash = ((hash << 5) + hash) + buf[i];
+
+        return(hash);
+}
+
+uint64_t 
+p_djb2_hash64(const unsigned char *buf, size_t len) P_NOEXCEPT 
+{
+        uint64_t hash = 5381;
+        size_t   i;
+
+        if (buf == NULL || len == 0)
+                return(hash);
+
+        for (i = 0; i < len; i++)
+                hash = ((hash << 5) + hash) + buf[i];
+
+        return(hash);
+}
+
