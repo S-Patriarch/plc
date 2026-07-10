@@ -10,6 +10,7 @@
 
 #include <stdio.h>
 #include <stdint.h>
+#include <stddef.h>
 #include <string.h>
 #include <ctype.h>
 #include <plc/plcdef.h>
@@ -54,6 +55,33 @@ extern int p_drle (const char *s, char *out) P_NOEXCEPT;
    unsigned long long int value = 0x0F0F0F0F0F0F0F0F;
    int bs = p_popcnt64(value); // 32 (каждая маска 0xF дает 4 бита x 8 байт)  */
 extern unsigned long long int p_popcnt64 (unsigned long long int x) P_NOEXCEPT;
+
+/* Функции p_adler32 и p_adler64 вычисляют хеш.
+
+   Adler-32 вычисляет 32-битный хеш как b*65536+a, где модуль - простое число
+   65521.  Значение NMAX = 5552 гарантирует, что b не переполнит 32 бита между
+   взятиями модуля.
+   Adler-64 использует 64-битные накопители и модуль 4294967291 (наибольшее
+   32-битное простое).  Результат упаковывается как (b<<32)|a в uint64_t.
+   В отличии от нестандартных реализаций с модулем 2^32, здесь используется
+   настоящее простое число для лучшего распределения.
+
+   Описание реализации:
+   - обработка данных блоками (chunking) для эффективности на длинных буферах;
+   - корректное вычисление модуля для предотвращения переполнения.  */
+
+/* Константы для Adler-32  */
+#define P_ADLER32_MOD   (65521)
+#define P_ADLER32_NMAX  (5552)  /* максимальное количество байт, которое можно
+                                   обработать без деления  */
+
+/* Константы для Adler-64  */
+#define P_ADLER64_MOD   (4294967291ULL)  /* наибольшее простое число < 2^32  */
+#define P_ADLER64_NMAX  (2097151ULL)     /* (2^32 - 1) / P_ADLER64_MOD, 
+                                            округленный для безопасности  */
+
+extern uint32_t p_adler32 (const uint8_t *buf, size_t len) P_NOEXCEPT;
+extern uint64_t p_adler64 (const uint8_t *buf, size_t len) P_NOEXCEPT;
 
 P_END_DECLS
 
