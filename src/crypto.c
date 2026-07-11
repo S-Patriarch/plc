@@ -142,7 +142,7 @@ p_popcnt64(unsigned long long int x) P_NOEXCEPT
 }
 
 uint32_t 
-p_adler32(const uint8_t *buf, size_t len) P_NOEXCEPT 
+p_adler32(const unsigned char *buf, size_t len) P_NOEXCEPT 
 {
         uint32_t a = 1;
         uint32_t b = 0;
@@ -167,7 +167,7 @@ p_adler32(const uint8_t *buf, size_t len) P_NOEXCEPT
 }
 
 uint64_t 
-p_adler64(const uint8_t *buf, size_t len) P_NOEXCEPT 
+p_adler64(const unsigned char *buf, size_t len) P_NOEXCEPT 
 {
         uint64_t a = 1;
         uint64_t b = 0;
