@@ -90,8 +90,8 @@ extern unsigned long long int p_popcnt64 (unsigned long long int x) P_NOEXCEPT;
 #define P_ADLER64_NMAX  (2097151ULL)     /* (2^32 - 1) / P_ADLER64_MOD, 
                                             округленный для безопасности  */
 
-extern uint32_t p_adler32 (const uint8_t *buf, size_t len) P_NOEXCEPT;
-extern uint64_t p_adler64 (const uint8_t *buf, size_t len) P_NOEXCEPT;
+extern uint32_t p_adler32 (const unsigned char *buf, size_t len) P_NOEXCEPT;
+extern uint64_t p_adler64 (const unsigned char *buf, size_t len) P_NOEXCEPT;
 
 /* Функции p_djb2_hash32 и p_djb2_hash64 вычисляют хеш по алгоритму
    Д. Дж. Бернштейна (djb2).
