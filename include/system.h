@@ -18,6 +18,7 @@
 #include <syslog.h>
 #include <stdio.h>
 #include <unistd.h>
+#include <pthread.h>
 #include <sys/resource.h>
 #include <sys/time.h>
 #include <plc/plcdef.h>
@@ -96,6 +97,18 @@ extern p_sigfunc *p_signal (int signo, p_sigfunc *func) P_NOEXCEPT;
 
    Возвращает 0 в случае успеха, -1 - в случае неудачи.  */
 extern int p_daemonize (const char *cmd) P_NOEXCEPT;
+
+/* Определяет текущий размер стека текущего процесса.
+   Размер определяется посредством разницы между концом области стека и
+   текущим указателем стека.  Конец области получает из /proc/self/maps.
+
+   В случае успеха возращает размер в байтах, при ошибке -1.  */
+extern long int p_get_stack_size_proc (void) P_NOEXCEPT;
+
+/* Возвращает текущий лимит размера стека.
+   Чтобы узнать использованный объем, можно сравнить адрес локальной
+   переменной с адресом из pthread_attr_getstack.  */
+extern size_t p_get_stack_size_pthread (void) P_NOEXCEPT;
 
 P_END_DECLS
 
