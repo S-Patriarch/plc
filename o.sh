@@ -1,6 +1,6 @@
 #!/bin/bash
 gcc -c src/conio.c -o bin/conio.o -Wall -O3 -std=c2x
-gcc -c src/system.c -o bin/system.o -Wall -O3 -std=c2x
+gcc -c src/system.c -o bin/system.o -Wall -O3 -std=c2x -lpthread
 gcc -c src/io.c -o bin/io.o -Wall -O3 -std=c2x
 gcc -c src/algorithm.c -o bin/algorithm.o -Wall -O3 -std=c2x
 gcc -c src/string.c -o bin/string.o -Wall -O3 -std=c2x
