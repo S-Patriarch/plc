@@ -177,3 +177,43 @@ p_daemonize(const char *cmd) P_NOEXCEPT
         return(0);
 }
 
+long int 
+p_get_stack_size_proc(void) P_NOEXCEPT 
+{
+#ifdef __linux__
+        unsigned long int stack_start = 0, stack_end = 0;
+        char              line[256];
+        FILE              *fp = fopen("/proc/self/maps", "r");
+        
+        if (!fp)
+                return(-1);
+
+        while (fgets(line, sizeof(line), fp)) {
+                if (strstr(line, "[stack]")) {
+                        sscanf(line, "%lx-%lx", &stack_start, &stack_end);
+                        break;
+                }
+        }
+        fclose(fp);
+
+        if (!stack_start)
+                return(-1);
+        return(stack_end - stack_start);
+#else
+        return(-1);
+#endif
+}
+
+size_t 
+p_get_stack_size_pthread(void) P_NOEXCEPT 
+{
+        pthread_attr_t  attr;
+        size_t          stack_size = 0;
+
+        pthread_attr_init(&attr);
+        pthread_attr_getstacksize(&attr, &stack_size);
+        pthread_attr_destroy(&attr);
+
+        return(stack_size);
+}
+
