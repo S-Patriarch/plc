@@ -272,3 +272,62 @@ p_unpack_chars(unsigned char p,
         *c8 = p & 1;
 }
 
+unsigned long long int 
+p_mod_mul(unsigned long long int a,
+          unsigned long long int b,
+          unsigned long long int mod) P_NOEXCEPT 
+{
+        unsigned long long int  res = 0;
+
+        a %= mod;
+        while (b > 0) {
+                if (b & 1)
+                        res = (res + a) % mod;
+                a = (a * 2) % mod;
+                b >>= 1;
+        }
+
+        return(res);
+}
+
+unsigned long long int 
+p_mod_pow(unsigned long long int base,
+          unsigned long long int exp,
+          unsigned long long int mod) P_NOEXCEPT 
+{
+        unsigned long long int  res = 1 % mod;
+
+        while (exp > 0) {
+                if (exp & 1)
+                        res = p_mod_mul(res, base, mod);
+                base = p_mod_mul(base, base, mod);
+                exp >>= 1;
+        }
+
+        return(res);
+}
+
+unsigned char 
+p_witness(unsigned long long int a, unsigned long long int n) P_NOEXCEPT 
+{
+        unsigned long long int  d = n - 1;
+        unsigned long long int  x = 0;
+        int                     s = 0;
+
+        while ((d & 1) == 0) {     /* пока d четно  */
+                d >>= 1;           /* делим на 2  */
+                s++;               /* считаем степень двойки  */
+        }
+        x = p_mod_pow(a, d, n);    /* a^d mod n  */
+        if (x == 1 || x == n - 1)
+                return(0);         /* a не свидетель (n, возможно, простое)  */
+
+        while (--s) {              /* возводим в квадрат s-1 раз  */
+                x = p_mod_mul(x, x, n);
+                if (x == n - 1)
+                        return(0); /* достигли -1 - a не свидетель  */
+        }
+
+        return(1);                 /* a - свидетель составности n  */
+}
+
