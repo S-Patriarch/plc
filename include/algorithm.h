@@ -77,6 +77,26 @@ extern void p_unpack_chars (unsigned char p,
                             unsigned char *c5, unsigned char *c6, 
                             unsigned char *c7, unsigned char *c8) P_NOEXCEPT;
 
+/* Умножение с защитой от переполнения.
+   Работает всегда, но ьедленно (O(log b))  */
+extern unsigned long long int p_mod_mul (unsigned long long int a,
+                                         unsigned long long int b,
+                                         unsigned long long int mod) P_NOEXCEPT;
+
+/* Быстрое возведение в степень по модулю.  */
+extern unsigned long long int p_mod_pow (unsigned long long int base,
+                                         unsigned long long int exp,
+                                         unsigned long long int mod) P_NOEXCEPT;
+
+/* Определяет, является ли число 'a' доказательством составности n.
+   Тест Миллера-Рабина.
+   Если ни одно из последовательных возведений в квадрат не дало n-1,
+   значит 'a' - свидетель того, что n является составным числом.
+   Возвращает 0 если a не свидетель (n, возможно, простое), 
+              1 если a - свидетель составности n.  */
+extern unsigned char p_witness (unsigned long long int a,
+                                unsigned long long int n) P_NOEXCEPT;
+
 P_END_DECLS
 
 #endif /* algorithm.h  */
