@@ -9,6 +9,7 @@
 #define __PLC_CRYPTO_H  1
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <stdint.h>
 #include <stddef.h>
 #include <string.h>
@@ -38,6 +39,18 @@ extern unsigned int p_ptr_list_hash (void **in) P_NOEXCEPT;
    Возвращают 0 при успешном завершении, -1 при ошибке.  */
 extern int p_crle (const char *s, char *out) P_NOEXCEPT;
 extern int p_drle (const char *s, char *out) P_NOEXCEPT;
+
+/* Функции p_crle_simple и p_drle_simple сжатия и распаковки RLE.
+   RLE для байтов (подходит для данных, где много повторяющихся байтов.
+   Принимают указатели на входные данные и их размер, а также указатели на
+   выходные буферы и ех размеры, которые изменяются.
+   Возвращают размер сжатых и распакованных данных, при ошибке -1.  */
+extern int p_crle_simple (const unsigned char *input, int input_size,
+                          unsigned char *output, int output_max_size) 
+        P_NOEXCEPT;
+extern int p_drle_simple (const unsigned char *input, int input_size,
+                          unsigned char *output, int output_max_size) 
+        P_NOEXCEPT;
 
 /* Подсчет количества единичных (установленных) битов в 64-битном числе
    (также известно как population count, popcount, или вес Хэмминга).
