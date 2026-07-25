@@ -132,6 +132,69 @@ p_drle(const char *s, char *out) P_NOEXCEPT
         return 0;
 }
 
+int 
+p_crle_simple(const unsigned char *input, int input_size,
+              unsigned char *output, int output_max_size) P_NOEXCEPT 
+{
+        int             ipos = 0, opos = 0;
+        int             count = 0;
+        unsigned char   current_byte;
+
+        while (ipos < input_size) {
+                /* Считаем сколько одинаковых байт подряд.  */
+                current_byte = input[ipos]; 
+                count = 1;
+                while (ipos + count < input_size &&
+                       input[ipos+count] == current_byte &&
+                       count < 255) { /* ограничиваем длину серии 255
+                                         (максимум в 1 байт)  */
+                        count++;
+                }
+
+                /* Записываем пару: [количество][байт]  
+                   Проверяем, хватит ли места в выходном буфере 
+                   (нужно 2 байта).  */
+                if (opos + 2 > output_max_size)
+                        return(-1);   /* переполнение выходного буфера  */
+                output[opos++] = (unsigned char)count;
+                output[opos++] = current_byte;
+
+                /* Перемещаем позицию во входном потоке.  */
+                ipos += count;
+        }
+        
+        return(opos);
+}
+
+int 
+p_drle_simple(const unsigned char *input, int input_size,
+              unsigned char *output, int output_max_size) P_NOEXCEPT 
+{
+        int             ipos = 0, opos = 0;
+        int             count = 0;
+        int             i;
+        unsigned char   byte;
+
+        while (ipos < input_size) {
+                /* Проверяем, что можем прочитать пару [счетчик][байт].  */
+                if (ipos + 2 > input_size)
+                        return(-1); /* некорректные данные  */
+
+                count = input[ipos++];
+                byte = input[ipos++];
+
+                /* Проверяем, не выйдем ли за пределы выходного буфера.  */
+                if (opos + count > output_max_size)
+                        return(-1); /* переполнение  */
+
+                /* Записываем count раз byte.  */
+                for (i = 0; i < count; i++)
+                        output[opos++] = byte;
+        }
+
+        return(opos);
+}
+
 unsigned long long int 
 p_popcnt64(unsigned long long int x) P_NOEXCEPT 
 {
