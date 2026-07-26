@@ -147,7 +147,7 @@ extern uint64_t p_adler64 (const unsigned char *buf, size_t len) P_NOEXCEPT;
 extern uint32_t p_djb2_hash32 (const unsigned char *buf, size_t len) P_NOEXCEPT;
 extern uint64_t p_djb2_hash64 (const unsigned char *buf, size_t len) P_NOEXCEPT;
 
-/* Хеш-функция - лавинный эффект.
+/* Финальный этап хеша - лавинное перемешивание.
    Перемешивает оставшиеся биты, чтобы небольшие изменения распространялись
    повсюду.  Помогает равномерно распределять близкие значения хеша.  
    Изменение всего одного бита входных данных приводит к изменению почти каждого
