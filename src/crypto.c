@@ -365,3 +365,15 @@ p_djb2_hash64(const unsigned char *buf, size_t len) P_NOEXCEPT
         return(hash);
 }
 
+unsigned int 
+p_avalanche(unsigned int h) P_NOEXCEPT 
+{
+        h ^= h >> 15;
+        h *= 0x2c1b3c6d;
+        h ^= h >> 12;
+        h *= 0x297a2d39;
+        h ^= h >> 15;
+
+        return(h);
+}
+
