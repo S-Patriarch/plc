@@ -40,8 +40,9 @@ extern unsigned int p_ptr_list_hash (void **in) P_NOEXCEPT;
 extern int p_crle (const char *s, char *out) P_NOEXCEPT;
 extern int p_drle (const char *s, char *out) P_NOEXCEPT;
 
-/* Функции p_crle_simple и p_drle_simple сжатия и распаковки RLE.
-   RLE для байтов (подходит для данных, где много повторяющихся байтов.
+/* Функции p_crle_simple и p_drle_simple простого побайтового сжатия и 
+   распаковки RLE.
+   RLE для байтов (подходит для данных, где много повторяющихся байтов).
    Принимают указатели на входные данные и их размер, а также указатели на
    выходные буферы и ех размеры, которые изменяются.
    Возвращают размер сжатых и распакованных данных, при ошибке -1.  */
@@ -49,6 +50,27 @@ extern int p_crle_simple (const unsigned char *input, int input_size,
                           unsigned char *output, int output_max_size) 
         P_NOEXCEPT;
 extern int p_drle_simple (const unsigned char *input, int input_size,
+                          unsigned char *output, int output_max_size) 
+        P_NOEXCEPT;
+
+#define P_ESCAPE_BYTE   0xFF
+
+/* Функции p_crle_escape и p_drle_escape побайтового сжатия и распаковки RLE 
+   с Escape-символом.
+   RLE для битов (более бинарный подход, с использованием специального 
+   байт-маркера, чтобы отличить сжатые серии от одиночных "сырых" байт).
+   Принимают указатели на входные данные и их размер, а также указатели на
+   выходные буферы и ех размеры, которые изменяются.
+   Формат кода:
+        - Серия:        [0xFF][счетчик][байт]
+        - Одиночный:    просто [байт] (если байт не 0xFF)
+        - oxFF:         [0xFF][0x00] (специальное обозначение для самого 
+                                      байта 0xFF)
+   Возвращают размер сжатых и распакованных данных, при ошибке -1.  */
+extern int p_crle_escape (const unsigned char *input, int input_size,
+                          unsigned char *output, int output_max_size) 
+        P_NOEXCEPT;
+extern int p_drle_escape (const unsigned char *input, int input_size,
                           unsigned char *output, int output_max_size) 
         P_NOEXCEPT;
 
