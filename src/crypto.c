@@ -195,6 +195,87 @@ p_drle_simple(const unsigned char *input, int input_size,
         return(opos);
 }
 
+int 
+p_crle_escape(const unsigned char *input, int input_size,
+              unsigned char *output, int output_max_size) P_NOEXCEPT 
+{
+        int             ipos = 0, opos = 0;
+        int             count = 0;
+        int             i;
+        unsigned char   current_byte;
+
+        while (ipos < input_size) {
+                current_byte = input[ipos];
+                count = 1;
+                /* Считаем длину серии (макс. 255, так как счетчик - 1 байт).  */
+                while (ipos + count < input_size &&
+                       input[ipos + count] == current_byte &&
+                       count < 255) {
+                        count++;
+                }
+
+                /* Если байтов >= 3 или это escape-байт, кодируем как серию.  */
+                if (count >= 3 || current_byte == P_ESCAPE_BYTE) {
+                        output[opos++] = P_ESCAPE_BYTE;
+                        output[opos++] = (unsigned char)count;
+                        output[opos++] = current_byte;
+                } else {
+                        /* Иначе записываем как сырые данные (1 или 2 байта).  */
+                        for (i = 0; i < count; i++) {
+                                if (opos + 1 > output_max_size)
+                                        return(-1);
+                                output[opos++] = current_byte;
+                        }
+                }
+                ipos += count;
+        }
+
+        return(opos);
+}
+
+int 
+p_drle_escape(const unsigned char *input, int input_size,
+              unsigned char *output, int output_max_size) P_NOEXCEPT 
+{
+        int             ipos = 0, opos = 0;
+        int             count = 0;
+        int             i;
+        unsigned char   byte, repeated_byte;
+
+        while (ipos < input_size) {
+                byte = input[ipos++];
+
+                if (byte == P_ESCAPE_BYTE) {
+                        /* если встретили escape-байт, читаем счетчик и 
+                           сам байт.  */
+                        if (ipos + 2 > input_size)
+                                return(-1); /* битые данные  */
+
+                        count = input[ipos++];
+                        repeated_byte = input[ipos++];
+
+                        if (opos + count > output_max_size)
+                                return(-1);
+
+                        /* Если count == 0, это был сам байт 0xFF в 
+                           исходных данных.  */
+                        if (count == 0) {
+                                output[opos++] = P_ESCAPE_BYTE;
+                        } else {
+                                for (i = 0; i < count; i++)
+                                        output[opos++] = repeated_byte;
+                        }
+                } else {
+                        /* Обычный одиночный байт.  */
+                        if (opos + 1 > output_max_size)
+                                return(-1);
+                        output[opos++] = byte;
+                }
+        }
+
+        return(opos);
+}
+
 unsigned long long int 
 p_popcnt64(unsigned long long int x) P_NOEXCEPT 
 {
