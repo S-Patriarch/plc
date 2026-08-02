@@ -49,3 +49,27 @@ reterr:
         return (retstatus);
 }
 
+int 
+p_connect_retry(int domain, int type, int protocol,
+                const struct sockaddr *addr, socklen_t addr_len) P_NOEXCEPT 
+{
+        int     numsec, fd;
+
+        /* Попытаться установить соединение с экспоненциальной задержкой.  */
+        for (numsec = 1; numsec <= P_MAXSLEEP; numsec <<= 1) {
+                if ((fd = socket(domain, type, addr_len)) < 0)
+                        return(-1);
+                if (connect(fd, addr, addr_len) == 0) {
+                        /* Соединение установлено.  */
+                        return(fd);
+                }
+                close(fd);
+
+                /* Задержка перед следующей попыткой.  */
+                if (numsec <= P_MAXSLEEP/2)
+                        sleep(numsec);
+        }
+
+        return(-1);
+}
+
