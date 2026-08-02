@@ -73,3 +73,28 @@ p_connect_retry(int domain, int type, int protocol,
         return(-1);
 }
 
+int 
+p_init_server(int type, const struct sockaddr *addr, socklen_t addr_len, 
+              int qlen) P_NOEXCEPT 
+{
+        int     fd, err;
+        int     reuse = 1;
+
+        if ((fd = socket(addr->sa_family, type, 0)) < 0)
+                return(-1);
+        if (setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, &reuse, sizeof(int)) < 0)
+                goto errout;
+        if (bind(fd, addr, addr_len) < 0)
+                goto errout;
+        if (type == SOCK_STREAM || type == SOCK_SEQPACKET)
+                if (listen(fd, qlen) < 0)
+                        goto errout;
+        return(fd);
+
+errout:
+        err = errno;
+        close(fd);
+        errno = err;
+        return(-1);
+}
+
