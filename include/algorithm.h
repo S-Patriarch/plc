@@ -97,6 +97,14 @@ extern unsigned long long int p_mod_pow (unsigned long long int base,
 extern unsigned char p_witness (unsigned long long int a,
                                 unsigned long long int n) P_NOEXCEPT;
 
+/* Находит позицию младшего установленного бита.
+   Нахождение производится с помощью одного умножения и одного обращения к
+   таблице.  Константа 0x077CB531 выбрана не случайно.  Это последовательность
+   де Брейна.  Если умножить ее на изолированный бит, старшие биты образуют
+   уникальный паттерн для каждой возможной позиции бита.  Одно умножение
+   заменяет целый цикл.  */
+extern int p_lowest_setbit (uint32_t v) P_NOEXCEPT;
+
 P_END_DECLS
 
 #endif /* algorithm.h  */
