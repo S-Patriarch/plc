@@ -341,3 +341,20 @@ p_lowest_setbit(uint32_t v) P_NOEXCEPT
         return(table[((v & -v) * 0x077CB531U) >> 27]);
 }
 
+float
+p_kahansum(float *nums, int count) P_NOEXCEPT
+{
+        float   sum = 0.0f;
+        float   c = 0.0f;
+        float   t, y;
+        int     i;
+
+        for (i = 0; i < count; ++i) {
+                y = nums[i] - c;
+                t = sum + y;
+                c = (t - sum) - y;
+                sum = t;
+        }
+
+        return(sum);
+}
