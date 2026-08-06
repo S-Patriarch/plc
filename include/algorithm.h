@@ -105,6 +105,13 @@ extern unsigned char p_witness (unsigned long long int a,
    заменяет целый цикл.  */
 extern int p_lowest_setbit (uint32_t v) P_NOEXCEPT;
 
+/* Суммирование чисел с плавающей точкой.
+   Уильям Кэхэн предложил эту идею в 1965 году.  Он также разработал стандарт
+   IEEE 754 для предоставления чисел с плавающей точкой.  Алгоритм суммирования
+   Кэхэна сохраняет информацию об утерянных битах и добавляет ее обратно в
+   следующие вычисления.  */
+extern float p_kahansum (float *nums, int count) P_NOEXCEPT;
+
 P_END_DECLS
 
 #endif /* algorithm.h  */
