@@ -195,6 +195,24 @@ p_random_int(int min, int max) P_NOEXCEPT
         return (min + rand() % (max - min + 1));
 }
 
+static uint32_t state;
+
+void
+p_xorshift32_init(uint32_t seed) P_NOEXCEPT 
+{
+        state = seed;
+}
+
+uint32_t
+p_xorshift32(void) P_NOEXCEPT 
+{
+        state ^= state << 13;
+        state ^= state >> 17;
+        state ^= state << 5;
+
+        return(state);
+}
+
 /* Функция упаковывает 8 значений типа bool впеременную размером 
    1 байт.
    Это значительно может сэкономить потребление памяти, поскольку
