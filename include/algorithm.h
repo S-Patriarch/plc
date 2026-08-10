@@ -54,6 +54,14 @@ extern int p_powi (int base, int exponentnt) P_NOEXCEPT;
 /* Генерация случайного числа.  */
 extern int p_random_int (int min, int max) P_NOEXCEPT;
 
+/* Инициализация состояния генератора случайных чисел.
+   Вызывается перед первым использованием.  */
+extern void p_xorshift32_init (uint32_t seed) P_NOEXCEPT;
+
+/* Генерация следующего случайного числа.
+   Данный алгоритм был предложен в 2003 году Джордж Марсалья.  */
+extern uint32_t p_xorshift32 (void) P_NOEXCEPT;
+
 /* Упаковка 8 значений bool в 1 байт.  */
 extern uint8_t p_pack_bools (bool b1, bool b2, bool b3, bool b4,
                              bool b5, bool b6, bool b7, bool b8) P_NOEXCEPT;
