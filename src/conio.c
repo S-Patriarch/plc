@@ -1,4 +1,4 @@
-/* Copyright (C) 2025, S-Patriarch
+/* Copyright (C) 2025-2026, S-Patriarch
    This file is part of the PLC library.  */
 
 /*
@@ -130,6 +130,45 @@ p_gethiddens(char *s, size_t size) P_NOEXCEPT
                 return (P_ERROR);
 
         return 0;
+}
+
+char *
+p_getpass(void) P_NOEXCEPT
+{
+        static char     buf[P_MAXPASSLEN + 1]; /* нулевой байт в конце  */
+        char            *ptr;
+        sigset_t        sig, osig;
+        struct termios  ts, ots;
+        FILE            *fp;
+        int             c;
+
+        if ((fp = fopen(ctermid(NULL), "r+")) == NULL)
+                return(NULL);
+
+        setbuf(fp, NULL);
+
+        sigemptyset(&sig);
+        sigaddset(&sig, SIGINT);             /* заблокировать SIGINT  */
+        sigaddset(&sig, SIGTSTP);            /* заблокировать SIGTSTP  */
+        sigprocmask(SIG_BLOCK, &sig, &osig); /* сохранить маску  */
+
+        tcgetattr(fileno(fp), &ts); /* сохранить состояние терминала  */
+        ots = ts;                   /* скопировать структуру  */
+        ts.c_lflag &= ~(ECHO | ECHOE | ECHOK | ECHONL);
+        tcsetattr(fileno(fp), TCSAFLUSH, &ts);
+
+        ptr = buf;
+        while ((c = getc(fp)) != EOF && c != '\n')
+                if (ptr < &buf[P_MAXPASSLEN])
+                        *ptr++ = c;
+        *ptr = 0;       /* завершающий нулевой символ  */
+        putc('\n', fp); /* вывести символ перевода строки  */
+
+        tcsetattr(fileno(fp), TCSAFLUSH, &ots); /* восстановить состояние терминала  */
+        sigprocmask(SIG_SETMASK, &osig, NULL);  /* восстановить маску  */
+        fclose(fp);                             /* завершить работу с /dev/tty  */
+
+        return(buf);
 }
 
 void 
