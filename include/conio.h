@@ -1,4 +1,4 @@
-/* Copyright (C) 2025, S-Patriarch
+/* Copyright (C) 2025-2026, S-Patriarch
    This file is part of the PLC library.  */
 
 /*
@@ -11,13 +11,15 @@
 #include <stddef.h>
 #include <termios.h>
 #include <unistd.h>
-#include <sys/ioctl.h>
 #include <stdio.h>
 #include <string.h>
-#include <stddef.h>
+#include <signal.h>
+#include <sys/ioctl.h>
 #include <plc/plcdef.h>
 
 P_BEGIN_DECLS
+
+#define P_MAXPASSLEN    256
 
 extern void p_conio_init (void) P_NOEXCEPT;                /* инициализация структур и ...  */
 extern void p_setrow (size_t row) P_NOEXCEPT;              /* установка координаты y  */
@@ -29,6 +31,7 @@ extern size_t p_getwscol (void) P_NOEXCEPT;                /* получение
 extern void p_gotoyx (size_t row, size_t col) P_NOEXCEPT;  /* установка позиции курсора  */
 extern int p_getchar (char *c) P_NOEXCEPT;                 /* получение символа с stdin без нажатия enter  */
 extern int p_gethiddens (char *s, size_t size) P_NOEXCEPT; /* скрытое считывание неформатированных данных из потока  */
+extern char *p_getpass (void) P_NOEXCEPT;                  /* ввод пароля  */
 extern void p_setattr (const char *attr) P_NOEXCEPT;       /* установка атрибутов  */
 extern void p_resattr (void) P_NOEXCEPT;                   /* сброс всех атрибутов  */
 extern void p_screen_save (void) P_NOEXCEPT;               /* вход в альтернативный экран  */
