@@ -31,6 +31,7 @@
 #include <plc/stopif.h>
 #include <plc/string.h>
 #include <plc/system.h>
+#include <plc/terminal.h>
 #include <plc/tcpip.h>
 #include <plc/thread.h>
 #include <plc/timer.h>
