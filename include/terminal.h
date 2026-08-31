@@ -18,9 +18,28 @@
 #if defined(SOLARIS)
 #include <stropts.h>
 #endif
+#include <sys/ioctl.h>
 #include <plc/plcdef.h>
 
 P_BEGIN_DECLS
+
+/* Перевод терминала в режим посимвольного ввода (cbreak).
+ *   Возвращает 0 в случае успеха, -1 - в случае ошибки.  */
+extern int p_tty_cbreak (int fd) P_NOEXCEPT;
+
+/* Переводит терминал в режим прозрачного ввода (raw).
+ *   Возвращает 0 в случае успеха, -1 - в случае ошибки.  */
+extern int p_tty_raw (int fd) P_NOEXCEPT;
+
+/* Востанавливает состояние терминала.
+ *   Возвращает 0 в случае успеха, -1 - в случае ошибки.  */
+extern int p_tty_reset (int fd) P_NOEXCEPT;
+
+/* Может устанавливаться вызовом atexit(p_tty_atexit).  */
+extern void p_tty_atexit (void) P_NOEXCEPT;
+
+/* Позволяет вызывающему процессу узнать начальное состояние терминала.  */
+extern struct termios *p_tty_termios (void) P_NOEXCEPT;
 
 /* Открывает следующее доступное ведущее устройство псевдотерминала.
 
@@ -40,23 +59,13 @@ extern int p_ptym_open (char *pts_name, int pts_namesz) P_NOEXCEPT;
    -1 - в случае ошибки.  */
 extern int p_ptys_open (char *pts_name) P_NOEXCEPT;
 
-/* Перевод терминала в режим посимвольного ввода (cbreak).
-   Возвращает 0 в случае успеха, -1 - в случае ошибки.  */
-extern int p_tty_cbreak (int fd) P_NOEXCEPT;
-
-/* Переводит терминал в режим прозрачного ввода (raw).
-   Возвращает 0 в случае успеха, -1 - в случае ошибки.  */
-extern int p_tty_raw (int fd) P_NOEXCEPT;
-
-/* Востанавливает состояние терминала.
-   Возвращает 0 в случае успеха, -1 - в случае ошибки.  */
-extern int p_tty_reset (int fd) P_NOEXCEPT;
-
-/* Может устанавливаться вызовом atexit(p_tty_atexit).  */
-extern void p_tty_atexit (void) P_NOEXCEPT;
-
-/* Позволяет вызывающему процессу узнать начальное состояние терминала.  */
-extern struct termios *p_tty_termios (void) P_NOEXCEPT;
+/* Открывает ведущее и ведомое устройства, запускает дочерний процесс и
+   назначает его лидером сеанса со своим управляющим терминалом.
+   Возвращает 0 в дочернем процессе, идентификатор дочернего процесса - в
+   родительском процессе, -1 - в случае ошибки.  */
+extern pid_t p_pty_fork (int *ptrfdm, char *slave_name, int slave_namesz,
+                         const struct termios *slave_termios,
+                         const struct winsize *slave_winsize) P_NOEXCEPT;
 
 P_END_DECLS
 
