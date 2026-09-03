@@ -70,6 +70,20 @@ p_getwscol(void) P_NOEXCEPT
         return (ws.ws_col);
 }
 
+void
+p_getsizeterm(size_t *rows, size_t *cols) P_NOEXCEPT
+{
+        struct winsize ws;
+
+        if (ioctl(STDOUT_FILENO, TIOCGWINSZ, &ws) == -1) {
+                *rows = 24;
+                *cols = 80;
+        } else {
+                *rows = ws.ws_row;
+                *cols = ws.ws_col;
+        }
+}
+
 void 
 p_gotoyx(size_t row, size_t col) P_NOEXCEPT
 {
@@ -200,6 +214,28 @@ void
 p_clrscr(void) P_NOEXCEPT
 {
         printf("\033[2J\033[1;1H");
+}
+
+void
+p_clrarea(size_t start_row, size_t start_col,
+          size_t height, size_t width) P_NOEXCEPT
+{
+        size_t  i, j;
+
+        for (i = 0; i < height; i++) {
+                printf("\033[%zu;%zuH", start_row + i, start_col);
+                for (j = 0; j < width; j++)
+                        printf(" ");
+        }
+        fflush(stdout);
+}
+
+void
+p_posarea(size_t start_row, size_t start_col,
+          size_t offset_row, size_t offset_col) P_NOEXCEPT
+{
+        printf("\033[%zu;%zuH", start_row + offset_row, start_col + offset_col);
+        fflush(stdout);
 }
 
 /*
