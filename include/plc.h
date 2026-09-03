@@ -38,4 +38,14 @@
 #include <plc/void_cast.h>
 #include <plc/window.h>
 
+#include <plc/types/ind_counter_s.h>
+#include <plc/types/ind_points_s.h>
+#include <plc/types/ind_progress_s.h>
+#include <plc/types/ind_spinner_s.h>
+#include <plc/types/ind_wave_s.h>
+#include <plc/types/line_s.h>
+#include <plc/types/menu_s.h>
+#include <plc/types/string_s.h>
+#include <plc/types/window_s.h>
+
 #endif /* plc.h  */
