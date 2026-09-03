@@ -21,22 +21,28 @@ P_BEGIN_DECLS
 
 #define P_MAXPASSLEN    256
 
-extern void p_conio_init (void) P_NOEXCEPT;                /* инициализация структур и ...  */
-extern void p_setrow (size_t row) P_NOEXCEPT;              /* установка координаты y  */
-extern void p_setcol (size_t col) P_NOEXCEPT;              /* установка координаты x  */
-extern size_t p_getrow (void) P_NOEXCEPT;                  /* получение координаты y  */
-extern size_t p_getcol (void) P_NOEXCEPT;                  /* получение координаты x  */
-extern size_t p_getwsrow (void) P_NOEXCEPT;                /* получение количества строк экрана  */
-extern size_t p_getwscol (void) P_NOEXCEPT;                /* получение количества столбцов экрана  */
-extern void p_gotoyx (size_t row, size_t col) P_NOEXCEPT;  /* установка позиции курсора  */
-extern int p_getchar (char *c) P_NOEXCEPT;                 /* получение символа с stdin без нажатия enter  */
-extern int p_gethiddens (char *s, size_t size) P_NOEXCEPT; /* скрытое считывание неформатированных данных из потока  */
-extern char *p_getpass (void) P_NOEXCEPT;                  /* ввод пароля  */
-extern void p_setattr (const char *attr) P_NOEXCEPT;       /* установка атрибутов  */
-extern void p_resattr (void) P_NOEXCEPT;                   /* сброс всех атрибутов  */
-extern void p_screen_save (void) P_NOEXCEPT;               /* вход в альтернативный экран  */
-extern void p_screen_restore (void) P_NOEXCEPT;            /* выход из альтернативного экрана  */
-extern void p_clrscr (void)P_NOEXCEPT;                     /* очистка экрана и установка курсора в позицию 1, 1  */
+extern void p_conio_init (void) P_NOEXCEPT;                        /* инициализация структур и ...  */
+extern void p_setrow (size_t row) P_NOEXCEPT;                      /* установка координаты y  */
+extern void p_setcol (size_t col) P_NOEXCEPT;                      /* установка координаты x  */
+extern size_t p_getrow (void) P_NOEXCEPT;                          /* получение координаты y  */
+extern size_t p_getcol (void) P_NOEXCEPT;                          /* получение координаты x  */
+extern size_t p_getwsrow (void) P_NOEXCEPT;                        /* получение количества строк экрана  */
+extern size_t p_getwscol (void) P_NOEXCEPT;                        /* получение количества столбцов экрана  */
+extern void p_getsizeterm (size_t *rows, size_t *cols) P_NOEXCEPT; /* получение размер терминала  */
+extern void p_gotoyx (size_t row, size_t col) P_NOEXCEPT;          /* установка позиции курсора  */
+extern int p_getchar (char *c) P_NOEXCEPT;                         /* получение символа с stdin без нажатия enter  */
+extern int p_gethiddens (char *s, size_t size) P_NOEXCEPT;         /* скрытое считывание неформатированных данных из потока  */
+extern char *p_getpass (void) P_NOEXCEPT;                          /* ввод пароля  */
+extern void p_setattr (const char *attr) P_NOEXCEPT;               /* установка атрибутов  */
+extern void p_resattr (void) P_NOEXCEPT;                           /* сброс всех атрибутов  */
+extern void p_screen_save (void) P_NOEXCEPT;                       /* вход в альтернативный экран  */
+extern void p_screen_restore (void) P_NOEXCEPT;                    /* выход из альтернативного экрана  */
+extern void p_clrscr (void)P_NOEXCEPT;                             /* очистка экрана и установка курсора в позицию 1, 1  */
+extern void p_clrarea (size_t start_row, size_t start_col,
+                       size_t height, size_t width) P_NOEXCEPT;    /* очистка область экрана  */
+extern void p_posarea (size_t start_row, size_t start_col,
+                       size_t offset_row, size_t offset_col)
+   P_NOEXCEPT;                                                     /* позиционирование курсора внутри области экрана  */
 
 /*
  * Функции управления положением курсора.
