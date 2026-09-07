@@ -291,6 +291,11 @@ plcdef.h
         P_WARN_ON                        - вывод сообщения о предупреждении
         p_sigfunc                        - обработчик сигналов
 
+regexp.h
+        p_match                  - поиск регулярного выражения regexp в любом месте текста text
+        p_matchhere              - поиск регулярного выражения regexp в начале текста text
+        p_matchstar              - поиск регулярного выражения c*regexp в начале текста text
+
 ringbuf.h
         p_ringbuf_create         - создание буфера
         p_ringbuf_push           - запись элемента

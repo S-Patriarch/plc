@@ -25,3 +25,4 @@ gcc -c src/sds.c -o bin/sds.o -Wall -O3 -std=c2x
 gcc -c src/hashmap.c -o bin/hashmap.o -Wall
 gcc -c src/net.c -o bin/net.o -Wall -O3 -std=c2x
 gcc -c src/terminal.c -o bin/terminal.o -Wall -O3
+gcc -c src/regexp.c -o bin/regexp.o -Wall -O3 -std=c2x
