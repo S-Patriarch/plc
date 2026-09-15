@@ -1,0 +1,15 @@
+/* Copyright (C) 2026, S-Patriarch
+   Список функций, макросов и дефайнов, находящихся в библиотеке
+   Patriarch Library C DB.
+   github.com/S-Patriarch/plc  */
+
+
+plcdb.h
+
+        p_db_open       - открывает или создает базу данных
+        p_db_close      - закрывает доступ к базе данных
+        p_db_fetch      - извлекает одну запись
+        p_db_store      - сохраняет запись в базе данных
+        p_db_delete     - удаляет заданную запись
+        p_db_rewind     - переход к первой записи для функции p_db_nextrec
+        p_db_nextrec    - возвращает следующую запись
