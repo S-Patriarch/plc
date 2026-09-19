@@ -25,25 +25,26 @@ P_BEGIN_DECLS
 typedef void * P_DBHANDLE_t;
 
 /* Открывает или создает базу данных.  */
-extern P_DBHANDLE_t p_db_open (const char *, int, ...) P_NOEXCEPT;
+extern P_DBHANDLE_t p_db_open (const char *pathname, int oflag, ...) P_NOEXCEPT;
 
 /* Закрывает доступ к базе данных.  */
-extern void p_db_close (P_DBHANDLE_t) P_NOEXCEPT;
+extern void p_db_close (P_DBHANDLE_t h) P_NOEXCEPT;
 
 /* Извлекает одну запись.  */
-extern char *p_db_fetch (P_DBHANDLE_t, const char *) P_NOEXCEPT;
+extern char *p_db_fetch (P_DBHANDLE_t h, const char *key) P_NOEXCEPT;
 
 /* Сохраняет запись в базе данных.  */
-extern int p_db_store (P_DBHANDLE_t, const char *, const char *, int) P_NOEXCEPT;
+extern int p_db_store (P_DBHANDLE_t h,
+                       const char *key, const char *data, int flag) P_NOEXCEPT;
 
 /* Удаляет заданную запись.  */
-extern int p_db_delete (P_DBHANDLE_t, const char *) P_NOEXCEPT;
+extern int p_db_delete (P_DBHANDLE_t h, const char *key) P_NOEXCEPT;
 
 /* Переход к первой записи для функции p_db_nextrec.  */
-extern void p_db_rewind (P_DBHANDLE_t) P_NOEXCEPT;
+extern void p_db_rewind (P_DBHANDLE_t h) P_NOEXCEPT;
 
 /* Возвращает следующую запись.  */
-extern char *p_db_nextrec (P_DBHANDLE_t, char *) P_NOEXCEPT;
+extern char *p_db_nextrec (P_DBHANDLE_t h, char *key) P_NOEXCEPT;
 
 /*
  * Флаги для функции p_db_store.
