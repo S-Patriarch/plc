@@ -25,7 +25,6 @@
 #include <plc/logger.h>
 #include <plc/menu.h>
 #include <plc/net.h>
-#include <plc/plcdb.h>
 #include <plc/regexp.h>
 #include <plc/ringbuf.h>
 #include <plc/sds.h>
