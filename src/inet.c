@@ -11,7 +11,7 @@ unsigned char
 p_dcheck(const char *hostname, const char *port) P_NOEXCEPT
 {
         struct addrinfo hints;
-        struct addrinfo *res;
+        struct addrinfo *res = NULL;
         struct timeval tv;
 
         int sockfd = -1;
@@ -44,8 +44,10 @@ p_dcheck(const char *hostname, const char *port) P_NOEXCEPT
                 retstatus = P_FALSE;
 
 reterr:
-        freeaddrinfo(res);
-        close(sockfd);
+        if (res != NULL)
+                freeaddrinfo(res);
+        if (sockfd != -1)
+                close(sockfd);
         return (retstatus);
 }
 
