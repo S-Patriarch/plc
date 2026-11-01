@@ -138,6 +138,10 @@ extern unsigned p_next_pow2 (unsigned v) P_NOEXCEPT;
    комбинации с помощью побитовых операций вместо рекурсии.  */
 extern unsigned p_next_same_bits (unsigned x) P_NOEXCEPT;
 
+/* Подсчитывает количество установленных битов.
+   Автор алгоритма Брайан Керниган.  */
+extern int p_count_set_bits (uint64_t n) P_NOEXCEPT;
+
 P_END_DECLS
 
 #endif /* algorithm.h  */
