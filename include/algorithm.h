@@ -125,6 +125,19 @@ extern int p_lowest_setbit (uint32_t v) P_NOEXCEPT;
         int count = sizeof(nums) / sizeof(nums[0]);  */
 extern float p_kahansum (float *nums, int count) P_NOEXCEPT;
 
+/* Округление вверх до ближайшей степени двойки.
+   Округление производится с помощью нескольких побитовых операций.
+   Классический битовый трюк, который десятилетиями используется в
+   аллокаторах, хеш-таблицах и при управлении памятью.  */
+extern unsigned p_next_pow2 (unsigned v) P_NOEXCEPT;
+
+/* Получает следующее целое число с точно таким же количеством
+   установленных битов.  
+   Данный битовый трюк Госпера (Gosper's hack) был впервые описанн 
+   в 1970-х годах.  Этот алгоритм позволяет эффективно перебирать
+   комбинации с помощью побитовых операций вместо рекурсии.  */
+extern unsigned p_next_same_bits (unsigned x) P_NOEXCEPT;
+
 P_END_DECLS
 
 #endif /* algorithm.h  */
