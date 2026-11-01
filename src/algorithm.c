@@ -376,3 +376,26 @@ p_kahansum(float *nums, int count) P_NOEXCEPT
 
         return(sum);
 }
+
+unsigned 
+p_next_pow2(unsigned v) P_NOEXCEPT
+{
+        v--;
+        v |= v >> 1;
+        v |= v >> 2;
+        v |= v >> 3;
+        v |= v >> 8;
+        v |= v >> 16;
+
+        return(v + 1);
+}
+
+unsigned 
+p_next_same_bits(unsigned x) P_NOEXCEPT
+{
+        unsigned c = x & -x;
+        unsigned r = x + c;
+        
+        return((((r ^ x) >> 2) / c) | r);
+}
+
