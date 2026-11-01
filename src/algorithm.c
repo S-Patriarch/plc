@@ -399,3 +399,16 @@ p_next_same_bits(unsigned x) P_NOEXCEPT
         return((((r ^ x) >> 2) / c) | r);
 }
 
+int 
+p_count_set_bits(uint64_t n) P_NOEXCEPT
+{
+        int count = 0;
+
+        while (n) {
+                n &= (n - 1);
+                count++;
+        }
+
+        return(count);
+}
+
