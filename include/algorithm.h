@@ -86,7 +86,7 @@ extern void p_unpack_chars (unsigned char p,
                             unsigned char *c7, unsigned char *c8) P_NOEXCEPT;
 
 /* Умножение с защитой от переполнения.
-   Работает всегда, но ьедленно (O(log b))  */
+   Работает всегда, но медленно (O(log b))  */
 extern unsigned long long int p_mod_mul (unsigned long long int a,
                                          unsigned long long int b,
                                          unsigned long long int mod) P_NOEXCEPT;
