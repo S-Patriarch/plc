@@ -142,6 +142,15 @@ extern unsigned p_next_same_bits (unsigned x) P_NOEXCEPT;
    Автор алгоритма Брайан Керниган.  */
 extern int p_count_set_bits (uint64_t n) P_NOEXCEPT;
 
+/* Определяет, является ли число степенью двойки.
+   Возвращает 1 - да, 0 - нет.  */
+extern unsigned char p_is_pow2 (unsigned int n) P_NOEXCEPT;
+
+/* Определяет, является ли число четным.
+   Четное число - это целое число, которое делится на 2 без остатка.
+   Возвращает 1 - да, 0 - нет.  */
+extern unsigned char p_is_even (unsigned int n) P_NOEXCEPT;
+
 P_END_DECLS
 
 #endif /* algorithm.h  */
