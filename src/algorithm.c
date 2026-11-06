@@ -412,3 +412,15 @@ p_count_set_bits(uint64_t n) P_NOEXCEPT
         return(count);
 }
 
+unsigned char
+p_is_pow2(unsigned int n) P_NOEXCEPT
+{
+        return((n != 0) && ((n & (n - 1)) == 0));
+}
+
+unsigned char
+p_is_even(unsigned int n) P_NOEXCEPT
+{
+        return((n & 1) == 0);
+}
+
