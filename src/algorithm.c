@@ -424,3 +424,34 @@ p_is_even(unsigned int n) P_NOEXCEPT
         return((n & 1) == 0);
 }
 
+unsigned long 
+p_gcd(unsigned long a, unsigned long b) P_NOEXCEPT
+{
+        /* Если хотя бы одно число равно 0, возвращаем сумму
+           (или второе число). */
+        if (!a || !b)
+                return(a | b);
+
+        /* Убираем общие множители 2
+           (сдвигаем вправо, пока число четное).  */
+        b >>= p_ffs(b);
+        for (;;) {
+                /* Убираем множители 2 из a.  */
+                a >>= p_ffs(a);
+
+                /* Если a == b, возвращаем a с учетом общего множителя 2.  */
+                if (a == b)
+                        return(a << p_ffs(a | b));
+
+                /* Убеждаемся, что a > b.  */
+                if (a < b) {
+                        unsigned long tmp = a;
+                        a = b;
+                        b = tmp;
+                }
+
+                /* Вычитаем меньшее из большего.  */
+                a -= b;
+        }
+}
+
