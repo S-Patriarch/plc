@@ -193,6 +193,11 @@ extern unsigned char p_is_even (unsigned int n) P_NOEXCEPT;
    вычитание и простые сравнения.  */
 extern unsigned long p_gcd (unsigned long a, unsigned long b) P_NOEXCEPT;
 
+/* Обмен местами двух целых чисел.
+   Без использования третьей временной переменной и без риска 
+   арифметического переполнения.  */
+extern void p_swap_int (int *a, int *b) P_NOEXCEPT;
+
 P_END_DECLS
 
 #endif /* algorithm.h  */
