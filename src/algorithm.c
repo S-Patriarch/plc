@@ -455,3 +455,13 @@ p_gcd(unsigned long a, unsigned long b) P_NOEXCEPT
         }
 }
 
+void 
+p_swap_int(int *a, int *b) P_NOEXCEPT
+{
+        if (a != b) {
+                *a ^= *b;
+                *b ^= *a;
+                *a ^= *b;
+        }
+}
+
