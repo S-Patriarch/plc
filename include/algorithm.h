@@ -198,6 +198,13 @@ extern unsigned long p_gcd (unsigned long a, unsigned long b) P_NOEXCEPT;
    арифметического переполнения.  */
 extern void p_swap_int (int *a, int *b) P_NOEXCEPT;
 
+/* Алгоритм окружности Минского.
+   Этот знаменитый алгоритм придуман Марвином Минским в 1960-х годах.
+   Он предназначен для сверхбыстрого рисования окружности (или очень
+   круглых эллипсов) на экране без использования сложных
+   тригонометрических функций вроде синусов и косинусов.  */
+extern void p_minsky (int *x, int *y) P_NOEXCEPT;
+
 P_END_DECLS
 
 #endif /* algorithm.h  */
