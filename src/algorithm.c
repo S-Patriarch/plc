@@ -472,3 +472,16 @@ p_minsky(int *x, int *y) P_NOEXCEPT
         *y += *x >> 4;
 }
 
+void 
+p_shuffle(int *a, int n) P_NOEXCEPT
+{
+        int i, j, t;
+
+        for (i = n - 1; i > 0; i--) {
+                j = rand() % (i + 1);
+                t = a[i];
+                a[i] = a[j];
+                a[j] = t;
+        }
+}
+
