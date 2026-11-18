@@ -465,3 +465,10 @@ p_swap_int(int *a, int *b) P_NOEXCEPT
         }
 }
 
+void 
+p_minsky(int *x, int *y) P_NOEXCEPT
+{
+        *x -= *y >> 4; /* константа 1/16 (эпсилон)  */
+        *y += *x >> 4;
+}
+
