@@ -154,6 +154,11 @@ extern uint64_t p_djb2_hash64 (const unsigned char *buf, size_t len) P_NOEXCEPT;
    бита в выходном хеше.  */
 extern unsigned int p_avalanche (unsigned int h) P_NOEXCEPT;
 
+/* Хеш-функция Сальваторе Санфилиппо.
+   Функция перемещает байты с помощью побитового XOR и циклических сдвигов,
+   формируя 32-битный хеш.  */
+extern uint32_t p_ahf1 (unsigned char *s, size_t len) P_NOEXCEPT;
+
 P_END_DECLS
 
 #endif /* crypto.h  */
