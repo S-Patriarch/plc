@@ -377,3 +377,24 @@ p_avalanche(unsigned int h) P_NOEXCEPT
         return(h);
 }
 
+uint32_t 
+p_ahf1(unsigned char *s, size_t len) P_NOEXCEPT
+{
+        uint32_t hash;
+        unsigned char *h = (unsigned char *)&hash;
+        int idx = 0;
+
+        h[0]=0x8D; h[1]=0xCA; h[2]=0x2E; h[3]=0x35;
+        while (len) {
+                int target = ((*s) ^ h[idx]) & 3;
+                int rot = *s & 0x1F;
+                h[target] ^= *s;
+                hash = (hash << rot) | (hash >> (32 - rot));
+                len--;
+                s++;
+                idx = (idx + 1) & 3;
+        }
+
+        return hash;
+}
+
