@@ -395,6 +395,6 @@ p_ahf1(unsigned char *s, size_t len) P_NOEXCEPT
                 idx = (idx + 1) & 3;
         }
 
-        return hash;
+        return(hash);
 }
 
